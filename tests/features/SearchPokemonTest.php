@@ -168,5 +168,32 @@ class SearchPokemonTest extends TestCase
              ->see('Arcanine');
     }
 
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_part_of_the_name_and_habitat()
+    {
+        factory(Pokemon::class)->create(['name' => 'Charmander', 'habitat' => 'Mountain']);
+        factory(Pokemon::class)->create(['name' => 'Charizard', 'habitat' => 'Mountain']);
+        factory(Pokemon::class)->create(['name' => 'Psyduck', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Squirtle', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Arceus', 'habitat' => 'Not determined']);
+        factory(Pokemon::class)->create(['name' => 'Arcanine', 'habitat' => 'Meadow']);
+
+        $this->visit('/searchPokemon?name=arc&habitat=Meadow')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->see('Arcanine');
+
+        $this->visit('/searchPokemon?name=C&habitat=Mountain')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->dontSee('Arcanine');
+    }
+
     //Egg group
 }
