@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Search results</title>
 </head>
 <body>
@@ -8,6 +9,7 @@
   <div>
     <p>{{ $pokemon->name }}</p>
     <p>{{ $pokemon->japanese_name }}</p>
+    <p>{{ $pokemon->japanese_katakana }}</p>
   </div>
   @endforeach
 </body>

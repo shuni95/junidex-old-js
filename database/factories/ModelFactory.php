@@ -27,5 +27,6 @@ $factory->define(App\Pokemon::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Bulbasaur',
         'japanese_name' => 'Fushigidane',
+        'japanese_katakana' => 'フシギダネ',
     ];
 });

@@ -65,7 +65,7 @@ class SearchPokemonTest extends TestCase
     }
 
     /** @test */
-    public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_name_romaji()
+    public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_name()
     {
         $pokemonA = factory(Pokemon::class)->create(['japanese_name' => 'Hitokage']);
         $pokemonB = factory(Pokemon::class)->create(['japanese_name' => 'Lizardon']);
@@ -82,6 +82,19 @@ class SearchPokemonTest extends TestCase
         $this->visit('/searchPokemon?name=Kod');
         $this->see('Koduck');
         $this->dontSee('Hitokage');
+    }
+
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_katakana()
+    {
+        $pokemonA = factory(Pokemon::class)->create(['japanese_katakana' => 'ヒトカゲ']);
+        $pokemonB = factory(Pokemon::class)->create(['japanese_katakana' => 'リザードン']);
+        $pokemonC = factory(Pokemon::class)->create(['japanese_katakana' => 'コダック']);
+
+        $this->visit('/searchPokemon?name=リザー');
+
+        $this->see('リザードン');
+        $this->dontSee('コダック');
     }
 
 }
