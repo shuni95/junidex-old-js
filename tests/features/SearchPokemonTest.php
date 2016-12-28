@@ -100,11 +100,11 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_the_pokemon_type()
     {
-        $pokemonA = factory(Pokemon::class)->create(['name' => 'Charmander', 'type_one' => FIRE_TYPE]);
-        $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard', 'type_one' => FIRE_TYPE,'type_two' => FLYING_TYPE ]);
-        $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck', 'type_one' => WATER_TYPE]);
-        $pokemonD = factory(Pokemon::class)->create(['name' => 'Squirtle', 'type_one' => WATER_TYPE]);
-        $pokemonE = factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => NORMAL_TYPE]);
+        $pokemonA = factory(Pokemon::class)->create(['name' => 'Charmander', 'type_one' => 'Fire']);
+        $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard', 'type_one' => 'Fire','type_two' => 'Flying']);
+        $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck', 'type_one' => 'Water']);
+        $pokemonD = factory(Pokemon::class)->create(['name' => 'Squirtle', 'type_one' => 'Water']);
+        $pokemonE = factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal']);
 
         $this->visit('/searchPokemon?type=Fire');
 
