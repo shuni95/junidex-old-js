@@ -4,6 +4,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Pokemon;
+
 class SearchPokemonTest extends TestCase
 {
     use DatabaseMigrations;
@@ -17,7 +19,7 @@ class SearchPokemonTest extends TestCase
         $pokemonC = Pokemon::create(['name' => 'Psyduck',]);
 
         // Process
-        $this->visit('/searchPokemon?name=A');
+        $this->visit('/searchPokemon?name=Char');
 
         // Validar
         $this->see('Charmander');
