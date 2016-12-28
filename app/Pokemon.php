@@ -16,4 +16,10 @@ class Pokemon extends Model
         ->orWhere('japanese_name', 'LIKE', '%'.request('name').'%')
         ->orWhere('japanese_katakana', 'LIKE', '%'.request('name').'%');
     }
+
+    public function scopeSearchByType($query)
+    {
+        return $query->where('type_one', request('type'))
+        ->orWhere('type_two', request('type'));
+    }
 }

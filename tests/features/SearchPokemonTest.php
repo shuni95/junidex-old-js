@@ -110,5 +110,8 @@ class SearchPokemonTest extends TestCase
 
         $this->see('Charmander');
         $this->see('Charizard');
+        $this->dontSee('Psyduck');
+        $this->dontSee('Squirtle');
+        $this->dontSee('Arceus');
     }
 }
