@@ -13,9 +13,9 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name()
     {
-        $pokemonA = Pokemon::create(['name' => 'Charmander',]);
-        $pokemonB = Pokemon::create(['name' => 'Charizard',]);
-        $pokemonC = Pokemon::create(['name' => 'Psyduck',]);
+        $pokemonA = factory(Pokemon::class)->create(['name' => 'Charmander']);
+        $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard']);
+        $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck']);
 
         $this->visit('/searchPokemon?name=Char');
         $this->see('Charmander');
@@ -31,9 +31,9 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_in_lowercase()
     {
-        $pokemonA = Pokemon::create(['name' => 'Charmander',]);
-        $pokemonB = Pokemon::create(['name' => 'Charizard',]);
-        $pokemonC = Pokemon::create(['name' => 'Psyduck',]);
+        $pokemonA = factory(Pokemon::class)->create(['name' => 'Charmander']);
+        $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard']);
+        $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck']);
 
         $this->visit('/searchPokemon?name=char');
         $this->see('Charmander');
@@ -49,9 +49,9 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_in_uppercase()
     {
-        $pokemonA = Pokemon::create(['name' => 'Charmander',]);
-        $pokemonB = Pokemon::create(['name' => 'Charizard',]);
-        $pokemonC = Pokemon::create(['name' => 'Psyduck',]);
+        $pokemonA = factory(Pokemon::class)->create(['name' => 'Charmander']);
+        $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard']);
+        $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck']);
 
         $this->visit('/searchPokemon?name=CHAR');
         $this->see('Charmander');
@@ -62,6 +62,26 @@ class SearchPokemonTest extends TestCase
         $this->dontSee('Charmander');
         $this->dontSee('Charizard');
         $this->see('Psyduck');
+    }
+
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_name_romaji()
+    {
+        $pokemonA = factory(Pokemon::class)->create(['japanese_name' => 'Hitokage']);
+        $pokemonB = factory(Pokemon::class)->create(['japanese_name' => 'Lizardon']);
+        $pokemonC = factory(Pokemon::class)->create(['japanese_name' => 'Koduck']);
+
+        $this->visit('/searchPokemon?name=Hito');
+        $this->see('Hitokage');
+        $this->dontSee('Lizardon');
+
+        $this->visit('/searchPokemon?name=Liza');
+        $this->see('Lizardon');
+        $this->dontSee('Koduck');
+
+        $this->visit('/searchPokemon?name=Kod');
+        $this->see('Koduck');
+        $this->dontSee('Hitokage');
     }
 
 }

@@ -22,3 +22,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Pokemon::class, function (Faker\Generator $faker) {
+    return [
+        'name' => 'Bulbasaur',
+        'japanese_name' => 'Fushigidane',
+    ];
+});
