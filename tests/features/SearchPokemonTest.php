@@ -198,27 +198,27 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_type_and_habitat()
     {
-        factory(Pokemon::class)->create(['name' => 'Charmander', 'type_one' => 'Fire',   'habitat' => 'Mountain']);
-        factory(Pokemon::class)->create(['name' => 'Charizard',  'type_one' => 'Fire',   'habitat' => 'Mountain', 'type_two' => 'Flying']);
-        factory(Pokemon::class)->create(['name' => 'Psyduck',    'type_one' => 'Water',  'habitat' => 'Fresh Water']);
-        factory(Pokemon::class)->create(['name' => 'Squirtle',   'type_one' => 'Water',  'habitat' => 'Fresh Water']);
-        factory(Pokemon::class)->create(['name' => 'Arceus',     'type_one' => 'Normal', 'habitat' => 'Not determined']);
-        factory(Pokemon::class)->create(['name' => 'Arcanine',   'type_one' => 'Fire',   'habitat' => 'Meadow']);
+        factory(Pokemon::class)->create(['name' => 'Charmander', 'type_one' => 'Fire',  'habitat' => 'Mountain']);
+        factory(Pokemon::class)->create(['name' => 'Charizard',  'type_one' => 'Fire',  'habitat' => 'Mountain', 'type_two' => 'Flying']);
+        factory(Pokemon::class)->create(['name' => 'Psyduck',    'type_one' => 'Water', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Squirtle',   'type_one' => 'Water', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Lapras',     'type_one' => 'Water', 'habitat' => 'Salt Water', 'type_two' => 'Ice']);
+        factory(Pokemon::class)->create(['name' => 'Arcanine',   'type_one' => 'Fire',  'habitat' => 'Meadow']);
 
         $this->visit('/searchPokemon?type=Fire&habitat=Mountain')
              ->see('Charmander')
              ->see('Charizard')
              ->dontSee('Psyduck')
              ->dontSee('Squirtle')
-             ->dontSee('Arceus')
+             ->dontSee('Lapras')
              ->dontSee('Arcanine');
 
-        $this->visit('/searchPokemon?name=C&habitat=Mountain')
-             ->see('Charmander')
-             ->see('Charizard')
-             ->dontSee('Psyduck')
-             ->dontSee('Squirtle')
-             ->dontSee('Arceus')
+        $this->visit('/searchPokemon?type=Water&habitat=Fresh Water')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard')
+             ->see('Psyduck')
+             ->see('Squirtle')
+             ->dontSee('Lapras')
              ->dontSee('Arcanine');
     }
 
