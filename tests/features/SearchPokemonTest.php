@@ -133,5 +133,40 @@ class SearchPokemonTest extends TestCase
              ->dontSee('Dratini');
     }
 
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_part_of_the_name_and_type()
+    {
+        factory(Pokemon::class)->create(['name' => 'Charmander', 'type_one' => 'Fire']);
+        factory(Pokemon::class)->create(['name' => 'Charizard', 'type_one' => 'Fire','type_two' => 'Flying']);
+        factory(Pokemon::class)->create(['name' => 'Psyduck', 'type_one' => 'Water']);
+        factory(Pokemon::class)->create(['name' => 'Squirtle', 'type_one' => 'Water']);
+        factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal']);
+        factory(Pokemon::class)->create(['name' => 'Arcanine', 'type_one' => 'Fire']);
+
+        $this->visit('/searchPokemon?name=Char&type=Fire')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->dontSee('Arcanine');
+
+        $this->visit('/searchPokemon?name=Arc&type=Water')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->dontSee('Arcanine');
+
+        $this->visit('/searchPokemon?name=Arc&type=Fire')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->see('Arcanine');
+    }
+
     //Egg group
 }
