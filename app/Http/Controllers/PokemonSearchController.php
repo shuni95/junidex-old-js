@@ -20,6 +20,10 @@ class PokemonSearchController extends Controller
             $pokemons = $pokemons->searchByType();
         }
 
+        if (request('habitat')) {
+            $pokemons = $pokemons->searchByHabitat();
+        }
+
         $pokemons = $pokemons->get();
 
         return view('app.pokemon.search_results', ['pokemons' => $pokemons]);

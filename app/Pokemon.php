@@ -22,4 +22,9 @@ class Pokemon extends Model
         return $query->where('type_one', request('type'))
         ->orWhere('type_two', request('type'));
     }
+
+    public function scopeSearchByHabitat($query)
+    {
+        return $query->where('habitat', request('habitat'));
+    }
 }

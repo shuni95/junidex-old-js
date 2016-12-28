@@ -20,6 +20,7 @@ class CreatePokemonsTable extends Migration
             $table->string('japanese_katakana');
             $table->string('type_one');
             $table->string('type_two')->nullable();
+            $table->string('habitat');
             $table->timestamps();
         });
     }
