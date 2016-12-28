@@ -112,12 +112,26 @@ class SearchPokemonTest extends TestCase
              ->dontSee('Squirtle')
              ->dontSee('Arceus');
 
-        $this->visit('/searchPokemon?type=Flying');
-
-        $this->see('Charizard')
+        $this->visit('/searchPokemon?type=Flying')
+             ->see('Charizard')
              ->dontSee('Charmander')
              ->dontSee('Psyduck')
              ->dontSee('Squirtle')
              ->dontSee('Arceus');
     }
+
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_the_habitat()
+    {
+        factory(Pokemon::class)->create(['name' => 'Pikachu', 'habitat' => 'Forest']);
+        factory(Pokemon::class)->create(['name' => 'Metapod', 'habitat' => 'Forest']);
+        factory(Pokemon::class)->create(['name' => 'Dratini', 'habitat' => 'Fresh Water']);
+
+        $this->visit('/searchPokemon?habitat=Forest')
+             ->see('Pikachu')
+             ->see('Metapod')
+             ->dontSee('Dratini');
+    }
+
+    //Egg group
 }
