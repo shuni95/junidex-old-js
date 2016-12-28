@@ -17,15 +17,15 @@ class SearchPokemonTest extends TestCase
         $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard']);
         $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck']);
 
-        $this->visit('/searchPokemon?name=Char');
-        $this->see('Charmander');
-        $this->see('Charizard');
-        $this->dontSee('Psyduck');
+        $this->visit('/searchPokemon?name=Char')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck');
 
-        $this->visit('/searchPokemon?name=Psy');
-        $this->dontSee('Charmander');
-        $this->dontSee('Charizard');
-        $this->see('Psyduck');
+        $this->visit('/searchPokemon?name=Psy')
+             ->see('Psyduck')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard');
     }
 
     /** @test */
@@ -35,15 +35,15 @@ class SearchPokemonTest extends TestCase
         $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard']);
         $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck']);
 
-        $this->visit('/searchPokemon?name=char');
-        $this->see('Charmander');
-        $this->see('Charizard');
-        $this->dontSee('Psyduck');
+        $this->visit('/searchPokemon?name=char')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck');
 
-        $this->visit('/searchPokemon?name=psy');
-        $this->dontSee('Charmander');
-        $this->dontSee('Charizard');
-        $this->see('Psyduck');
+        $this->visit('/searchPokemon?name=psy')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard')
+             ->see('Psyduck');
     }
 
     /** @test */
@@ -53,15 +53,15 @@ class SearchPokemonTest extends TestCase
         $pokemonB = factory(Pokemon::class)->create(['name' => 'Charizard']);
         $pokemonC = factory(Pokemon::class)->create(['name' => 'Psyduck']);
 
-        $this->visit('/searchPokemon?name=CHAR');
-        $this->see('Charmander');
-        $this->see('Charizard');
-        $this->dontSee('Psyduck');
+        $this->visit('/searchPokemon?name=CHAR')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck');
 
-        $this->visit('/searchPokemon?name=PSY');
-        $this->dontSee('Charmander');
-        $this->dontSee('Charizard');
-        $this->see('Psyduck');
+        $this->visit('/searchPokemon?name=PSY')
+             ->dontSee('Charmander')
+             ->dontSee('Charizard')
+             ->see('Psyduck');
     }
 
     /** @test */
@@ -71,17 +71,17 @@ class SearchPokemonTest extends TestCase
         $pokemonB = factory(Pokemon::class)->create(['japanese_name' => 'Lizardon']);
         $pokemonC = factory(Pokemon::class)->create(['japanese_name' => 'Koduck']);
 
-        $this->visit('/searchPokemon?name=Hito');
-        $this->see('Hitokage');
-        $this->dontSee('Lizardon');
+        $this->visit('/searchPokemon?name=Hito')
+             ->see('Hitokage')
+             ->dontSee('Lizardon');
 
-        $this->visit('/searchPokemon?name=Liza');
-        $this->see('Lizardon');
-        $this->dontSee('Koduck');
+        $this->visit('/searchPokemon?name=Liza')
+             ->see('Lizardon')
+             ->dontSee('Koduck');
 
-        $this->visit('/searchPokemon?name=Kod');
-        $this->see('Koduck');
-        $this->dontSee('Hitokage');
+        $this->visit('/searchPokemon?name=Kod')
+             ->see('Koduck')
+             ->dontSee('Hitokage');
     }
 
     /** @test */
@@ -91,10 +91,9 @@ class SearchPokemonTest extends TestCase
         $pokemonB = factory(Pokemon::class)->create(['japanese_katakana' => 'リザードン']);
         $pokemonC = factory(Pokemon::class)->create(['japanese_katakana' => 'コダック']);
 
-        $this->visit('/searchPokemon?name=リザー');
-
-        $this->see('リザードン');
-        $this->dontSee('コダック');
+        $this->visit('/searchPokemon?name=リザー')
+             ->see('リザードン')
+             ->dontSee('コダック');
     }
 
     /** @test */
@@ -106,20 +105,19 @@ class SearchPokemonTest extends TestCase
         $pokemonD = factory(Pokemon::class)->create(['name' => 'Squirtle', 'type_one' => 'Water']);
         $pokemonE = factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal']);
 
-        $this->visit('/searchPokemon?type=Fire');
-
-        $this->see('Charmander');
-        $this->see('Charizard');
-        $this->dontSee('Psyduck');
-        $this->dontSee('Squirtle');
-        $this->dontSee('Arceus');
+        $this->visit('/searchPokemon?type=Fire')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus');
 
         $this->visit('/searchPokemon?type=Flying');
 
-        $this->see('Charizard');
-        $this->dontSee('Charmander');
-        $this->dontSee('Psyduck');
-        $this->dontSee('Squirtle');
-        $this->dontSee('Arceus');
+        $this->see('Charizard')
+             ->dontSee('Charmander')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus');
     }
 }
