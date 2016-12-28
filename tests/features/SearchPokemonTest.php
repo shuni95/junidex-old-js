@@ -222,5 +222,21 @@ class SearchPokemonTest extends TestCase
              ->dontSee('Arcanine');
     }
 
-    //Egg group
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_egg_group()
+    {
+        $pokemonA = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        // Field and Fairy
+        $pokemonB = factory(Pokemon::class)->create(['name' => 'Metapod']);
+        // Bug
+        $pokemonC = factory(Pokemon::class)->create(['name' => 'Dratini']);
+        // Water 1 and Dragon
+
+        $this->visit('/searchPokemon?egg_group=Field')
+             ->see('Pikachu')
+             ->dontSee('Metapod')
+             ->dontSee('Dratini');
+
+    }
+
 }
