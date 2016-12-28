@@ -195,5 +195,32 @@ class SearchPokemonTest extends TestCase
              ->dontSee('Arcanine');
     }
 
+    /** @test */
+    public function user_can_view_pokemon_in_the_results_using_type_and_habitat()
+    {
+        factory(Pokemon::class)->create(['name' => 'Charmander', 'type_one' => 'Fire',   'habitat' => 'Mountain']);
+        factory(Pokemon::class)->create(['name' => 'Charizard',  'type_one' => 'Fire',   'habitat' => 'Mountain', 'type_two' => 'Flying']);
+        factory(Pokemon::class)->create(['name' => 'Psyduck',    'type_one' => 'Water',  'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Squirtle',   'type_one' => 'Water',  'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Arceus',     'type_one' => 'Normal', 'habitat' => 'Not determined']);
+        factory(Pokemon::class)->create(['name' => 'Arcanine',   'type_one' => 'Fire',   'habitat' => 'Meadow']);
+
+        $this->visit('/searchPokemon?type=Fire&habitat=Mountain')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->dontSee('Arcanine');
+
+        $this->visit('/searchPokemon?name=C&habitat=Mountain')
+             ->see('Charmander')
+             ->see('Charizard')
+             ->dontSee('Psyduck')
+             ->dontSee('Squirtle')
+             ->dontSee('Arceus')
+             ->dontSee('Arcanine');
+    }
+
     //Egg group
 }
