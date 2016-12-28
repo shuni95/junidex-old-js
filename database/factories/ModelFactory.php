@@ -32,3 +32,9 @@ $factory->define(App\Pokemon::class, function (Faker\Generator $faker) {
         'habitat' => 'Meadow'
     ];
 });
+
+$factory->define(App\EggGroup::class, function (Faker\Generator $faker) {
+    return [
+        'name' => 'Ditto',
+    ];
+});

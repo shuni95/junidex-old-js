@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Pokemon;
+use App\EggGroup;
 
 class SearchPokemonTest extends TestCase
 {
@@ -225,18 +226,25 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_egg_group()
     {
+        $field_group  = factory(EggGroup::class)->create(['name' => 'Field']);
+        $fairy_group  = factory(EggGroup::class)->create(['name' => 'Fairy']);
+        $bug_group    = factory(EggGroup::class)->create(['name' => 'Bug']);
+        $water1_group = factory(EggGroup::class)->create(['name' => 'Water 1']);
+        $dragon_group = factory(EggGroup::class)->create(['name' => 'Dragon']);
+
         $pokemonA = factory(Pokemon::class)->create(['name' => 'Pikachu']);
-        // Field and Fairy
+        $pokemonA->egg_groups()->sync([$field_group->id, $fairy_group->id]);
+
         $pokemonB = factory(Pokemon::class)->create(['name' => 'Metapod']);
-        // Bug
+        $pokemonB->egg_groups()->sync([$bug_group->id]);
+
         $pokemonC = factory(Pokemon::class)->create(['name' => 'Dratini']);
-        // Water 1 and Dragon
+        $pokemonC->egg_groups()->sync([$water1_group->id, $dragon_group->id]);
 
         $this->visit('/searchPokemon?egg_group=Field')
              ->see('Pikachu')
              ->dontSee('Metapod')
              ->dontSee('Dratini');
-
     }
 
 }

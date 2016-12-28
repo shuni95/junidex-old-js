@@ -10,6 +10,11 @@ class Pokemon extends Model
 
     protected $guarded = [];
 
+    public function egg_groups()
+    {
+        return $this->belongsToMany(EggGroup::class, 'pokemon_x_egg_groups');
+    }
+
     public function scopeSearchByName($query)
     {
         return $query->where('name', 'LIKE', '%'.request('name').'%')
@@ -26,5 +31,12 @@ class Pokemon extends Model
     public function scopeSearchByHabitat($query)
     {
         return $query->where('habitat', request('habitat'));
+    }
+
+    public function scopeSearchByEggGroup($query)
+    {
+        return $query->whereHas('egg_groups', function($q) {
+            $q->where('egg_groups.name', request('egg_group'));
+        });
     }
 }

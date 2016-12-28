@@ -24,6 +24,10 @@ class PokemonSearchController extends Controller
             $pokemons = $pokemons->searchByHabitat();
         }
 
+        if (request('egg_group')) {
+            $pokemons = $pokemons->searchByEggGroup();
+        }
+
         $pokemons = $pokemons->get();
 
         return view('app.pokemon.search_results', ['pokemons' => $pokemons]);
