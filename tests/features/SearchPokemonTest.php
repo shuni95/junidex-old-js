@@ -113,5 +113,13 @@ class SearchPokemonTest extends TestCase
         $this->dontSee('Psyduck');
         $this->dontSee('Squirtle');
         $this->dontSee('Arceus');
+
+        $this->visit('/searchPokemon?type=Flying');
+
+        $this->see('Charizard');
+        $this->dontSee('Charmander');
+        $this->dontSee('Psyduck');
+        $this->dontSee('Squirtle');
+        $this->dontSee('Arceus');
     }
 }
