@@ -38,4 +38,23 @@ class ViewEvolutionChainTest extends TestCase
              ->see('Caterpie evolves into Metapod at lvl 7')
              ->see('Metapod evolves into Butterfree at lvl 10');
     }
+
+    /** @test */
+    public function user_can_view_evolutions_of_pokemon_that_only_evolves_with_evolutionary_stone()
+    {
+        $growlithe = factory(Pokemon::class)->create(['name' => 'Growlithe']);
+        $arcanine = factory(Pokemon::class)->create(['name' => 'Arcanine']);
+
+        $method = EvolutionMethod::create(['name' => 'by evolutionary stone']);
+
+        $growlithe_to_arcanine = Evolution::create([
+            'pokemon_id' => $growlithe->id,
+            'evolution_id' => $arcanine->id,
+            'method_id' => $method->id,
+            'details' => 'Fire Stone'
+        ]);
+
+        $this->visit('/evolution_chain/Arcanine')
+             ->see('Growlithe evolves into Arcanine when exposed to a Fire Stone');
+    }
 }
