@@ -63,12 +63,12 @@ class ViewEvolutionChainTest extends TestCase
 
         Evolution::create(['pokemon_id' => $charmander->id, 'evolution_id' => $charmeleon->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $charmeleon->id, 'evolution_id' => $charizard->id, 'method_id' => $level_method->id, 'details' => 'lvl 36']);
-        Evolution::create(['pokemon_id' => $charizard->id, 'evolution_id' => $mega_charizard_x->id, 'method_id' => $level_method->id, 'details' => 'Charizardite X']);
-        Evolution::create(['pokemon_id' => $charizard->id, 'evolution_id' => $mega_charizard_y->id, 'method_id' => $level_method->id, 'details' => 'Charizardite Y']);
+        Evolution::create(['pokemon_id' => $charizard->id, 'evolution_id' => $mega_charizard_x->id, 'method_id' => $mega_stone_method->id, 'details' => 'Charizardite X']);
+        Evolution::create(['pokemon_id' => $charizard->id, 'evolution_id' => $mega_charizard_y->id, 'method_id' => $mega_stone_method->id, 'details' => 'Charizardite Y']);
 
         $this->visit('/evolution_chain/Charizard')
              ->see('Charmander evolves into Charmeleon at lvl 16')
-             ->see('Charmeleon evolves into Charizard at lvl 16')
+             ->see('Charmeleon evolves into Charizard at lvl 36')
              ->see('Charizard evolves into Mega Charizard X using Charizardite X')
              ->see('Charizard evolves into Mega Charizard Y using Charizardite Y');
     }
