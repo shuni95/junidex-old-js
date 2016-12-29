@@ -13,9 +13,9 @@ class ViewEvolutionChainTest extends TestCase
     /** @test */
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_only_level()
     {
-        $caterpie = factory(Pokemon::class)->create(['Caterpie']);
-        $metapod = factory(Pokemon::class)->create(['Metapod']);
-        $butterfree = factory(Pokemon::class)->create(['Butterfree']);
+        $caterpie = factory(Pokemon::class)->create(['name' => 'Caterpie']);
+        $metapod = factory(Pokemon::class)->create(['name' => 'Metapod']);
+        $butterfree = factory(Pokemon::class)->create(['name' => 'Butterfree']);
 
         $caterpie->evolutions()->save($metapod);
         $metapod->evolutions()->save($butterfree);
