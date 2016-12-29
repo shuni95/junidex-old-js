@@ -7,7 +7,7 @@
 <body>
 @foreach ($evolutions_array as $evolution)
 <div>
-<p>{{ $evolution['pokemon']->name }} evolves into {{ $evolution['evolution']->name }} at {{ $evolution['details'] }}</p>
+<p>{{ $evolution['pokemon']->name }} evolves into {{ $evolution['evolution']->name }} {{ $evolution['linking_phrase'] }} {{ $evolution['details'] }}</p>
 </div>
 @endforeach
 </body>

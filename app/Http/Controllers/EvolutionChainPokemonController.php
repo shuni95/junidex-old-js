@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Pokemon;
 use App\Evolution;
+use App\EvolutionaryMethodConstants;
 
 class EvolutionChainPokemonController extends Controller
 {
@@ -37,6 +38,7 @@ class EvolutionChainPokemonController extends Controller
                     'pokemon' => $pokemon,
                     'evolution' => $evolution->pokemon_evolution,
                     'details' => $evolution->details,
+                    'linking_phrase' => $this->getLinkingPhrase($evolution),
                 ]);
                 // Get the evolutions of the evolution
                 $this->getEvolutions($evolution->pokemon_evolution);
@@ -54,5 +56,15 @@ class EvolutionChainPokemonController extends Controller
         }
         // Else try with the pre-evolution
         return $this->getUnevolved($evolution->pokemon);
+    }
+
+    public function getLinkingPhrase($evolution)
+    {
+        switch ($evolution->method_id) {
+            case EvolutionaryMethodConstants::LEVEL_METHOD:
+                return 'at';
+            case EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD:
+                return 'when exposed to a';
+        }
     }
 }

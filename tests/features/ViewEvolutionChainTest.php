@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Pokemon;
 use App\EvolutionMethod;
 use App\Evolution;
+use App\EvolutionaryMethodConstants;
 
 class ViewEvolutionChainTest extends TestCase
 {
@@ -19,7 +20,7 @@ class ViewEvolutionChainTest extends TestCase
         $metapod = factory(Pokemon::class)->create(['name' => 'Metapod']);
         $butterfree = factory(Pokemon::class)->create(['name' => 'Butterfree']);
 
-        $method = EvolutionMethod::create(['name' => 'by Level']);
+        $method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::LEVEL_METHOD, 'name' => 'by Level']);
 
         $caterpie_to_metapod = Evolution::create([
             'pokemon_id' => $caterpie->id,
@@ -45,7 +46,7 @@ class ViewEvolutionChainTest extends TestCase
         $growlithe = factory(Pokemon::class)->create(['name' => 'Growlithe']);
         $arcanine = factory(Pokemon::class)->create(['name' => 'Arcanine']);
 
-        $method = EvolutionMethod::create(['name' => 'by evolutionary stone']);
+        $method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
 
         $growlithe_to_arcanine = Evolution::create([
             'pokemon_id' => $growlithe->id,
