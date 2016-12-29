@@ -59,7 +59,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_charizard_y = factory(Pokemon::class)->create(['name' => 'Mega Charizard Y']);
 
         $level_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::LEVEL_METHOD, 'name' => 'by Level']);
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'using']);
+        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $charmander->id, 'evolution_id' => $charmeleon->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $charmeleon->id, 'evolution_id' => $charizard->id, 'method_id' => $level_method->id, 'details' => 'lvl 36']);
@@ -71,5 +71,27 @@ class ViewEvolutionChainTest extends TestCase
              ->see('Charmeleon evolves into Charizard at lvl 36')
              ->see('Charizard evolves into Mega Charizard X using Charizardite X')
              ->see('Charizard evolves into Mega Charizard Y using Charizardite Y');
+    }
+
+    /** @test */
+    public function user_can_view_evolutions_of_pokemon_that_evolves_with_level_and_trade_and_megastone()
+    {
+        $abra = factory(Pokemon::class)->create(['name' => 'Abra']);
+        $kadabra = factory(Pokemon::class)->create(['name' => 'Kadabra']);
+        $alakazam = factory(Pokemon::class)->create(['name' => 'Alakazam']);
+        $mega_alakazam = factory(Pokemon::class)->create(['name' => 'Mega Alakazam']);
+
+        $level_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::LEVEL_METHOD, 'name' => 'by Level']);
+        $trade_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::TRADE_METHOD, 'name' => 'by trade']);
+        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+
+        Evolution::create(['pokemon_id' => $abra->id, 'evolution_id' => $kadabra->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
+        Evolution::create(['pokemon_id' => $kadabra->id, 'evolution_id' => $alakazam->id, 'method_id' => $trade_method->id, 'details' => '']);
+        Evolution::create(['pokemon_id' => $alakazam->id, 'evolution_id' => $mega_alakazam->id, 'method_id' => $mega_stone_method->id, 'details' => 'Alakazamita']);
+
+        $this->visit('/evolution_chain/Alakazam')
+             ->see('Abra evolves into Kadabra at lvl 16')
+             ->see('Kadabra evolves into Alakazam when traded')
+             ->see('Alakazam evolves into Mega Alakazam using Alakazamita');
     }
 }
