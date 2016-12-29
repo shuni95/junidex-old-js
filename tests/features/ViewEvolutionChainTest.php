@@ -17,8 +17,10 @@ class ViewEvolutionChainTest extends TestCase
         $metapod = factory(Pokemon::class)->create(['name' => 'Metapod']);
         $butterfree = factory(Pokemon::class)->create(['name' => 'Butterfree']);
 
-        $caterpie->evolutions()->save($metapod);
-        $metapod->evolutions()->save($butterfree);
+        $method = factory(EvolutionMethod::class)->create(['name' => 'by Level']);
+
+        $caterpie_to_metapod = factory(Evolution::class)->create(['pokemon_id' => $caterpie->id, 'evolution_id' => $metapod->id, 'method' => $method->id, 'lvl 7']);
+        $metapod_to_butterfree = factory(Evolution::class)->create(['pokemon_id' => $metapod->id, 'evolution_id' => $butterfree->id, 'method' => $method->id, 'lvl 10']);
 
         $this->visit('/evolution_chain?pokemon=Caterpie')
              ->see('Caterpie')
