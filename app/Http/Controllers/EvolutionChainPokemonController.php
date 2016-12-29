@@ -65,6 +65,8 @@ class EvolutionChainPokemonController extends Controller
                 return 'at';
             case EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD:
                 return 'when exposed to a';
+            case EvolutionaryMethodConstants::MEGASTONE_METHOD;
+                return 'using';
         }
     }
 }
