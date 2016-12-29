@@ -15,6 +15,11 @@ class Pokemon extends Model
         return $this->belongsToMany(EggGroup::class, 'pokemon_x_egg_groups');
     }
 
+    public function evolutions()
+    {
+        return $this->hasMany(Evolution::class);
+    }
+
     public function scopeSearchByName($query)
     {
         return $query->where('name', 'LIKE', '%'.request('name').'%')

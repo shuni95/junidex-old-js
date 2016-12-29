@@ -34,19 +34,8 @@ class ViewEvolutionChainTest extends TestCase
             'details' => 'lvl 10'
         ]);
 
-        $this->visit('/evolution_chain/Caterpie')
-             ->see('Caterpie')
-             ->see('Metapod')
-             ->see('Butterfree');
-
-        $this->visit('/evolution_chain/Metapod')
-             ->see('Caterpie')
-             ->see('Metapod')
-             ->see('Butterfree');
-
         $this->visit('/evolution_chain/Butterfree')
-             ->see('Caterpie')
-             ->see('Metapod')
-             ->see('Butterfree');
+             ->see('Caterpie evolves into Metapod at lvl 7')
+             ->see('Metapod evolves into Butterfree at lvl 10');
     }
 }
