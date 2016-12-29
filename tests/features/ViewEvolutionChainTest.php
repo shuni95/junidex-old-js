@@ -20,7 +20,7 @@ class ViewEvolutionChainTest extends TestCase
         $metapod = factory(Pokemon::class)->create(['name' => 'Metapod']);
         $butterfree = factory(Pokemon::class)->create(['name' => 'Butterfree']);
 
-        $method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::LEVEL_METHOD, 'name' => 'by Level']);
+        $method = factory(EvolutionMethod::class, 'level')->create();
 
         Evolution::create(['pokemon_id' => $caterpie->id, 'evolution_id' => $metapod->id, 'method_id' => $method->id, 'details' => 'lvl 7']);
         Evolution::create(['pokemon_id' => $metapod->id, 'evolution_id' => $butterfree->id, 'method_id' => $method->id, 'details' => 'lvl 10']);
@@ -58,7 +58,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_charizard_x = factory(Pokemon::class)->create(['name' => 'Mega Charizard X']);
         $mega_charizard_y = factory(Pokemon::class)->create(['name' => 'Mega Charizard Y']);
 
-        $level_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::LEVEL_METHOD, 'name' => 'by Level']);
+        $level_method = factory(EvolutionMethod::class, 'level')->create();
         $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $charmander->id, 'evolution_id' => $charmeleon->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
@@ -81,7 +81,7 @@ class ViewEvolutionChainTest extends TestCase
         $alakazam = factory(Pokemon::class)->create(['name' => 'Alakazam']);
         $mega_alakazam = factory(Pokemon::class)->create(['name' => 'Mega Alakazam']);
 
-        $level_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::LEVEL_METHOD, 'name' => 'by Level']);
+        $level_method = factory(EvolutionMethod::class, 'level')->create();
         $trade_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::TRADE_METHOD, 'name' => 'by trade']);
         $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
