@@ -111,6 +111,23 @@ class ViewEvolutionChainTest extends TestCase
         $this->visit('/evolution_chain/Steelix')
              ->see('Onix evolves into Steelix when traded holding a Metal Coat')
              ->see('Steelix evolves into Mega Steelix using Steelixite');
+    }
 
+    /** @test */
+    public function user_can_view_evolutions_of_pokemon_that_evolves_with_friendship()
+    {
+        $pichu = factory(Pokemon::class)->create(['name' => 'Pichu']);
+        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        $raichu = factory(Pokemon::class)->create(['name' => 'Raichu']);
+
+        $friendship_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::FRIENDSHIP_METHOD, 'name' => 'by friendship']);
+        $stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
+
+        Evolution::create(['pokemon_id' => $pichu->id, 'evolution_id' => $pikachu->id, 'method_id' => $friendship_method->id, 'details' => '']);
+        Evolution::create(['pokemon_id' => $pikachu->id, 'evolution_id' => $raichu->id, 'method_id' => $stone_method->id, 'details' => 'Thunderstone']);
+
+        $this->visit('/evolution_chain/Pikachu')
+             ->see('Pichu evolves into Pikachu when leveld up with high friendship')
+             ->see('Pikachu evolves into Raichu when exposed to a Thunderstone');
     }
 }
