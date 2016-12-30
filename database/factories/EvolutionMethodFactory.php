@@ -51,3 +51,10 @@ $factory->defineAs(EvolutionMethod::class, 'affection', function(Faker\Generator
         'name' => 'by affection',
     ];
 });
+
+$factory->defineAs(EvolutionMethod::class, 'movement_learned', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionMethodConstants::MOVEMENT_LEARNED_METHOD,
+        'name' => 'after learn a movement',
+    ];
+});

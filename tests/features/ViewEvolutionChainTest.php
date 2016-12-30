@@ -192,6 +192,6 @@ class ViewEvolutionChainTest extends TestCase
         Evolution::create(['pokemon_id' => $mime_jr->id, 'evolution_id' => $mr_mime->id, 'method_id' => $movement_learned_method->id, 'details' => 'Mimic']);
 
         $this->visit('/evolution_chain/Mr. Mime')
-             ->see('Mime Jr. evolves into Mr. Mime when leveled up while knowing Mimic.');
+             ->see('Mime Jr. evolves into Mr. Mime when leveled up while knowing Mimic');
     }
 }

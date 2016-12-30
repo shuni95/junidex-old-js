@@ -77,6 +77,8 @@ class EvolutionChainPokemonController extends Controller
                 return 'when leveld up near an';
             case EvolutionMethodConstants::AFFECTION_METHOD:
                 return 'when leveld up and';
+            case EvolutionMethodConstants::MOVEMENT_LEARNED_METHOD:
+                return 'when leveled up while knowing';
         }
     }
 }

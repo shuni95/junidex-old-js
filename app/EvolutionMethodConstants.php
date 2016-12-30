@@ -12,4 +12,5 @@ class EvolutionMethodConstants
     const BEAUTY_METHOD = 6;
     const LOCATION_METHOD = 7;
     const AFFECTION_METHOD = 8;
+    const MOVEMENT_LEARNED_METHOD = 9;
 }
