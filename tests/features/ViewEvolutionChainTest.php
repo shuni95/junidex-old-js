@@ -36,14 +36,9 @@ class ViewEvolutionChainTest extends TestCase
         $growlithe = factory(Pokemon::class)->create(['name' => 'Growlithe']);
         $arcanine = factory(Pokemon::class)->create(['name' => 'Arcanine']);
 
-        $method = EvolutionMethod::create(['id' => EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
+        $stone_method = factory(EvolutionMethod::class, 'evolutionary_stone')->create();
 
-        Evolution::create([
-            'pokemon_id' => $growlithe->id,
-            'evolution_id' => $arcanine->id,
-            'method_id' => $method->id,
-            'details' => 'Fire Stone'
-        ]);
+        Evolution::create(['pokemon_id' => $growlithe->id, 'evolution_id' => $arcanine->id, 'method_id' => $stone_method->id, 'details' => 'Fire Stone']);
 
         $this->visit('/evolution_chain/Arcanine')
              ->see('Growlithe evolves into Arcanine when exposed to a Fire Stone');
@@ -59,7 +54,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_charizard_y = factory(Pokemon::class)->create(['name' => 'Mega Charizard Y']);
 
         $level_method = factory(EvolutionMethod::class, 'level')->create();
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+        $mega_stone_method = factory(EvolutionMethod::class, 'megastone')->create();
 
         Evolution::create(['pokemon_id' => $charmander->id, 'evolution_id' => $charmeleon->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $charmeleon->id, 'evolution_id' => $charizard->id, 'method_id' => $level_method->id, 'details' => 'lvl 36']);
@@ -83,7 +78,7 @@ class ViewEvolutionChainTest extends TestCase
 
         $level_method = factory(EvolutionMethod::class, 'level')->create();
         $trade_method = factory(EvolutionMethod::class, 'trade')->create();
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+        $mega_stone_method = factory(EvolutionMethod::class, 'megastone')->create();
 
         Evolution::create(['pokemon_id' => $abra->id, 'evolution_id' => $kadabra->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $kadabra->id, 'evolution_id' => $alakazam->id, 'method_id' => $trade_method->id, 'details' => '']);
@@ -103,7 +98,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_steelix = factory(Pokemon::class)->create(['name' => 'Mega Steelix']);
 
         $trade_method = factory(EvolutionMethod::class, 'trade')->create();
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+        $mega_stone_method = factory(EvolutionMethod::class, 'megastone')->create();
 
         Evolution::create(['pokemon_id' => $onix->id, 'evolution_id' => $steelix->id, 'method_id' => $trade_method->id, 'details' => 'holding a Metal Coat']);
         Evolution::create(['pokemon_id' => $steelix->id, 'evolution_id' => $mega_steelix->id, 'method_id' => $mega_stone_method->id, 'details' => 'Steelixite']);
@@ -121,7 +116,7 @@ class ViewEvolutionChainTest extends TestCase
         $raichu = factory(Pokemon::class)->create(['name' => 'Raichu']);
 
         $friendship_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::FRIENDSHIP_METHOD, 'name' => 'by friendship']);
-        $stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
+        $stone_method = factory(EvolutionMethod::class, 'evolutionary_stone')->create();
 
         Evolution::create(['pokemon_id' => $pichu->id, 'evolution_id' => $pikachu->id, 'method_id' => $friendship_method->id, 'details' => '']);
         Evolution::create(['pokemon_id' => $pikachu->id, 'evolution_id' => $raichu->id, 'method_id' => $stone_method->id, 'details' => 'Thunderstone']);
@@ -146,5 +141,43 @@ class ViewEvolutionChainTest extends TestCase
         $this->visit('/evolution_chain/Feebas')
              ->see('Feebas evolves into Milotic when leveled up with its Beauty condition high enough')
              ->see('Feebas evolves into Milotic when traded holding a Prism Scale(Generation V onwards)');
+    }
+
+    /** @test */
+    public function user_can_view_eeveelutions()
+    {
+        $eevee = factory(Pokemon::class)->create(['name' => 'Eevee']);
+        $flareon = factory(Pokemon::class)->create(['name' => 'Flareon']);
+        $jolteon = factory(Pokemon::class)->create(['name' => 'Jolteon']);
+        $vaporeon = factory(Pokemon::class)->create(['name' => 'Vaporeon']);
+        $umbreon = factory(Pokemon::class)->create(['name' => 'Umbreon']);
+        $espeon = factory(Pokemon::class)->create(['name' => 'Espeon']);
+        $glaceon = factory(Pokemon::class)->create(['name' => 'Glaceon']);
+        $leafeon = factory(Pokemon::class)->create(['name' => 'Leafeon']);
+        $sylveon = factory(Pokemon::class)->create(['name' => 'Sylveon']);
+
+        $stone_method = factory(EvolutionMethod::class, 'evolutionary_stone')->create();
+        $location_method = factory(EvolutionMethod::class, 'location')->create();
+        $friendship_method = factory(EvolutionMethod::class, 'friendship')->create();
+        $affection_method = factory(EvolutionMethod::class, 'affection')->create();
+
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $flareon->id, 'method_id' => $stone_method->id, 'details' => 'Fire Stone']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $jolteon->id, 'method_id' => $stone_method->id, 'details' => 'Thunderstone']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $vaporeon->id, 'method_id' => $stone_method->id, 'details' => 'Water Stone']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $umbreon->id, 'method_id' => $friendship_method->id, 'details' => 'in the night']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $espeon->id, 'method_id' => $friendship_method->id, 'details' => 'in the day']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $glaceon->id, 'method_id' => $location_method->id, 'details' => 'Ice Rock']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $leafeon->id, 'method_id' => $location_method->id, 'details' => 'Moss Rock']);
+        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $sylveon->id, 'method_id' => $affection_method->id, 'details' => 'knows any Fairy-type moves and has at least two hearts of affection in Pokémon-Amie or Pokémon Refresh']);
+
+        $this->visit('/evolution_chain/Eevee')
+             ->see('Eevee evolves into Flareon when exposed to a Fire Stone')
+             ->see('Eevee evolves into Jolteon when exposed to a Thunderstone')
+             ->see('Eevee evolves into Vaporeon when exposed to a Water Stone')
+             ->see('Eevee evolves into Espeon when leveld up with high friendship in the day')
+             ->see('Eevee evolves into Umbreon when leveld up with high friendship in the night')
+             ->see('Eevee evolves into Glaceon when leveld up near an Ice Rock')
+             ->see('Eevee evolves into Leafeon when leveld up near an Moss Rock')
+             ->see('Eevee evolves into Sylveon when leveld up and knows any Fairy-type moves and has at least two hearts of affection in Pokémon-Amie or Pokémon Refresh');
     }
 }
