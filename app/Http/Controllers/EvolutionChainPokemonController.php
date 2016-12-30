@@ -73,6 +73,10 @@ class EvolutionChainPokemonController extends Controller
                 return 'when leveld up with high friendship';
             case EvolutionMethodConstants::BEAUTY_METHOD:
                 return 'when leveled up with its Beauty condition high enough';
+            case EvolutionMethodConstants::LOCATION_METHOD:
+                return 'when leveld up near an';
+            case EvolutionMethodConstants::AFFECTION_METHOD:
+                return 'when leveld up and';
         }
     }
 }

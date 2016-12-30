@@ -66,3 +66,24 @@ $factory->defineAs(App\EvolutionMethod::class, 'evolutionary_stone', function(Fa
         'name' => 'by evolutionary stone',
     ];
 });
+
+$factory->defineAs(App\EvolutionMethod::class, 'location', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionMethodConstants::LOCATION_METHOD,
+        'name' => 'by certain location',
+    ];
+});
+
+$factory->defineAs(App\EvolutionMethod::class, 'friendship', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionMethodConstants::FRIENDSHIP_METHOD,
+        'name' => 'by friendship',
+    ];
+});
+
+$factory->defineAs(App\EvolutionMethod::class, 'affection', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionMethodConstants::AFFECTION_METHOD,
+        'name' => 'by affection',
+    ];
+});

@@ -161,14 +161,14 @@ class ViewEvolutionChainTest extends TestCase
         $friendship_method = factory(EvolutionMethod::class, 'friendship')->create();
         $affection_method = factory(EvolutionMethod::class, 'affection')->create();
 
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $flareon->id, 'method_id' => $stone_method->id, 'details' => 'Fire Stone']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $jolteon->id, 'method_id' => $stone_method->id, 'details' => 'Thunderstone']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $vaporeon->id, 'method_id' => $stone_method->id, 'details' => 'Water Stone']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $umbreon->id, 'method_id' => $friendship_method->id, 'details' => 'in the night']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $espeon->id, 'method_id' => $friendship_method->id, 'details' => 'in the day']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $glaceon->id, 'method_id' => $location_method->id, 'details' => 'Ice Rock']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $leafeon->id, 'method_id' => $location_method->id, 'details' => 'Moss Rock']);
-        factory(Evolution::class, 'eevee')->create(['pokemon_id' => $eevee->id, 'evolution_id' => $sylveon->id, 'method_id' => $affection_method->id, 'details' => 'knows any Fairy-type moves and has at least two hearts of affection in Pokémon-Amie or Pokémon Refresh']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $flareon->id, 'method_id' => $stone_method->id, 'details' => 'Fire Stone']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $jolteon->id, 'method_id' => $stone_method->id, 'details' => 'Thunderstone']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $vaporeon->id, 'method_id' => $stone_method->id, 'details' => 'Water Stone']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $umbreon->id, 'method_id' => $friendship_method->id, 'details' => 'in the night']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $espeon->id, 'method_id' => $friendship_method->id, 'details' => 'in the day']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $glaceon->id, 'method_id' => $location_method->id, 'details' => 'Ice Rock']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $leafeon->id, 'method_id' => $location_method->id, 'details' => 'Moss Rock']);
+        Evolution::create(['pokemon_id' => $eevee->id, 'evolution_id' => $sylveon->id, 'method_id' => $affection_method->id, 'details' => 'knows any Fairy-type moves and has at least two hearts of affection in Pokémon-Amie or Pokémon Refresh']);
 
         $this->visit('/evolution_chain/Eevee')
              ->see('Eevee evolves into Flareon when exposed to a Fire Stone')
