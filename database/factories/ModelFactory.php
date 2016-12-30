@@ -52,3 +52,17 @@ $factory->defineAs(App\EvolutionMethod::class, 'trade', function(Faker\Generator
         'name' => 'by trade',
     ];
 });
+
+$factory->defineAs(App\EvolutionMethod::class, 'megastone', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionMethodConstants::MEGASTONE_METHOD,
+        'name' => 'by megastone',
+    ];
+});
+
+$factory->defineAs(App\EvolutionMethod::class, 'evolutionary_stone', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD,
+        'name' => 'by evolutionary stone',
+    ];
+});
