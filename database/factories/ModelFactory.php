@@ -10,7 +10,7 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-use App\EvolutionaryMethodConstants;
+use App\EvolutionMethodConstants;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
@@ -41,14 +41,14 @@ $factory->define(App\EggGroup::class, function (Faker\Generator $faker) {
 
 $factory->defineAs(App\EvolutionMethod::class, 'level', function(Faker\Generator $faker) {
     return [
-        'id' => EvolutionaryMethodConstants::LEVEL_METHOD,
+        'id' => EvolutionMethodConstants::LEVEL_METHOD,
         'name' => 'by level',
     ];
 });
 
 $factory->defineAs(App\EvolutionMethod::class, 'trade', function(Faker\Generator $faker) {
     return [
-        'id' => EvolutionaryMethodConstants::TRADE_METHOD,
+        'id' => EvolutionMethodConstants::TRADE_METHOD,
         'name' => 'by trade',
     ];
 });

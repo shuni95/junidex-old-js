@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Pokemon;
 use App\Evolution;
-use App\EvolutionaryMethodConstants;
+use App\EvolutionMethodConstants;
 
 class EvolutionChainPokemonController extends Controller
 {
@@ -61,16 +61,18 @@ class EvolutionChainPokemonController extends Controller
     public function getLinkingPhrase($evolution)
     {
         switch ($evolution->method_id) {
-            case EvolutionaryMethodConstants::LEVEL_METHOD:
+            case EvolutionMethodConstants::LEVEL_METHOD:
                 return 'at';
-            case EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD:
+            case EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD:
                 return 'when exposed to a';
-            case EvolutionaryMethodConstants::MEGASTONE_METHOD:
+            case EvolutionMethodConstants::MEGASTONE_METHOD:
                 return 'using';
-            case EvolutionaryMethodConstants::TRADE_METHOD:
+            case EvolutionMethodConstants::TRADE_METHOD:
                 return 'when traded';
-            case EvolutionaryMethodConstants::FRIENDSHIP_METHOD:
+            case EvolutionMethodConstants::FRIENDSHIP_METHOD:
                 return 'when leveld up with high friendship';
+            case EvolutionMethodConstants::BEAUTY_METHOD:
+                return 'when leveled up with its Beauty condition high enough';
         }
     }
 }

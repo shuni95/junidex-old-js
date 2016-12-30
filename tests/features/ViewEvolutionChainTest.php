@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Pokemon;
 use App\EvolutionMethod;
 use App\Evolution;
-use App\EvolutionaryMethodConstants;
+use App\EvolutionMethodConstants;
 
 class ViewEvolutionChainTest extends TestCase
 {
@@ -36,7 +36,7 @@ class ViewEvolutionChainTest extends TestCase
         $growlithe = factory(Pokemon::class)->create(['name' => 'Growlithe']);
         $arcanine = factory(Pokemon::class)->create(['name' => 'Arcanine']);
 
-        $method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
+        $method = EvolutionMethod::create(['id' => EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
 
         Evolution::create([
             'pokemon_id' => $growlithe->id,
@@ -59,7 +59,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_charizard_y = factory(Pokemon::class)->create(['name' => 'Mega Charizard Y']);
 
         $level_method = factory(EvolutionMethod::class, 'level')->create();
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $charmander->id, 'evolution_id' => $charmeleon->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $charmeleon->id, 'evolution_id' => $charizard->id, 'method_id' => $level_method->id, 'details' => 'lvl 36']);
@@ -83,7 +83,7 @@ class ViewEvolutionChainTest extends TestCase
 
         $level_method = factory(EvolutionMethod::class, 'level')->create();
         $trade_method = factory(EvolutionMethod::class, 'trade')->create();
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $abra->id, 'evolution_id' => $kadabra->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $kadabra->id, 'evolution_id' => $alakazam->id, 'method_id' => $trade_method->id, 'details' => '']);
@@ -103,7 +103,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_steelix = factory(Pokemon::class)->create(['name' => 'Mega Steelix']);
 
         $trade_method = factory(EvolutionMethod::class, 'trade')->create();
-        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $onix->id, 'evolution_id' => $steelix->id, 'method_id' => $trade_method->id, 'details' => 'holding a Metal Coat']);
         Evolution::create(['pokemon_id' => $steelix->id, 'evolution_id' => $mega_steelix->id, 'method_id' => $mega_stone_method->id, 'details' => 'Steelixite']);
@@ -120,8 +120,8 @@ class ViewEvolutionChainTest extends TestCase
         $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
         $raichu = factory(Pokemon::class)->create(['name' => 'Raichu']);
 
-        $friendship_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::FRIENDSHIP_METHOD, 'name' => 'by friendship']);
-        $stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
+        $friendship_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::FRIENDSHIP_METHOD, 'name' => 'by friendship']);
+        $stone_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD, 'name' => 'by evolutionary stone']);
 
         Evolution::create(['pokemon_id' => $pichu->id, 'evolution_id' => $pikachu->id, 'method_id' => $friendship_method->id, 'details' => '']);
         Evolution::create(['pokemon_id' => $pikachu->id, 'evolution_id' => $raichu->id, 'method_id' => $stone_method->id, 'details' => 'Thunderstone']);
@@ -137,7 +137,7 @@ class ViewEvolutionChainTest extends TestCase
         $feebas = factory(Pokemon::class)->create(['name' => 'Feebas']);
         $milotic = factory(Pokemon::class)->create(['name' => 'Milotic']);
 
-        $beauty_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::BEAUTY_METHOD, 'name' => 'by beauty']);
+        $beauty_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::BEAUTY_METHOD, 'name' => 'by beauty']);
         $trade_method = factory(EvolutionMethod::class, 'trade')->create();
 
         Evolution::create(['pokemon_id' => $feebas->id, 'evolution_id' => $milotic->id, 'method_id' => $beauty_method->id, 'details' => '']);
