@@ -10,7 +10,7 @@
 | database. Just tell the factory how a default model should look.
 |
 */
-use App\EvolutionMethodConstants;
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
@@ -36,54 +36,5 @@ $factory->define(App\Pokemon::class, function (Faker\Generator $faker) {
 $factory->define(App\EggGroup::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Ditto',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'level', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::LEVEL_METHOD,
-        'name' => 'by level',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'trade', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::TRADE_METHOD,
-        'name' => 'by trade',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'megastone', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::MEGASTONE_METHOD,
-        'name' => 'by megastone',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'evolutionary_stone', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::EVOLUTIONARY_STONE_METHOD,
-        'name' => 'by evolutionary stone',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'location', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::LOCATION_METHOD,
-        'name' => 'by certain location',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'friendship', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::FRIENDSHIP_METHOD,
-        'name' => 'by friendship',
-    ];
-});
-
-$factory->defineAs(App\EvolutionMethod::class, 'affection', function(Faker\Generator $faker) {
-    return [
-        'id' => EvolutionMethodConstants::AFFECTION_METHOD,
-        'name' => 'by affection',
     ];
 });
