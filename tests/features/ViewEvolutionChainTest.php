@@ -82,7 +82,7 @@ class ViewEvolutionChainTest extends TestCase
         $mega_alakazam = factory(Pokemon::class)->create(['name' => 'Mega Alakazam']);
 
         $level_method = factory(EvolutionMethod::class, 'level')->create();
-        $trade_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::TRADE_METHOD, 'name' => 'by trade']);
+        $trade_method = factory(EvolutionMethod::class, 'trade')->create();
         $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $abra->id, 'evolution_id' => $kadabra->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
@@ -102,7 +102,7 @@ class ViewEvolutionChainTest extends TestCase
         $steelix = factory(Pokemon::class)->create(['name' => 'Steelix']);
         $mega_steelix = factory(Pokemon::class)->create(['name' => 'Mega Steelix']);
 
-        $trade_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::TRADE_METHOD, 'name' => 'by trade']);
+        $trade_method = factory(EvolutionMethod::class, 'trade')->create();
         $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
 
         Evolution::create(['pokemon_id' => $onix->id, 'evolution_id' => $steelix->id, 'method_id' => $trade_method->id, 'details' => 'holding a Metal Coat']);
@@ -129,5 +129,22 @@ class ViewEvolutionChainTest extends TestCase
         $this->visit('/evolution_chain/Pikachu')
              ->see('Pichu evolves into Pikachu when leveld up with high friendship')
              ->see('Pikachu evolves into Raichu when exposed to a Thunderstone');
+    }
+
+    /** @test */
+    public function user_can_view_evolution_of_feebas_with_high_beauty_or_by_trade()
+    {
+        $feebas = factory(Pokemon::class)->create(['name' => 'Feebas']);
+        $milotic = factory(Pokemon::class)->create(['name' => 'Milotic']);
+
+        $beauty_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::BEAUTY_METHOD, 'name' => 'by beauty']);
+        $trade_method = factory(EvolutionMethod::class, 'trade')->create();
+
+        Evolution::create(['pokemon_id' => $feebas->id, 'evolution_id' => $milotic->id, 'method_id' => $beauty_method->id, 'details' => '']);
+        Evolution::create(['pokemon_id' => $feebas->id, 'evolution_id' => $milotic->id, 'method_id' => $trade_method->id, 'details' => 'holding a Prism Scale(Generation V onwards)']);
+
+        $this->visit('/evolution_chain/Feebas')
+             ->see('Feebas evolves into Milotic when leveled up with its Beauty condition high enough')
+             ->see('Feebas evolves into Milotic when traded holding a Prism Scale(Generation V onwards)');
     }
 }

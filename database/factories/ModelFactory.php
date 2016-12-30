@@ -45,3 +45,10 @@ $factory->defineAs(App\EvolutionMethod::class, 'level', function(Faker\Generator
         'name' => 'by level',
     ];
 });
+
+$factory->defineAs(App\EvolutionMethod::class, 'trade', function(Faker\Generator $faker) {
+    return [
+        'id' => EvolutionaryMethodConstants::TRADE_METHOD,
+        'name' => 'by trade',
+    ];
+});
