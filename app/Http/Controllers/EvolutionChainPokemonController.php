@@ -69,6 +69,8 @@ class EvolutionChainPokemonController extends Controller
                 return 'using';
             case EvolutionaryMethodConstants::TRADE_METHOD:
                 return 'when traded';
+            case EvolutionaryMethodConstants::FRIENDSHIP_METHOD:
+                return 'when leveld up with high friendship';
         }
     }
 }
