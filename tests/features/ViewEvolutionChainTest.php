@@ -180,4 +180,18 @@ class ViewEvolutionChainTest extends TestCase
              ->see('Eevee evolves into Leafeon when leveld up near an Moss Rock')
              ->see('Eevee evolves into Sylveon when leveld up and knows any Fairy-type moves and has at least two hearts of affection in Pokémon-Amie or Pokémon Refresh');
     }
+
+    /** @test */
+    public function user_can_view_evolutions_of_pokemon_that_evolves_after_learned_a_movement()
+    {
+        $mime_jr = factory(Pokemon::class)->create(['name' => 'Mime Jr.']);
+        $mr_mime = factory(Pokemon::class)->create(['name' => 'Mr. Mime']);
+
+        $movement_learned_method = factory(EvolutionMethod::class, 'movement_learned')->create();
+
+        Evolution::create(['pokemon_id' => $mime_jr->id, 'evolution_id' => $mr_mime->id, 'method_id' => $movement_learned_method->id, 'details' => 'Mimic']);
+
+        $this->visit('/evolution_chain/Mr. Mime')
+             ->see('Mime Jr. evolves into Mr. Mime when leveled up while knowing Mimic.');
+    }
 }
