@@ -87,11 +87,30 @@ class ViewEvolutionChainTest extends TestCase
 
         Evolution::create(['pokemon_id' => $abra->id, 'evolution_id' => $kadabra->id, 'method_id' => $level_method->id, 'details' => 'lvl 16']);
         Evolution::create(['pokemon_id' => $kadabra->id, 'evolution_id' => $alakazam->id, 'method_id' => $trade_method->id, 'details' => '']);
-        Evolution::create(['pokemon_id' => $alakazam->id, 'evolution_id' => $mega_alakazam->id, 'method_id' => $mega_stone_method->id, 'details' => 'Alakazamita']);
+        Evolution::create(['pokemon_id' => $alakazam->id, 'evolution_id' => $mega_alakazam->id, 'method_id' => $mega_stone_method->id, 'details' => 'Alakazite']);
 
         $this->visit('/evolution_chain/Alakazam')
              ->see('Abra evolves into Kadabra at lvl 16')
              ->see('Kadabra evolves into Alakazam when traded')
-             ->see('Alakazam evolves into Mega Alakazam using Alakazamita');
+             ->see('Alakazam evolves into Mega Alakazam using Alakazite');
+    }
+
+    /** @test */
+    public function user_can_view_evolutions_of_pokemon_that_evolves_with_trade_with_an_item()
+    {
+        $onix = factory(Pokemon::class)->create(['name' => 'Onix']);
+        $steelix = factory(Pokemon::class)->create(['name' => 'Steelix']);
+        $mega_steelix = factory(Pokemon::class)->create(['name' => 'Mega Steelix']);
+
+        $trade_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::TRADE_METHOD, 'name' => 'by trade']);
+        $mega_stone_method = EvolutionMethod::create(['id' => EvolutionaryMethodConstants::MEGASTONE_METHOD, 'name' => 'by megastone']);
+
+        Evolution::create(['pokemon_id' => $onix->id, 'evolution_id' => $steelix->id, 'method_id' => $trade_method->id, 'details' => 'holding a Metal Coat']);
+        Evolution::create(['pokemon_id' => $steelix->id, 'evolution_id' => $mega_steelix->id, 'method_id' => $mega_stone_method->id, 'details' => 'Steelixite']);
+
+        $this->visit('/evolution_chain/Steelix')
+             ->see('Onix evolves into Steelix when traded holding a Metal Coat')
+             ->see('Steelix evolves into Mega Steelix using Steelixite');
+
     }
 }
