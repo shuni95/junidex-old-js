@@ -22,4 +22,12 @@ class RegisterTrainerTest extends TestCase
              ->press('Register')
              ->seePageIs('/trainers/thanks_for_register');
     }
+
+    /** @test */
+    public function user_cannot_see_thanks_for_register_directly()
+    {
+        $this->visit('/trainers/thanks_for_register');
+
+        $this->seePageIs('/trainers/register');
+    }
 }
