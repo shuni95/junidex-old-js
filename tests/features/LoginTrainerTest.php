@@ -26,4 +26,19 @@ class LoginTrainerTest extends TestCase
         $this->followRedirects();
         $this->see('Welcome KalosChampion!');
     }
+
+    /** @test */
+    public function user_not_trainers_cannot_login()
+    {
+        $user = factory(User::class)->create(['username'=> 'KalosChampion','email' => 'ash_champion@test.com', 'password' => bcrypt('123456')]);
+
+        $this->call('POST', '/trainers/login', [
+            'email'    => 'ash_champion@test.com',
+            'password' => '123456',
+        ]);
+
+        $this->assertRedirectedToRoute('app.trainers.login.showForm');
+        $this->followRedirects();
+        $this->see('Invalid credentials.');
+    }
 }
