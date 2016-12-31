@@ -34,14 +34,15 @@ class RegisterTrainerTest extends TestCase
     /** @test */
     public function user_cannot_register_without_name_field()
     {
-        $this->visit('/trainers/register')
-             ->type('Ketchum', 'lastname')
-             ->type('1995-04-14', 'birthday')
-             ->type('KalosChampion', 'username')
-             ->type('ash_champion@test.com', 'email')
-             ->type('123456', 'password')
-             ->type('123456', 'confirm_password')
-             ->press('Register')
-             ->seePageIs('/trainers/register');
+        $this->call('POST', '/trainers/register', [
+            'lastname' => 'Ketchum',
+            'birthday' => '1995-04-14',
+            'username' => 'KalosChampion',
+            'email' => 'ash_champion@test.com',
+            'password' => '123456',
+            'confirm_password' => '123456',
+        ]);
+
+        $this->assertSessionHasErrors(['name']);
     }
 }
