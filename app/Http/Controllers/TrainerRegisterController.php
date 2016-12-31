@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Trainer;
 
+use App\Http\Requests\TrainerRegisterRequest;
+
 class TrainerRegisterController extends Controller
 {
     public function create()
@@ -14,7 +16,7 @@ class TrainerRegisterController extends Controller
         return view('app.trainers.register');
     }
 
-    public function store()
+    public function store(TrainerRegisterRequest $request)
     {
         $user = User::create([
             'name' => request('name'),
