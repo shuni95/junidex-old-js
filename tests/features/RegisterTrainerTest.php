@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTrainerTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @test */
     public function user_can_register_as_a_trainer_using_email()
     {
@@ -14,6 +16,9 @@ class RegisterTrainerTest extends TestCase
              ->type('Ketchum', 'lastname')
              ->type('1995-04-14', 'birthday')
              ->type('KalosChampion', 'username')
+             ->type('ash_champion@test.com', 'email')
+             ->type('123456', 'password')
+             ->type('123456', 'confirm_password')
              ->press('Register')
              ->seePageIs('/trainers/thanks_for_register');
     }
