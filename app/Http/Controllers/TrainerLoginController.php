@@ -11,7 +11,7 @@ class TrainerLoginController extends Controller
 {
     public function create()
     {
-
+        return view('app.trainers.login');
     }
 
     public function login()
