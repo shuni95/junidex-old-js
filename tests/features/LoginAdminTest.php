@@ -4,6 +4,10 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\RoleConstants;
+use App\User;
+use App\Role;
+
 class LoginAdminTest extends TestCase
 {
     use DatabaseMigrations;
@@ -11,7 +15,10 @@ class LoginAdminTest extends TestCase
     /** @test */
     public function user_can_login_as_admin_in_application_using_the_email()
     {
-        $user = factory(User::class)->create(['username'=> 'admin','email' => 'admin@admin.com', 'password' => bcrypt('123456'), 'user_type' => UserTypes::ADMIN_USER]);
+        $role = Role::create(['id' => RoleConstants::ADMIN_ROLE, 'name' => 'admin']);
+        $user = factory(User::class)->create(['username'=> 'admin','email' => 'admin@admin.com', 'password' => bcrypt('123456')]);
+
+        $user->roles()->sync([$role]);
 
         $this->call('POST', '/awesome_login', [
             'email'    => 'admin@admin.com',
