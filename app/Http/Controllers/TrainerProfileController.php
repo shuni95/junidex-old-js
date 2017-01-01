@@ -23,6 +23,10 @@ class TrainerProfileController extends Controller
 
     public function show($username)
     {
+        if (!Auth::user()->trainer) {
+            return redirect()->route('app.trainers.register.showForm');
+        }
+
         $user = User::where('username', $username)->firstOrFail();
 
         return view('app.trainers.show_profile', ['user' => $user]);
