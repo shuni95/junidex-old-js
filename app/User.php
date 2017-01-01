@@ -27,8 +27,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $dates = [
+        'birthday'
+    ];
+
     public function trainer()
     {
         return $this->hasOne(Trainer::class);
+    }
+
+    public function getBirthdayFormattedAttribute()
+    {
+        return $this->birthday->format('d/m/Y');
     }
 }

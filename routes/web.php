@@ -24,3 +24,4 @@ Route::get('/trainers/thanks_for_register', ['as' => 'app.trainers.register.than
 Route::get('/trainers/login', ['as' => 'app.trainers.login.showForm', 'uses' => 'TrainerLoginController@create']);
 Route::post('/trainers/login', ['as' => 'app.trainers.login.authenticate', 'uses' => 'TrainerLoginController@login']);
 Route::get('/trainers/dashboard', ['as' => 'app.trainers.dashboard', 'uses' => 'TrainerDashboardController@index']);
+Route::get('/trainers/me', ['as' => 'app.trainers.profile.me', 'uses' => 'TrainerProfileController@show']);

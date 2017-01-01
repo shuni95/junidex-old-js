@@ -4,8 +4,13 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\User;
+use App\Trainer;
+
 class ShowProfileTrainerTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @test */
     public function trainer_can_see_his_own_profile()
     {
