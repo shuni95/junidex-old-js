@@ -45,4 +45,17 @@ class ShowProfileTrainerTest extends TestCase
              ->see('Alain123\'s Profile')
              ->dontSee('alain@test.com');
     }
+
+    /** @test */
+    public function trainer_cannot_see_other_trainer_profile_that_doesnot_exists()
+    {
+        $ash = factory(User::class)->create(['name' => 'Ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion', 'email' => 'ash_champion@test.com']);
+        Trainer::create(['user_id' => $ash->id]);
+
+        $this->actingAs($ash);
+
+        $this->call('GET', '/trainers/profile/Alain123');
+
+        $this->assertResponseStatus(404);
+    }
 }
