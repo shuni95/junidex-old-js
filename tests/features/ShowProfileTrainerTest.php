@@ -58,4 +58,18 @@ class ShowProfileTrainerTest extends TestCase
 
         $this->assertResponseStatus(404);
     }
+
+    /** @test */
+    public function user_not_trainer_cannot_see_trainer_profile_and_redirects_to_register()
+    {
+        $ash = factory(User::class)->create(['name' => 'Ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion', 'email' => 'ash_champion@test.com']);
+        $alain = factory(User::class)->create(['name' => 'Alain', 'lastname' => 'Emo', 'birthday' => '1995-06-06', 'username' => 'Alain123', 'email' => 'alain@test.com']);
+        Trainer::create(['user_id' => $alain->id]);
+
+        $this->actingAs($ash);
+
+        $this->call('GET', '/trainers/profile/Alain123');
+
+        $this->assertRedirectedToRoute('app.trainers.register.showForm');
+    }
 }
