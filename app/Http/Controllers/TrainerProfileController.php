@@ -23,7 +23,7 @@ class TrainerProfileController extends Controller
 
     public function show($username)
     {
-        $user = User::where('username', $username)->first();
+        $user = User::where('username', $username)->firstOrFail();
 
         return view('app.trainers.show_profile', ['user' => $user]);
     }
