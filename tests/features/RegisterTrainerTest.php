@@ -32,7 +32,7 @@ class RegisterTrainerTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_register_without_name_field()
+    public function user_cannot_register_without_name()
     {
         $this->call('POST', '/trainers/register', [
             'lastname' => 'Ketchum',
@@ -44,5 +44,13 @@ class RegisterTrainerTest extends TestCase
         ]);
 
         $this->assertSessionHasErrors(['name']);
+    }
+
+    /** @test */
+    public function user_cannot_register_without_fields()
+    {
+        $this->call('POST', '/trainers/register', []);
+
+        $this->assertSessionHasErrors(['name', 'lastname', 'birthday', 'username', 'email', 'password']);
     }
 }

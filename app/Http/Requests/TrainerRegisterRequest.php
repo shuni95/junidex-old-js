@@ -15,11 +15,11 @@ class TrainerRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'lastname' => 'required',
+            'birthday' => 'required',
+            'email' => 'required',
+            'username' => 'required',
+            'password' => 'required',
         ];
     }
-
-    // public function response(array $errors)
-    // {
-    //     var_dump($errors);
-    // }
 }
