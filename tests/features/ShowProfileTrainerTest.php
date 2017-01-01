@@ -42,6 +42,7 @@ class ShowProfileTrainerTest extends TestCase
              ->see('Emo')
              ->see('06/06/1995')
              ->see('Alain123')
+             ->see('Alain123\'s Profile')
              ->dontSee('alain@test.com');
     }
 }
