@@ -16,9 +16,11 @@ class TrainerLoginController extends Controller
 
     public function login()
     {
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
-            $user = User::where('email', request('email'))->first();
+        $user = User::where('email', request('email'))
+        ->orWhere('username', request('username'))
+        ->first();
 
+        if (Auth::attempt(['email' => $user->email, 'password' => request('password')])) {
             if ($user->trainer) {
                 return redirect()->route('app.trainers.dashboard');
             }
