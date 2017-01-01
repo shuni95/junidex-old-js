@@ -18,14 +18,14 @@ class LoginAdminTest extends TestCase
         $role = Role::create(['id' => RoleConstants::ADMIN_ROLE, 'name' => 'admin']);
         $user = factory(User::class)->create(['username'=> 'admin','email' => 'admin@admin.com', 'password' => bcrypt('123456')]);
 
-        $user->roles()->sync([$role]);
+        $user->roles()->save($role);
 
-        $this->call('POST', '/awesome_login', [
+        $this->call('POST', '/awesome/login', [
             'email'    => 'admin@admin.com',
             'password' => '123456',
         ]);
 
-        $this->assertRedirectedToRoute('app.admin.dashboard');
+        $this->assertRedirectedToRoute('admin.dashboard');
         $this->followRedirects();
         $this->see('Welcome admin-sama!');
     }

@@ -26,3 +26,7 @@ Route::post('/trainers/login', ['as' => 'app.trainers.login.authenticate', 'uses
 Route::get('/trainers/dashboard', ['as' => 'app.trainers.dashboard', 'uses' => 'TrainerDashboardController@index']);
 Route::get('/trainers/me', ['as' => 'app.trainers.profile.me', 'uses' => 'TrainerProfileController@myself']);
 Route::get('/trainers/profile/{username}', ['as' => 'app.trainers.profile.show', 'uses' => 'TrainerProfileController@show']);
+
+Route::get('/awesome/dashboard', ['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
+Route::get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create']);
+Route::post('/awesome/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLoginController@login']);
