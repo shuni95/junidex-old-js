@@ -9,7 +9,7 @@ use App\EggGroup;
 
 class SearchPokemonTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name()

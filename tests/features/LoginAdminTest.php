@@ -10,7 +10,7 @@ use App\Role;
 
 class LoginAdminTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
     use WithoutMiddleware;
 
     /** @test */

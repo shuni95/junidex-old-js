@@ -11,7 +11,7 @@ use App\Trainer;
 
 class ShowProfileTrainerTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /** @test */
     public function trainer_can_see_his_own_profile()

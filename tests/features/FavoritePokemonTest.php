@@ -10,7 +10,7 @@ use App\Pokemon;
 
 class FavoritePokemonTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
     use WithoutMiddleware;
 
     /** @test */
@@ -29,7 +29,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->assertResponseStatus(201);
 
-        $ash_trainer = Trainer::find($ash_trainer->user_id);
+        $ash_trainer = Trainer::find($ash->id);
 
         $this->assertTrue($ash_trainer->pokemon_favorites->contains(function ($pokemon) use ($pikachu) {
             return $pokemon->id == $pikachu->id;
@@ -52,7 +52,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->assertResponseStatus(422);
 
-        $ash_trainer = Trainer::find($ash_trainer->user_id);
+        $ash_trainer = Trainer::find($ash->id);
 
         $this->assertFalse($ash_trainer->pokemon_favorites->contains(function ($pokemon) use ($pikachu) {
             return $pokemon->id == $pikachu->id;
@@ -72,6 +72,8 @@ class FavoritePokemonTest extends TestCase
         $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(201);
+
+        $ash_trainer = Trainer::find($ash->id);
 
         $this->assertTrue($ash_trainer->pokemon_favorites->count() == 1);
 

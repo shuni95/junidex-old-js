@@ -9,7 +9,7 @@ use App\Trainer;
 
 class LoginTrainerTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
     use WithoutMiddleware;
 
     /** @test */

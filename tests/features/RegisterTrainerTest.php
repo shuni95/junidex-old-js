@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class RegisterTrainerTest extends TestCase
 {
     use WithoutMiddleware;
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /** @test */
     public function user_can_register_as_a_trainer_using_email()

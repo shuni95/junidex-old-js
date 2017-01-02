@@ -11,7 +11,7 @@ use App\EvolutionMethodConstants;
 
 class ViewEvolutionChainTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /** @test */
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_only_level()
