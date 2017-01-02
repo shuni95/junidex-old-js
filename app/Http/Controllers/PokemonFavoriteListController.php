@@ -13,6 +13,10 @@ class PokemonFavoriteListController extends Controller
     {
         $pokemon = Pokemon::find(request('pokemon_id'));
 
+        if (is_null($pokemon)) {
+            return response([], 422);
+        }
+
         $trainer = Auth::guard('trainer')->user()->trainer;
 
         $trainer->pokemon_favorites()->save($pokemon);
