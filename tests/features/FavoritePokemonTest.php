@@ -60,7 +60,7 @@ class FavoritePokemonTest extends TestCase
     }
 
     /** @test */
-    public function trainer_cannot_favorite_a_pokemon_twice_times()
+    public function trainer_cannot_favorite_a_pokemon_twice()
     {
         $ash = factory(User::class, 'ash')->create();
         $ash_trainer = Trainer::create(['user_id' => $ash->id]);
