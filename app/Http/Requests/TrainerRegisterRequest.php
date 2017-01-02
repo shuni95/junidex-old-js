@@ -21,7 +21,7 @@ class TrainerRegisterRequest extends FormRequest
             'name' => 'required',
             'lastname' => 'required',
             'birthday' => 'required|before:' . $ten_year_ago,
-            'email' => 'required',
+            'email' => 'required|email',
             'username' => 'required|alpha_num',
             'password' => 'required',
         ];
