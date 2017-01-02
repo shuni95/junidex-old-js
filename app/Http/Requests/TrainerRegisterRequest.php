@@ -18,7 +18,7 @@ class TrainerRegisterRequest extends FormRequest
             'lastname' => 'required',
             'birthday' => 'required',
             'email' => 'required',
-            'username' => 'required',
+            'username' => 'required|alpha_num',
             'password' => 'required',
         ];
     }
