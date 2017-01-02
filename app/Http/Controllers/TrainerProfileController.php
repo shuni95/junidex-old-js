@@ -11,21 +11,19 @@ class TrainerProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'web']);
+        $this->middleware(['auth.trainer']);
     }
 
     public function myself()
     {
-        $user = Auth::user();
+        $user = Auth::guard('trainer')->user();
 
         return view('app.trainers.myself', ['user' => $user]);
     }
 
     public function show($username)
     {
-        if (!Auth::user()->trainer) {
-            return redirect()->route('app.trainers.register.showForm');
-        }
+        $user = Auth::guard('trainer')->user();
 
         $user = User::where('username', $username)->firstOrFail();
 

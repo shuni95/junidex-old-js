@@ -26,7 +26,9 @@ class AdminLoginController extends Controller
             return $role->id == RoleConstants::ADMIN_ROLE;
         });
 
-        if ($is_admin && Auth::attempt(['email' => $user->email, 'password' => request('password')])) {
+        if ($is_admin && Hash::check(request('password'), $user->password)) {
+            Auth::guard('admin')->login($user);
+
             return redirect()->route('admin.dashboard');
         }
 
