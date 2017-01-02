@@ -66,7 +66,7 @@ class RegisterTrainerTest extends TestCase
         $this->assertSessionHasErrors(['username']);
 
         $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'KalosChampion123']));
-
-        $this->assertResponseStatus(200);
+        $this->followRedirects();
+        $this->seePageIs('/trainers/thanks_for_register');
     }
 }
