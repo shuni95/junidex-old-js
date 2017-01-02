@@ -58,4 +58,27 @@ class FavoritePokemonTest extends TestCase
             return $pokemon->id == $pikachu->id;
         }));
     }
+
+    /** @test */
+    public function trainer_cannot_favorite_a_pokemon_twice_times()
+    {
+        $ash = factory(User::class, 'ash')->create();
+        $ash_trainer = Trainer::create(['user_id' => $ash->id]);
+
+        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+
+        $this->actingAs($ash, 'trainer');
+
+        $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
+
+        $this->assertResponseStatus(201);
+
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == 1);
+
+        $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
+
+        $this->assertResponseStatus(204);
+
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == 1);
+    }
 }
