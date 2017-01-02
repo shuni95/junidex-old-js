@@ -30,3 +30,5 @@ Route::get('/trainers/profile/{username}', ['as' => 'app.trainers.profile.show',
 Route::get('/awesome/dashboard', ['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
 Route::get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create']);
 Route::post('/awesome/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLoginController@login']);
+
+Route::post('/pokemon/add_to_favorites', ['as' => 'app.trainers.pokemon_favorites.add', 'uses' => 'PokemonFavoriteListController@addPokemon']);

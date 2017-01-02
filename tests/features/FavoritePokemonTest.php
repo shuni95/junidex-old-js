@@ -11,22 +11,27 @@ use App\Pokemon;
 class FavoritePokemonTest extends TestCase
 {
     use DatabaseMigrations;
+    use WithoutMiddleware;
 
     /** @test */
-    public function testExample()
+    public function trainer_can_favorite_a_pokemon()
     {
         $ash = factory(User::class, 'ash')->create();
-        Trainer::create(['user_id' => $ash->id]);
+        $ash_trainer = Trainer::create(['user_id' => $ash->id]);
 
-        $pikachu = factory(Pokemon::class, 'pikachu')->create();
+        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
 
         $this->actingAs($ash, 'trainer');
 
-        $this->assertTrue($ash->pokemon_favorites->isEmpty());
+        $this->assertTrue($ash_trainer->pokemon_favorites->isEmpty());
 
         $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
 
-        $this->assertTrue($ash->pokemon_favorites->contains(function ($pokemon) use ($pikachu) {
+        $this->assertResponseStatus(201);
+
+        $ash_trainer = Trainer::find($ash_trainer->user_id);
+
+        $this->assertTrue($ash_trainer->pokemon_favorites->contains(function ($pokemon) use ($pikachu) {
             return $pokemon->id == $pikachu->id;
         }));
     }

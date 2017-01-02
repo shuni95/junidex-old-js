@@ -20,6 +20,11 @@ class Pokemon extends Model
         return $this->hasMany(Evolution::class);
     }
 
+    public function owner_favorites()
+    {
+        return $this->belongsToMany(Trainer::class, 'trainer_x_pokemon_favorites');
+    }
+
     public function scopeSearchByName($query)
     {
         return $query->where('name', 'LIKE', '%'.request('name').'%')
