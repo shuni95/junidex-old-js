@@ -35,14 +35,7 @@ class RegisterTrainerTest extends TestCase
     /** @test */
     public function user_cannot_register_without_name()
     {
-        $this->call('POST', '/trainers/register', [
-            'lastname' => 'Ketchum',
-            'birthday' => '1995-04-14',
-            'username' => 'KalosChampion',
-            'email' => 'ash_champion@test.com',
-            'password' => '123456',
-            'confirm_password' => '123456',
-        ]);
+        $this->call('POST', '/trainers/register', ['lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion', 'email' => 'ash_champion@test.com', 'password' => '123456', 'confirm_password' => '123456']);
 
         $this->assertSessionHasErrors(['name']);
     }
@@ -53,5 +46,27 @@ class RegisterTrainerTest extends TestCase
         $this->call('POST', '/trainers/register', []);
 
         $this->assertSessionHasErrors(['name', 'lastname', 'birthday', 'username', 'email', 'password']);
+    }
+
+    /** @test */
+    public function user_only_register_a_username_with_only_letters_and_numbers()
+    {
+        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'email' => 'ash_champion@test.com', 'password' => '123456', 'confirm_password' => '123456'];
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'Kalos Champion']));
+
+        $this->assertSessionHasErrors(['username']);
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'Kalos-Champion']));
+
+        $this->assertSessionHasErrors(['username']);
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'Kalos-Champion123']));
+
+        $this->assertSessionHasErrors(['username']);
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'KalosChampion123']));
+
+        $this->assertResponseStatus(200);
     }
 }
