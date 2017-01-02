@@ -17,7 +17,7 @@ class LoginAdminTest extends TestCase
     public function user_can_login_as_admin_in_application_using_the_email()
     {
         $role = Role::create(['id' => RoleConstants::ADMIN_ROLE, 'name' => 'admin']);
-        $user = factory(User::class)->create(['username'=> 'admin','email' => 'admin@admin.com', 'password' => bcrypt('123456')]);
+        $user = factory(User::class, 'admin')->create();
         $user->roles()->save($role);
 
         $this->call('POST', '/awesome/login', [

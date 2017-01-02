@@ -15,7 +15,7 @@ class LoginTrainerTest extends TestCase
     /** @test */
     public function user_can_login_as_trainer_in_application_using_the_email()
     {
-        $user = factory(User::class)->create(['username'=> 'KalosChampion','email' => 'ash_champion@test.com', 'password' => bcrypt('123456')]);
+        $user = factory(User::class, 'ash')->create();
         $trainer = Trainer::create(['user_id' => $user->id]);
 
         $this->call('POST', '/trainers/login', [
@@ -31,7 +31,7 @@ class LoginTrainerTest extends TestCase
     /** @test */
     public function user_not_trainers_cannot_login()
     {
-        $user = factory(User::class)->create(['username'=> 'KalosChampion','email' => 'ash_champion@test.com', 'password' => bcrypt('123456')]);
+        $user = factory(User::class, 'ash')->create();
 
         $this->call('POST', '/trainers/login', [
             'email'    => 'ash_champion@test.com',
@@ -46,7 +46,7 @@ class LoginTrainerTest extends TestCase
     /** @test */
     public function user_can_login_as_trainer_using_the_username()
     {
-        $user = factory(User::class)->create(['username'=> 'KalosChampion','email' => 'ash_champion@test.com', 'password' => bcrypt('123456')]);
+        $user = factory(User::class, 'ash')->create();
         $trainer = Trainer::create(['user_id' => $user->id]);
 
         $this->call('POST', '/trainers/login', [
