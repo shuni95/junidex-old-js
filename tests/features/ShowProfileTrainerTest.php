@@ -5,6 +5,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\User;
+use App\Role;
+use App\RoleConstants;
 use App\Trainer;
 
 class ShowProfileTrainerTest extends TestCase
@@ -69,6 +71,24 @@ class ShowProfileTrainerTest extends TestCase
         $this->actingAs($ash);
 
         $this->call('GET', '/trainers/profile/Alain123');
+
+        $this->assertRedirectedToRoute('app.trainers.register.showForm');
+    }
+
+    /** @test */
+    public function admin_user_must_login_as_trainer_to_enter_trainers_section()
+    {
+        $role = Role::create(['id' => RoleConstants::ADMIN_ROLE, 'name' => 'admin']);
+        $user = factory(User::class)->create(['username'=> 'admin','email' => 'admin@admin.com', 'password' => bcrypt('123456')]);
+
+        $user->roles()->save($role);
+
+        $this->call('POST', '/awesome/login', [
+            'email'    => 'admin@admin.com',
+            'password' => '123456',
+        ]);
+
+        $this->call('GET', '/trainers/me');
 
         $this->assertRedirectedToRoute('app.trainers.register.showForm');
     }
