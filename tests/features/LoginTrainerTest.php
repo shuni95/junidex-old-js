@@ -10,6 +10,7 @@ use App\Trainer;
 class LoginTrainerTest extends TestCase
 {
     use DatabaseMigrations;
+    use WithoutMiddleware;
 
     /** @test */
     public function user_can_login_as_trainer_in_application_using_the_email()

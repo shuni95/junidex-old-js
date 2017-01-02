@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTrainerTest extends TestCase
 {
+    use WithoutMiddleware;
     use DatabaseMigrations;
 
     /** @test */

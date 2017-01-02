@@ -8,9 +8,14 @@ use Auth;
 
 class AdminDashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth.admin']);
+    }
+
     public function index()
     {
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
 
         return view('admin.dashboard', ['user' => $user]);
     }

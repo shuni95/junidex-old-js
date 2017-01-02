@@ -10,12 +10,12 @@ class TrainerDashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth.trainer']);
     }
 
     public function index()
     {
-        $user = Auth::user();
+        $user = Auth::guard('trainer')->user();
 
         return view('app.trainers.dashboard', ['user' => $user]);
     }

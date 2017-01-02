@@ -8,6 +8,7 @@ use App\User;
 use App\RoleConstants;
 
 use Auth;
+use Hash;
 
 class AdminLoginController extends Controller
 {
