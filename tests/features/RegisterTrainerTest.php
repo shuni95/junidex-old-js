@@ -103,4 +103,22 @@ class RegisterTrainerTest extends TestCase
         $this->followRedirects();
         $this->seePageIs('/trainers/thanks_for_register');
     }
+
+    /** @test */
+    public function user_only_can_register_with_valid_email()
+    {
+        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion', 'password' => '123456', 'confirm_password' => '123456'];
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['email' => 'test']));
+
+        $this->assertSessionHasErrors(['email']);
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['email' => 'test()@test.com']));
+
+        $this->assertSessionHasErrors(['email']);
+
+        $this->call('POST', '/trainers/register', array_merge($user, ['email' => 'test@test.com']));
+        $this->followRedirects();
+        $this->seePageIs('/trainers/thanks_for_register');
+    }
 }
