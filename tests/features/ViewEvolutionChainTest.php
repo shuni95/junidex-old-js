@@ -34,7 +34,7 @@ class ViewEvolutionChainTest extends TestCase
     public function user_can_view_evolutions_of_pokemon_that_only_evolves_with_evolutionary_stone()
     {
         $growlithe = factory(Pokemon::class)->create(['name' => 'Growlithe']);
-        $arcanine = factory(Pokemon::class)->create(['name' => 'Arcanine']);
+        $arcanine = Pokemon::where('name', 'Arcanine')->first();
 
         $stone_method = factory(EvolutionMethod::class, 'evolutionary_stone')->create();
 
@@ -47,9 +47,9 @@ class ViewEvolutionChainTest extends TestCase
     /** @test */
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_level_and_megastone()
     {
-        $charmander = factory(Pokemon::class)->create(['name' => 'Charmander']);
+        $charmander = Pokemon::where('name', 'Charmander')->first();
         $charmeleon = factory(Pokemon::class)->create(['name' => 'Charmeleon']);
-        $charizard = factory(Pokemon::class)->create(['name' => 'Charizard']);
+        $charizard = Pokemon::where('name', 'Charizard')->first();
         $mega_charizard_x = factory(Pokemon::class)->create(['name' => 'Mega Charizard X']);
         $mega_charizard_y = factory(Pokemon::class)->create(['name' => 'Mega Charizard Y']);
 
@@ -112,7 +112,7 @@ class ViewEvolutionChainTest extends TestCase
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_friendship()
     {
         $pichu = factory(Pokemon::class)->create(['name' => 'Pichu']);
-        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        $pikachu = Pokemon::where('name', 'Pikachu')->first();;
         $raichu = factory(Pokemon::class)->create(['name' => 'Raichu']);
 
         $friendship_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::FRIENDSHIP_METHOD, 'name' => 'by friendship']);
