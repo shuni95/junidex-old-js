@@ -8,6 +8,11 @@ use Carbon\Carbon;
 
 class TrainerRegisterRequest extends FormRequest
 {
+    public function __construct()
+    {
+        $this->redirectRoute = 'app.trainers.register.showForm';
+    }
+
     public function authorize()
     {
         return true;
@@ -24,6 +29,13 @@ class TrainerRegisterRequest extends FormRequest
             'email' => 'required|email',
             'username' => 'required|alpha_num',
             'password' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'The trainer\'s first name is required.'
         ];
     }
 }
