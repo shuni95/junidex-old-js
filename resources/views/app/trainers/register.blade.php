@@ -69,7 +69,7 @@
           </div>
           <div class="eight wide field">
             <label>Confirm Password</label>
-            <input type="password" name="confirm_password">
+            <input type="password" name="password_confirmation">
           </div>
         </div>
         <div class="field"></div>

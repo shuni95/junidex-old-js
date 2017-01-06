@@ -30,7 +30,7 @@ class TrainerRegisterRequest extends FormRequest
             'birthday' => 'required|before:' . $ten_year_ago,
             'email'    => 'required|email|unique:users',
             'username' => 'required|alpha_num|unique:users',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ];
 
         $user = User::seek()->first();
@@ -46,10 +46,11 @@ class TrainerRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => 'The trainer\'s first name is required.',
-            'lastname.required' => 'The trainer\'s last name is required.',
-            'username.unique'   => 'The username has already exists.',
-            'email.unique'      => 'The email has already exists.',
+            'name.required'      => 'The trainer\'s first name is required.',
+            'lastname.required'  => 'The trainer\'s last name is required.',
+            'username.unique'    => 'The username has already exists.',
+            'email.unique'       => 'The email has already exists.',
+            'password.confirmed' => 'Choose a password you can remember.',
         ];
     }
 }
