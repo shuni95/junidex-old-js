@@ -5,9 +5,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\User;
-use App\Role;
-use App\RoleConstants;
 use App\Trainer;
+use App\Admin;
 
 class ShowProfileTrainerTest extends TestCase
 {
@@ -78,9 +77,8 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function admin_user_must_login_as_trainer_to_enter_trainers_section()
     {
-        $role = Role::create(['id' => RoleConstants::ADMIN_ROLE, 'name' => 'admin']);
         $user = factory(User::class, 'admin')->create();
-        $user->roles()->save($role);
+        Admin::create(['user_id' => $user->id]);
 
         $this->call('POST', '/awesome/login', [
             'email'    => 'admin@admin.com',

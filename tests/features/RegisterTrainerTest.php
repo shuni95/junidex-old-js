@@ -156,4 +156,9 @@ class RegisterTrainerTest extends TestCase
         $this->see('The email has already exists');
     }
 
+    // /** @test */
+    // public function admin_user_can_register_as_trainer()
+    // {
+
+    // }
 }

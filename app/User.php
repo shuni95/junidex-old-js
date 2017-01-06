@@ -36,9 +36,9 @@ class User extends Authenticatable
         return $this->hasOne(Trainer::class);
     }
 
-    public function roles()
+    public function admin()
     {
-        return $this->belongsToMany(Role::class, 'user_x_roles');
+        return $this->hasOne(Admin::class);
     }
 
     public function getBirthdayFormattedAttribute()

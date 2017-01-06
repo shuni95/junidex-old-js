@@ -23,9 +23,7 @@ class AdminLoginController extends Controller
         ->orWhere('username', request('username'))
         ->first();
 
-        $is_admin = $user->roles->contains(function($role) {
-            return $role->id == RoleConstants::ADMIN_ROLE;
-        });
+        $is_admin = $user->admin;
 
         if ($is_admin && Hash::check(request('password'), $user->password)) {
             Auth::guard('admin')->login($user);
