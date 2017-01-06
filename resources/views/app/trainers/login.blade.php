@@ -13,6 +13,9 @@
     <div class="row">
       <img class="ui image" src="{{ asset('img/PokemonSymbol.svg') }}"/>
     </div>
+    <div class="row">
+      <h1>Trainer's Zone</h1>
+    </div>
     @if (session('error_message'))
     <div class="row">
       <div class="ui sixteen wide mobile ten wide tablet six wide computer column">
@@ -23,7 +26,7 @@
     </div>
     @endif
     <div class="row">
-      <div class="ui form sixteen wide mobile ten wide tablet six wide computer column">
+      <div class="ui huge form sixteen wide mobile ten wide tablet six wide computer column">
         <form method="POST">
           {{ csrf_field() }}
           <div class="field">
@@ -34,7 +37,7 @@
           </div>
           <div class="ui center aligned grid">
             <div class="ui column">
-              <button class="large ui fluid button blue" type="submit">Login</button>
+              <button class="huge ui fluid button blue" type="submit">Login</button>
             </div>
           </div>
         </form>
