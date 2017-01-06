@@ -22,7 +22,7 @@ class TrainerLoginController extends Controller
         ->orWhere('username', request('username'))
         ->first();
 
-        if (Hash::check(request('password'), $user->password)) {
+        if ($user && Hash::check(request('password'), $user->password)) {
             if ($user->trainer) {
                 Auth::guard('trainer')->login($user);
                 return redirect()->route('app.trainers.dashboard');
