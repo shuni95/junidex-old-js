@@ -193,4 +193,24 @@ class RegisterTrainerTest extends TestCase
 
         $this->see('Choose a password you can remember.');
     }
+
+    /** @test */
+    public function user_can_see_old_input_when_fails_the_register_except_password()
+    {
+        $this->visit('/trainers/register')
+             ->type('Ash', 'name')
+             ->type('Ketchum', 'lastname')
+             ->type('1995-04-14', 'birthday')
+             ->type('KalosChampion', 'username')
+             ->type('ash_champion@test.com', 'email')
+             ->type('123456', 'password')
+             ->type('1234567', 'password_confirmation')
+             ->press('Register');
+
+        $this->see('Ash')
+             ->see('Ketchum')
+             ->see('1995-04-14')
+             ->see('KalosChampion')
+             ->see('ash_champion@test.com');
+    }
 }
