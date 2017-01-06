@@ -38,29 +38,29 @@
           <label>Name</label>
           <div class="two fields">
             <div class="field">
-              <input type="text" name="name" placeholder="First Name">
+              <input type="text" name="name" placeholder="First Name" value="{{ old('name') }}">
             </div>
             <div class="field">
-              <input type="text" name="lastname" placeholder="Last Name">
+              <input type="text" name="lastname" placeholder="Last Name" value="{{ old('lastname') }}">
             </div>
           </div>
         </div>
         <div class="field">
           <label>Birthday</label>
           <div class="field">
-            <input type="date" name="birthday" placeholder="{{ date('Y-m-d') }}">
+            <input type="date" name="birthday" placeholder="{{ date('Y-m-d') }}" value="{{ old('birthday') }}">
           </div>
         </div>
         <h4 class="ui dividing header">Credentials</h4>
         <div class="field">
           <label>Username</label>
           <div class="field">
-            <input type="text" name="username" placeholder="Username">
+            <input type="text" name="username" placeholder="Username" value="{{ old('username') }}">
           </div>
         </div>
         <div class="field">
           <label>Email</label>
-          <input type="text" name="email" placeholder="Email">
+          <input type="text" name="email" placeholder="Email" value="{{ old('email') }}">
         </div>
         <div class="fields">
           <div class="eight wide field">

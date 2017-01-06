@@ -10,7 +10,6 @@ use App\Admin;
 
 class RegisterTrainerTest extends TestCase
 {
-    use WithoutMiddleware;
     use DatabaseTransactions;
 
     /** @test */
