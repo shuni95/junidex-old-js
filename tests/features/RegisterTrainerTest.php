@@ -123,16 +123,16 @@ class RegisterTrainerTest extends TestCase
     }
 
     /** @test */
-    public function user_can_see_error_messages_when_name_is_blank()
+    public function user_can_see_error_messages_when_first_name_and_lastname_is_blank()
     {
         $this->visit('/trainers/register')
-             ->type('Ketchum', 'lastname')
              ->type('1995-04-14', 'birthday')
              ->type('KalosChampion', 'username')
              ->type('ash_champion@test.com', 'email')
              ->type('123456', 'password')
              ->type('123456', 'confirm_password')
              ->press('Register')
-             ->see('The trainer\'s first name is required');
+             ->see('The trainer\'s first name is required.')
+             ->see('The trainer\'s last name is required.');
     }
 }
