@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use Carbon\Carbon;
+use App\User;
 
 class RegisterTrainerTest extends TestCase
 {
@@ -135,4 +136,23 @@ class RegisterTrainerTest extends TestCase
              ->see('The trainer\'s first name is required.')
              ->see('The trainer\'s last name is required.');
     }
+
+    /** @test */
+    public function user_cannot_register_when_username_or_email_already_exists()
+    {
+        factory(User::class, 'default')->create(['username' => 'Pikachu123', 'email' => 'abc@test.com']);
+
+        $this->visit('/trainers/register')
+             ->type('test', 'name')
+             ->type('test', 'lastname')
+             ->type('1995-04-14', 'birthday')
+             ->type('Pikachu123', 'username')
+             ->type('ash_champion@test.com', 'email')
+             ->type('123456', 'password')
+             ->type('123456', 'confirm_password')
+             ->press('Register');
+
+        $this->see('The username has already exists');
+    }
+
 }
