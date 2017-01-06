@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use Carbon\Carbon;
 use App\User;
+use App\Admin;
 
 class RegisterTrainerTest extends TestCase
 {
@@ -162,7 +163,7 @@ class RegisterTrainerTest extends TestCase
     public function admin_user_can_register_as_trainer_ignore_all_fields_of_user()
     {
         $admin_test = factory(User::class, 'default')->create(['username' => 'adminTest', 'email' => 'admin@test.com']);
-        Admin::create(['user_id', $admin_test->id]);
+        Admin::create(['user_id' => $admin_test->id]);
 
         $this->visit('/trainers/register')
              ->type('test', 'name')

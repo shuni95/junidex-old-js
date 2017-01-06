@@ -45,4 +45,10 @@ class User extends Authenticatable
     {
         return $this->birthday->format('d/m/Y');
     }
+
+    public function scopeSeek($query)
+    {
+        return $query->where('username', request('username'))
+        ->orWhere('email', request('email'));
+    }
 }

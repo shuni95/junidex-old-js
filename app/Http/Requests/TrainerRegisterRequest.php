@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use Carbon\Carbon;
 
+use App\User;
+
 class TrainerRegisterRequest extends FormRequest
 {
     public function __construct()
@@ -22,7 +24,7 @@ class TrainerRegisterRequest extends FormRequest
     {
         $ten_year_ago = Carbon::today()->subYears(10)->addDay()->toDateString();
 
-        return [
+        $rules = [
             'name'     => 'required',
             'lastname' => 'required',
             'birthday' => 'required|before:' . $ten_year_ago,
@@ -30,6 +32,15 @@ class TrainerRegisterRequest extends FormRequest
             'username' => 'required|alpha_num|unique:users',
             'password' => 'required',
         ];
+
+        $user = User::seek()->first();
+
+        if ($user && $user->admin) {
+            unset($rules['email']);
+            unset($rules['username']);
+        }
+
+        return $rules;
     }
 
     public function messages()
