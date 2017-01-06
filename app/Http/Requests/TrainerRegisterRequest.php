@@ -23,11 +23,11 @@ class TrainerRegisterRequest extends FormRequest
         $ten_year_ago = Carbon::today()->subYears(10)->addDay()->toDateString();
 
         return [
-            'name' => 'required',
+            'name'     => 'required',
             'lastname' => 'required',
             'birthday' => 'required|before:' . $ten_year_ago,
-            'email' => 'required|email',
-            'username' => 'required|alpha_num',
+            'email'    => 'required|email',
+            'username' => 'required|alpha_num|unique:users',
             'password' => 'required',
         ];
     }
@@ -35,8 +35,9 @@ class TrainerRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The trainer\'s first name is required.',
-            'lastname.required' => 'The trainer\'s last name is required.'
+            'name.required'     => 'The trainer\'s first name is required.',
+            'lastname.required' => 'The trainer\'s last name is required.',
+            'username.unique'   => 'The username has already exists.',
         ];
     }
 }
