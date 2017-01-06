@@ -147,12 +147,13 @@ class RegisterTrainerTest extends TestCase
              ->type('test', 'lastname')
              ->type('1995-04-14', 'birthday')
              ->type('Pikachu123', 'username')
-             ->type('ash_champion@test.com', 'email')
+             ->type('abc@test.com', 'email')
              ->type('123456', 'password')
              ->type('123456', 'confirm_password')
              ->press('Register');
 
         $this->see('The username has already exists');
+        $this->see('The email has already exists');
     }
 
 }
