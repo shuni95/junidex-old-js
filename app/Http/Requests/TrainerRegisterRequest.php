@@ -35,7 +35,8 @@ class TrainerRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The trainer\'s first name is required.'
+            'name.required' => 'The trainer\'s first name is required.',
+            'lastname.required' => 'The trainer\'s last name is required.'
         ];
     }
 }
