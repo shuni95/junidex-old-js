@@ -156,9 +156,24 @@ class RegisterTrainerTest extends TestCase
         $this->see('The email has already exists');
     }
 
-    // /** @test */
-    // public function admin_user_can_register_as_trainer()
-    // {
+    /** @test
+    * Description: Identify if the username or the email is of a admin user
+    */
+    public function admin_user_can_register_as_trainer_ignore_all_fields_of_user()
+    {
+        $admin_test = factory(User::class, 'default')->create(['username' => 'adminTest', 'email' => 'admin@test.com']);
+        Admin::create(['user_id', $admin_test->id]);
 
-    // }
+        $this->visit('/trainers/register')
+             ->type('test', 'name')
+             ->type('test', 'lastname')
+             ->type('1995-04-14', 'birthday')
+             ->type('adminTest', 'username')
+             ->type('abc@test.com', 'email')
+             ->type('123456', 'password')
+             ->type('123456', 'confirm_password')
+             ->press('Register');
+
+        $this->seePageIs('/trainers/thanks_for_register');
+    }
 }
