@@ -43,6 +43,11 @@
         </form>
       </div>
     </div>
+    <div class="row">
+      <div class="ui green segment">
+      <p>Don't have an account? <a href="{{ route('app.trainers.register.showForm') }}">Register here</a></p>
+      </div>
+    </div>
   </div>
 </body>
 </html>
