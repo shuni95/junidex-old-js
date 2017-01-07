@@ -10,9 +10,7 @@
   <style type="text/css">
     body {
       background-color: #555;
-      background: linear-gradient(#000, #555);
-      background-repeat: no-repeat;
-      background-size: cover;
+      background: linear-gradient(to left, #000, #444);
     }
   </style>
 </head>
