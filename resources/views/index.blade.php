@@ -18,9 +18,13 @@
       </div>
       <div class="right menu">
       <div class="item">
+        @if (Auth::guard('trainer')->check())
+          {{ Auth::guard('trainer')->user()->user->username }}
+        @else
         <a class="ui inverted button" href="{{ route('app.trainers.login.showForm') }}">
           Login
         </a>
+        @endif
       </div>
       </div>
     </div>

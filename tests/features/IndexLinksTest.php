@@ -22,10 +22,10 @@ class IndexLinksTest extends TestCase
     /** @test */
     public function trainer_can_see_its_username_instead_of_login_button()
     {
-        $ash = factory(User::class, 'ash')->create();
-        Trainer::create(['user_id' => $ash->id]);
+        $ash = factory(User::class, 'ash')->make();
+        $trainer = User::where('username', $ash->username)->first()->trainer;
 
-        $this->actingAs($ash, 'trainer');
+        $this->actingAs($trainer, 'trainer');
 
         $this->visit('/')
              ->see('KalosChampion')

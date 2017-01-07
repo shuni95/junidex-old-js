@@ -19,7 +19,7 @@ class TrainerLoginController extends Controller
     public function login()
     {
         $user = User::where('email', request('email'))
-        ->orWhere('username', request('username'))
+        ->orWhere('username', request('email'))
         ->first();
 
         if ($user && Hash::check(request('password'), $user->password)) {
