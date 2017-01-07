@@ -19,8 +19,8 @@ class RegisterTrainerTest extends TestCase
              ->type('Ash', 'name')
              ->type('Ketchum', 'lastname')
              ->type('1995-04-14', 'birthday')
-             ->type('KalosChampion', 'username')
-             ->type('ash_champion@test.com', 'email')
+             ->type('KalosChampion2', 'username')
+             ->type('ash_champion2@test.com', 'email')
              ->type('123456', 'password')
              ->type('123456', 'password_confirmation')
              ->press('Register')
@@ -38,7 +38,7 @@ class RegisterTrainerTest extends TestCase
     /** @test */
     public function user_cannot_register_without_name()
     {
-        $this->call('POST', '/trainers/register', ['lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion', 'email' => 'ash_champion@test.com', 'password' => '123456', 'password_confirmation' => '123456']);
+        $this->call('POST', '/trainers/register', ['lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion2', 'email' => 'ash_champion2@test.com', 'password' => '123456', 'password_confirmation' => '123456']);
 
         $this->assertSessionHasErrors(['name']);
     }
@@ -54,7 +54,7 @@ class RegisterTrainerTest extends TestCase
     /** @test */
     public function user_only_register_a_username_with_only_letters_and_numbers()
     {
-        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'email' => 'ash_champion@test.com', 'password' => '123456', 'password_confirmation' => '123456'];
+        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'email' => 'ash_champion2@test.com', 'password' => '123456', 'password_confirmation' => '123456'];
 
         $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'Kalos Champion']));
 
@@ -68,7 +68,7 @@ class RegisterTrainerTest extends TestCase
 
         $this->assertSessionHasErrors(['username']);
 
-        $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'KalosChampion123']));
+        $this->call('POST', '/trainers/register', array_merge($user, ['username' => 'KalosChampion2123']));
         $this->followRedirects();
         $this->seePageIs('/trainers/thanks_for_register');
     }
@@ -76,7 +76,7 @@ class RegisterTrainerTest extends TestCase
     /** @test */
     public function user_only_register_if_age_is_greater_than_ten()
     {
-        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'email' => 'ash_champion@test.com', 'username' => 'KalosChampion', 'password' => '123456', 'password_confirmation' => '123456'];
+        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'email' => 'ash_champion2@test.com', 'username' => 'KalosChampion2', 'password' => '123456', 'password_confirmation' => '123456'];
 
         $today = Carbon::today();
 
@@ -108,7 +108,7 @@ class RegisterTrainerTest extends TestCase
     /** @test */
     public function user_only_can_register_with_valid_email()
     {
-        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion', 'password' => '123456', 'password_confirmation' => '123456'];
+        $user = ['name' => 'ash', 'lastname' => 'Ketchum', 'birthday' => '1995-04-14', 'username' => 'KalosChampion2', 'password' => '123456', 'password_confirmation' => '123456'];
 
         $this->call('POST', '/trainers/register', array_merge($user, ['email' => 'test']));
 
@@ -128,8 +128,8 @@ class RegisterTrainerTest extends TestCase
     {
         $this->visit('/trainers/register')
              ->type('1995-04-14', 'birthday')
-             ->type('KalosChampion', 'username')
-             ->type('ash_champion@test.com', 'email')
+             ->type('KalosChampion2', 'username')
+             ->type('ash_champion2@test.com', 'email')
              ->type('123456', 'password')
              ->type('123456', 'password_confirmation')
              ->press('Register')
@@ -184,8 +184,8 @@ class RegisterTrainerTest extends TestCase
              ->type('Ash', 'name')
              ->type('Ketchum', 'lastname')
              ->type('1995-04-14', 'birthday')
-             ->type('KalosChampion', 'username')
-             ->type('ash_champion@test.com', 'email')
+             ->type('KalosChampion2', 'username')
+             ->type('ash_champion2@test.com', 'email')
              ->type('123456', 'password')
              ->type('1234567', 'password_confirmation')
              ->press('Register');
@@ -200,8 +200,8 @@ class RegisterTrainerTest extends TestCase
              ->type('Ash', 'name')
              ->type('Ketchum', 'lastname')
              ->type('1995-04-14', 'birthday')
-             ->type('KalosChampion', 'username')
-             ->type('ash_champion@test.com', 'email')
+             ->type('KalosChampion2', 'username')
+             ->type('ash_champion2@test.com', 'email')
              ->type('123456', 'password')
              ->type('1234567', 'password_confirmation')
              ->press('Register');
@@ -209,7 +209,7 @@ class RegisterTrainerTest extends TestCase
         $this->see('Ash')
              ->see('Ketchum')
              ->see('1995-04-14')
-             ->see('KalosChampion')
-             ->see('ash_champion@test.com');
+             ->see('KalosChampion2')
+             ->see('ash_champion2@test.com');
     }
 }
