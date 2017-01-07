@@ -11,24 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+$router->get('/', function () {
     return view('welcome');
 });
 
-Route::get('/searchPokemon', ['as' => 'app.search_pokemon', 'uses' => 'PokemonSearchController@index']);
-Route::get('/evolution_chain/{name}', ['as' => 'app.evolution_chain', 'uses' => 'EvolutionChainPokemonController@show']);
+$router->get('/searchPokemon', ['as' => 'app.search_pokemon', 'uses' => 'PokemonSearchController@index']);
+$router->get('/evolution_chain/{name}', ['as' => 'app.evolution_chain', 'uses' => 'EvolutionChainPokemonController@show']);
 
-Route::get('/trainers/register', ['as' => 'app.trainers.register.showForm', 'uses' => 'TrainerRegisterController@create']);
-Route::post('/trainers/register', ['as' => 'app.trainers.register.store', 'uses' => 'TrainerRegisterController@store']);
-Route::get('/trainers/thanks_for_register', ['as' => 'app.trainers.register.thanks', 'uses' => 'TrainerRegisterController@thanks']);
-Route::get('/trainers/login', ['as' => 'app.trainers.login.showForm', 'uses' => 'TrainerLoginController@create']);
-Route::post('/trainers/login', ['as' => 'app.trainers.login.authenticate', 'uses' => 'TrainerLoginController@login']);
-Route::get('/trainers/dashboard', ['as' => 'app.trainers.dashboard', 'uses' => 'TrainerDashboardController@index']);
-Route::get('/trainers/me', ['as' => 'app.trainers.profile.me', 'uses' => 'TrainerProfileController@myself']);
-Route::get('/trainers/profile/{username}', ['as' => 'app.trainers.profile.show', 'uses' => 'TrainerProfileController@show']);
+$router->get('/awesome/dashboard', ['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
+$router->get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create']);
+$router->post('/awesome/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLoginController@login']);
 
-Route::get('/awesome/dashboard', ['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
-Route::get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create']);
-Route::post('/awesome/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLoginController@login']);
-
-Route::post('/pokemon/add_to_favorites', ['as' => 'app.trainers.pokemon_favorites.add', 'uses' => 'PokemonFavoriteListController@addPokemon']);
+$router->post('/pokemon/add_to_favorites', ['as' => 'app.trainers.pokemon_favorites.add', 'uses' => 'PokemonFavoriteListController@addPokemon']);

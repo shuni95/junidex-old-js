@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapTrainerZoneRoutes();
     }
 
     /**
@@ -74,6 +74,17 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'api',
         ], function ($router) {
             require base_path('routes/api.php');
+        });
+    }
+
+    protected function mapTrainerZoneRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace.'\Trainer',
+            'prefix' => 'trainers',
+        ], function ($router) {
+            require base_path('routes/trainer_zone.php');
         });
     }
 }
