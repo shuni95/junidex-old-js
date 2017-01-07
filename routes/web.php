@@ -12,7 +12,7 @@
 */
 
 $router->get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 $router->get('/searchPokemon', ['as' => 'app.search_pokemon', 'uses' => 'PokemonSearchController@index']);
