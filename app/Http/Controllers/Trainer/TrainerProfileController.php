@@ -23,8 +23,6 @@ class TrainerProfileController extends Controller
 
     public function show($username)
     {
-        $user = Auth::guard('trainer')->user();
-
         $user = User::where('username', $username)->firstOrFail();
 
         return view('app.trainers.show_profile', ['user' => $user]);

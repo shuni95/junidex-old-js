@@ -15,10 +15,10 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function trainer_can_see_his_own_profile()
     {
-        $user = factory(User::class, 'ash')->create();
-        Trainer::create(['user_id' => $user->id]);
+        $ash = factory(User::class, 'ash')->make();
+        $ash = User::where('username', $ash->username)->first();
 
-        $this->actingAs($user, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
         $this->visit('/trainers/me')
              ->see('Ash')
@@ -31,10 +31,8 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function trainer_can_see_other_trainer_profile()
     {
-        $ash = factory(User::class, 'ash')->create();
-        Trainer::create(['user_id' => $ash->id]);
-        $alain = factory(User::class, 'alain')->create();
-        Trainer::create(['user_id' => $alain->id]);
+        $ash = factory(User::class, 'ash')->make();
+        $ash = User::where('username', $ash->username)->first();
 
         $this->actingAs($ash, 'trainer');
 
@@ -50,12 +48,12 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function trainer_cannot_see_other_trainer_profile_that_doesnot_exists()
     {
-        $ash = factory(User::class, 'ash')->create();
-        Trainer::create(['user_id' => $ash->id]);
+        $ash = factory(User::class, 'ash')->make();
+        $ash = User::where('username', $ash->username)->first();
 
         $this->actingAs($ash, 'trainer');
 
-        $this->call('GET', '/trainers/profile/Alain123');
+        $this->call('GET', '/trainers/profile/Alain1234');
 
         $this->assertResponseStatus(404);
     }
@@ -63,11 +61,10 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function user_not_trainer_cannot_see_trainer_profile_and_redirects_to_register()
     {
-        $ash = factory(User::class, 'ash')->create();
-        $alain = factory(User::class, 'alain')->create();
-        Trainer::create(['user_id' => $alain->id]);
+        $admin = factory(User::class, 'admin')->make();
+        $admin = User::where('username', $admin->username)->first();
 
-        $this->actingAs($ash, 'admin');
+        $this->actingAs($admin, 'admin');
 
         $this->call('GET', '/trainers/profile/Alain123');
 
@@ -77,9 +74,6 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function admin_user_must_login_as_trainer_to_enter_trainers_section()
     {
-        $user = factory(User::class, 'admin')->create();
-        Admin::create(['user_id' => $user->id]);
-
         $this->call('POST', '/awesome/login', [
             'email'    => 'admin@admin.com',
             'password' => '123456',
