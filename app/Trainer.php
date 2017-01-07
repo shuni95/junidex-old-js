@@ -4,8 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Trainer extends Model
+use Illuminate\Auth\Authenticatable;
+
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+
+class Trainer extends Model implements AuthenticatableContract
 {
+    use Authenticatable;
+
     public $primaryKey = 'user_id';
 
     protected $guarded = [];
