@@ -59,7 +59,7 @@ class LoginTrainerTest extends TestCase
         $user = User::where('username', $ash->username)->first();
         $ash_trainer = Trainer::find($user->id);
 
-        $this->actingAs($ash_trainer);
+        $this->actingAs($ash_trainer, 'trainer');
 
         $this->visit('/trainers/login');
 
