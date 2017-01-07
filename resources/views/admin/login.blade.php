@@ -9,7 +9,8 @@
   <script src="{{ asset('/semantic.min.js') }}"></script>
   <style type="text/css">
     body {
-      background-image: url("{{ asset('img/admin/background-login.jpg') }}");
+      background-color: #555;
+      background: linear-gradient(#000, #555);
       background-repeat: no-repeat;
       background-size: cover;
     }
