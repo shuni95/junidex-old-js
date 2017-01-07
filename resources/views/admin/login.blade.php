@@ -9,7 +9,7 @@
   <script src="{{ asset('/semantic.min.js') }}"></script>
   <style type="text/css">
     body {
-      background-image: url('/img/admin/background-login.jpg');
+      background-image: url("{{ asset('img/admin/background-login.jpg') }}");
       background-repeat: no-repeat;
       background-size: cover;
     }
