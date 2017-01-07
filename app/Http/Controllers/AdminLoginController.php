@@ -14,7 +14,7 @@ class AdminLoginController extends Controller
 {
     public function create()
     {
-
+        return view('admin.login');
     }
 
     public function login()
@@ -23,7 +23,7 @@ class AdminLoginController extends Controller
         ->orWhere('username', request('username'))
         ->first();
 
-        $is_admin = $user->admin;
+        $is_admin = $user ? $user->admin : null;
 
         if ($is_admin && Hash::check(request('password'), $user->password)) {
             Auth::guard('admin')->login($user);
@@ -31,6 +31,6 @@ class AdminLoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('admin.login.showForm');
+        return redirect()->route('admin.login.showForm')->with('error_message', 'Invalid credentials.');
     }
 }
