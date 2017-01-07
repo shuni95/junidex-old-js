@@ -10,7 +10,6 @@ use App\Trainer;
 class LoginTrainerTest extends TestCase
 {
     use DatabaseTransactions;
-    use WithoutMiddleware;
 
     /** @test */
     public function user_can_login_as_trainer_in_application_using_the_email()
@@ -50,6 +49,20 @@ class LoginTrainerTest extends TestCase
 
         $this->assertRedirectedToRoute('app.trainers.dashboard');
         $this->followRedirects();
+        $this->see('Welcome KalosChampion!');
+    }
+
+    /** @test */
+    public function trainer_logged_redirect_to_dashboard()
+    {
+        $ash = factory(User::class, 'ash')->make();
+        $user = User::where('username', $ash->username)->first();
+        $ash_trainer = Trainer::find($user->id);
+
+        $this->actingAs($ash_trainer);
+
+        $this->visit('/trainers/login');
+
         $this->see('Welcome KalosChampion!');
     }
 }

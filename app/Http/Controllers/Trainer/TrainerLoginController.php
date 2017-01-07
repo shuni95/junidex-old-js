@@ -24,7 +24,7 @@ class TrainerLoginController extends Controller
 
         if ($user && Hash::check(request('password'), $user->password)) {
             if ($user->trainer) {
-                Auth::guard('trainer')->login($user);
+                Auth::guard('trainer')->login($user->trainer);
                 return redirect()->route('app.trainers.dashboard');
             }
         }

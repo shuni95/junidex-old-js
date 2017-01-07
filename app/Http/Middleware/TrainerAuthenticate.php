@@ -18,7 +18,7 @@ class TrainerAuthenticate
     {
         $user = Auth::guard('trainer')->user();
 
-        if (is_null($user) || !$user->trainer) {
+        if (is_null($user)) {
             return redirect()->route('app.trainers.login.showForm');
         }
 

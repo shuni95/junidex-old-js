@@ -15,8 +15,8 @@ class TrainerDashboardController extends Controller
 
     public function index()
     {
-        $user = Auth::guard('trainer')->user();
+        $trainer = Auth::guard('trainer')->user();
 
-        return view('app.trainers.dashboard', ['user' => $user]);
+        return view('app.trainers.dashboard', ['user' => $trainer->user]);
     }
 }
