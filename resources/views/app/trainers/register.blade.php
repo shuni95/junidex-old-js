@@ -47,32 +47,37 @@
         </div>
         <div class="field">
           <label>Birthday</label>
-          <div class="field">
-            <input type="date" name="birthday" placeholder="{{ date('Y-m-d') }}" value="{{ old('birthday') }}">
+          <div class="two fields">
+            <div class="field">
+              <input type="date" name="birthday" placeholder="{{ date('Y-m-d') }}" value="{{ old('birthday') }}">
+            </div>
           </div>
         </div>
         <h4 class="ui dividing header">Credentials</h4>
         <div class="field">
-          <label>Username</label>
-          <div class="field">
-            <input type="text" name="username" placeholder="Username" value="{{ old('username') }}">
+          <div class="two fields">
+            <div class="field">
+              <label>Username</label>
+              <input type="text" name="username" placeholder="Username" value="{{ old('username') }}">
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input type="text" name="email" placeholder="Email" value="{{ old('email') }}">
+            </div>
           </div>
         </div>
         <div class="field">
-          <label>Email</label>
-          <input type="text" name="email" placeholder="Email" value="{{ old('email') }}">
-        </div>
-        <div class="fields">
-          <div class="eight wide field">
-            <label>Password</label>
-            <input type="password" name="password">
-          </div>
-          <div class="eight wide field">
-            <label>Confirm Password</label>
-            <input type="password" name="password_confirmation">
+          <div class="two fields">
+            <div class="field">
+              <label>Password</label>
+              <input type="password" name="password">
+            </div>
+            <div class="field">
+              <label>Confirm Password</label>
+              <input type="password" name="password_confirmation">
+            </div>
           </div>
         </div>
-        <div class="field"></div>
         <div class="ui center aligned grid">
           <div class="ui sixteen wide mobile six wide computer column">
             <button class="large ui fluid button blue" type="submit">Register</button>
