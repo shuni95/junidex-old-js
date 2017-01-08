@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+@extends('app.layouts.base')
 
-  <title>Login - Trainers</title>
-  <link rel="stylesheet" type="text/css" href="{{ asset('/semantic.min.css') }}">
-  <script src="{{ asset('/jquery-3.1.1.min.js') }}"></script>
-  <script src="{{ asset('/semantic.min.js') }}"></script>
-</head>
-<body>
+@section('title', 'Login')
+
+@section('content')
   <div class="ui container grid center aligned">
     <div class="row">
-      <img class="ui image" src="{{ asset('img/PokemonSymbol.svg') }}"/>
+      <img style="width: 130px; height: 130px;" class="ui image" src="{{ asset('img/PokemonSymbol.svg') }}"/>
     </div>
     <div class="row">
       <h1>Trainer's Zone</h1>
@@ -49,5 +43,4 @@
       </div>
     </div>
   </div>
-</body>
-</html>
+@endsection

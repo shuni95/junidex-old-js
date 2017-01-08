@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+@extends('app.layouts.base')
 
-  <title>Register trainer</title>
-  <link rel="stylesheet" type="text/css" href="{{ asset('/semantic.min.css') }}">
-  <script src="{{ asset('/jquery-3.1.1.min.js') }}"></script>
-  <script src="{{ asset('/semantic.min.js') }}"></script>
-</head>
-<body>
+@section('title', 'Register')
+
+@section('content')
   <div class="ui container grid">
-    <div class="row"></div>
     @if (session('errors'))
     <div class="row">
       <div class="one wide tablet two wide computer column"></div>
@@ -88,11 +81,12 @@
       <div class="one wide tablet two wide computer column"></div>
     </div>
   </div>
+@endsection
 
-  <script>
-    $('.message .close').on('click', function() {
-      $(this).closest('.message').transition('fade');
-    });
-  </script>
-</body>
-</html>
+@push('scripts')
+<script>
+  $('.message .close').on('click', function() {
+    $(this).closest('.message').transition('fade');
+  });
+</script>
+@endpush
