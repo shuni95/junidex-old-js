@@ -17,8 +17,9 @@ class ShowProfileTrainerTest extends TestCase
     {
         $ash = factory(User::class, 'ash')->make();
         $ash = User::where('username', $ash->username)->first();
+        $ash_trainer = Trainer::find($ash->id);
 
-        $this->actingAs($ash, 'trainer');
+        $this->actingAs($ash_trainer, 'trainer');
 
         $this->visit('/trainers/me')
              ->see('Ash')
@@ -33,8 +34,9 @@ class ShowProfileTrainerTest extends TestCase
     {
         $ash = factory(User::class, 'ash')->make();
         $ash = User::where('username', $ash->username)->first();
+        $ash_trainer = Trainer::find($ash->id);
 
-        $this->actingAs($ash, 'trainer');
+        $this->actingAs($ash_trainer, 'trainer');
 
         $this->visit('/trainers/profile/Alain123')
              ->see('Alain')
