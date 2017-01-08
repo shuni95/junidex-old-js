@@ -13,7 +13,7 @@
     <div class="ui inverted menu">
       <div class="ui inverted secondary pointing menu">
         <a class="active item" href="{{ url('/') }}">
-          Home
+          <i class="home icon"></i> Home
         </a>
       </div>
       <div class="right menu">
