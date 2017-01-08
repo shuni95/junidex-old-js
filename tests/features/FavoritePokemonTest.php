@@ -82,7 +82,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
 
-        $this->assertResponseStatus(204);
+        $this->assertResponseStatus(409);
 
         $this->assertTrue($ash_trainer->pokemon_favorites->count() == 1);
     }
