@@ -10,7 +10,6 @@ use App\Admin;
 class LoginAdminTest extends TestCase
 {
     use DatabaseTransactions;
-    use WithoutMiddleware;
 
     /** @test */
     public function user_can_login_as_admin_in_application_using_the_email()
@@ -24,4 +23,19 @@ class LoginAdminTest extends TestCase
         $this->followRedirects();
         $this->see('Welcome admin-sama!');
     }
+
+    /** @test */
+    public function admin_logged_redirect_to_dashboard()
+    {
+        $admin = factory(User::class, 'admin')->make();
+        $user = User::where('username', $admin->username)->first();
+        $admin = Admin::find($user->id);
+
+        $this->actingAs($admin, 'admin');
+
+        $this->visit('/awesome/login');
+
+        $this->see('Welcome admin-sama!');
+    }
+
 }
