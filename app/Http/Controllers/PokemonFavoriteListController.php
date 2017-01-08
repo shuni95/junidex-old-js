@@ -33,7 +33,7 @@ class PokemonFavoriteListController extends Controller
         });
 
         if ($already_favorited) {
-            return response([], 204);
+            return response([], 409);
         }
 
         $trainer->pokemon_favorites()->save($pokemon);
