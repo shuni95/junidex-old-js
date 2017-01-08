@@ -16,9 +16,9 @@ class TrainerProfileController extends Controller
 
     public function myself()
     {
-        $user = Auth::guard('trainer')->user();
+        $trainer = Auth::guard('trainer')->user();
 
-        return view('app.trainers.myself', ['user' => $user]);
+        return view('app.trainers.myself', ['user' => $trainer->user]);
     }
 
     public function show($username)
