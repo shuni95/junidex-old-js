@@ -16,6 +16,7 @@ class CreateTrainersTable extends Migration
         Schema::create('trainers', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->timestamps();
+            $table->rememberToken();
 
             $table->foreign('user_id')->references('id')->on('users');
         });

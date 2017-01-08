@@ -30,4 +30,11 @@ class TrainerLoginController extends Controller
 
         return redirect()->route('app.trainers.login.showForm')->with('error_message', 'Invalid credentials.');
     }
+
+    public function logout()
+    {
+        Auth::guard('trainer')->logout();
+
+        return redirect('/');
+    }
 }

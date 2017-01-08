@@ -17,17 +17,36 @@
         </a>
       </div>
       <div class="right menu">
-      <div class="item">
         @if (Auth::guard('trainer')->check())
-          {{ Auth::guard('trainer')->user()->user->username }}
+        <div class="ui buttons">
+          <div class="ui button">{{ Auth::guard('trainer')->user()->user->username }}</div>
+          <div class="ui floating dropdown icon button">
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="item">
+              <form id="logout-form" action="{{ route('app.trainers.logout') }}" method="POST">
+              {{ csrf_field() }}
+              <button class="ui red button" type="submit">Logout</button>
+              </form>
+            </div>
+          </div>
+        </div>
         @else
-        <a class="ui inverted button" href="{{ route('app.trainers.login.showForm') }}">
-          Login
-        </a>
+        <div class="ui inverted buttons">
+          <a class="ui inverted button" href="{{ route('app.trainers.login.showForm') }}">Login</a>
+          <div class="ui floating inverted dropdown icon button">
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item ui inverted button" href="{{ route('app.trainers.register.showForm') }}">Register</a>
+            </div>
+          </div>
+        </div>
         @endif
-      </div>
       </div>
     </div>
   </div>
+  <script>
+    $('.ui.dropdown').dropdown();
+  </script>
 </body>
 </html>
