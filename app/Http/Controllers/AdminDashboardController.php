@@ -15,8 +15,8 @@ class AdminDashboardController extends Controller
 
     public function index()
     {
-        $user = Auth::guard('admin')->user();
+        $admin = Auth::guard('admin')->user();
 
-        return view('admin.dashboard', ['user' => $user]);
+        return view('admin.dashboard', ['user' => $admin->user]);
     }
 }

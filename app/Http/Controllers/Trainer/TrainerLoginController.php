@@ -18,15 +18,14 @@ class TrainerLoginController extends Controller
 
     public function login()
     {
-        $user = User::where('email', request('email'))
-        ->orWhere('username', request('email'))
-        ->first();
+        $user = User::seek()->first();
 
-        if ($user && Hash::check(request('password'), $user->password)) {
-            if ($user->trainer) {
-                Auth::guard('trainer')->login($user->trainer);
-                return redirect()->route('app.trainers.dashboard');
-            }
+        $is_trainer = $user ? $user->trainer : null;
+
+        if ($is_trainer && Hash::check(request('password'), $user->password)) {
+            Auth::guard('trainer')->login($user->trainer);
+
+            return redirect()->route('app.trainers.dashboard');
         }
 
         return redirect()->route('app.trainers.login.showForm')->with('error_message', 'Invalid credentials.');

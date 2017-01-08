@@ -19,7 +19,7 @@ $router->get('/searchPokemon', ['as' => 'app.search_pokemon', 'uses' => 'Pokemon
 $router->get('/evolution_chain/{name}', ['as' => 'app.evolution_chain', 'uses' => 'EvolutionChainPokemonController@show']);
 
 $router->get('/awesome/dashboard', ['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
-$router->get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create']);
+$router->get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create'])->middleware('guest:admin');
 $router->post('/awesome/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLoginController@login']);
 
 $router->post('/pokemon/add_to_favorites', ['as' => 'app.trainers.pokemon_favorites.add', 'uses' => 'PokemonFavoriteListController@addPokemon']);

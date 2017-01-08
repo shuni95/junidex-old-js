@@ -15,10 +15,14 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, $guard)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if ($guard == 'trainer') {
+                return redirect()->route('app.trainers.dashboard');
+            } elseif ($guard == 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
         }
 
         return $next($request);

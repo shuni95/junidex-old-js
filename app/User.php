@@ -49,6 +49,7 @@ class User extends Authenticatable
     public function scopeSeek($query)
     {
         return $query->where('username', request('username'))
-        ->orWhere('email', request('email'));
+        ->orWhere('email', request('email'))
+        ->orWhere('username', request('email'));
     }
 }

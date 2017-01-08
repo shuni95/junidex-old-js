@@ -18,7 +18,7 @@ class AdminAuthenticate
     {
         $user = Auth::guard('admin')->user();
 
-        if (is_null($user) || !$user->admin) {
+        if (is_null($user)) {
             return redirect()->route('admin.login.showForm');
         }
 
