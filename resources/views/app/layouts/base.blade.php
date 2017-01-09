@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('/semantic.min.css') }}">
   <script src="{{ asset('/jquery-3.1.1.min.js') }}"></script>
   <script src="{{ asset('/semantic.min.js') }}"></script>
+
+  @stack('head')
 </head>
 <body>
   @include('app.layouts.header')
