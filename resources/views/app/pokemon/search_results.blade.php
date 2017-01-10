@@ -10,16 +10,46 @@
 @section('content')
 
   <div class="ui container grid">
-    <div class="row">
-      <div class="ui search">
-        <div class="ui icon input">
-        <form method="GET">
-          <input class="prompt" type="text" placeholder="Search pokemon..." name="name" value="{{ request('name') }}">
-          <i class="search icon"></i>
-        </form>
+
+    <form class="ui container grid" method="GET">
+      <div class="six wide column">
+        <div class="ui search">
+          <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search pokemon..." name="name" value="{{ request('name') }}">
+            <i class="search icon"></i>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="six wide column">
+        <div class="ui fluid search selection dropdown">
+          <input type="hidden" name="type" value="{{ request('type') }}">
+          <i class="dropdown icon"></i>
+          <div class="default text">Select Type</div>
+          <div class="menu">
+          <div class="item fire-type">Fire</div>
+          <div class="item water-type">Water</div>
+          <div class="item grass-type">Grass</div>
+          <div class="item rock-type">Rock</div>
+          <div class="item ground-type">Ground</div>
+          <div class="item ice-type">Ice</div>
+          <div class="item poison-type">Poison</div>
+          <div class="item flying-type">Flying</div>
+          <div class="item psychic-type">Psychic</div>
+          <div class="item ghost-type">Ghost</div>
+          <div class="item bug-type">Bug</div>
+          <div class="item dark-type">Dark</div>
+          <div class="item normal-type">Normal</div>
+          <div class="item fairy-type">Fairy</div>
+          <div class="item steel-type">Steel</div>
+          <div class="item fighting-type">Fighting</div>
+          </div>
+        </div>
+      </div>
+      <div class="two wide column">
+        <button class="ui blue button">Search</button>
+      </div>
+      {{-- <select class="ui search dropdown"> --}}
+    </form>
 
     <div class="row">
       <div class="ui container grid">

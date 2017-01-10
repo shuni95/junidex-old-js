@@ -1,2 +1,18 @@
 .pokemon { margin: 5px 0px;}
 .pokemon:after { content: ""; position: absolute; height: 100%; width: 100%; top: 0; opacity: 0.5; z-index:-2; background-position: center; background-repeat: no-repeat; background-size: contain;}
+.fire-type { background: #fd7d24 !important; color: #fff !important;}
+.water-type { background: #4592c4 !important; color: #fff !important;}
+.rock-type { background: #a38c21 !important; color: #fff !important;}
+.ground-type { background: #f7de3f !important; color: #212121 !important;}
+.grass-type { background: #9bcc50 !important; color: #212121 !important;}
+.flying-type { background: #3dc7ef !important; color: #212121 !important;}
+.poison-type { background: #b97fc9 !important; color: #fff !important;}
+.psychic-type { background: #f366b9 !important; color: #fff !important;}
+.ice-type { background: #51c4e7 !important; color: #212121 !important;}
+.ghost-type { background: #7b62a3 !important; color: #fff !important;}
+.bug-type { background: #729f3f !important; color: #fff !important;}
+.dark-type { background: #707070 !important; color: #fff !important;}
+.fighting-type { background: #d56723 !important; color: #fff !important;}
+.fairy-type { background: #fdb9e9 !important; color: #fff !important;}
+.steel-type { background: #9eb7b8 !important; color: #fff !important;}
+.normal-type { background: #a4acaf !important; color: #fff !important;}
