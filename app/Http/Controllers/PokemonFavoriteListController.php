@@ -10,12 +10,9 @@ use App\Trainer;
 
 class PokemonFavoriteListController extends Controller
 {
-    protected $user_id;
-
     public function __construct()
     {
         $this->middleware(['auth.trainer']);
-        $this->user_id = Auth::guard('trainer')->user()->user_id;
     }
 
     public function addPokemon()
@@ -26,7 +23,7 @@ class PokemonFavoriteListController extends Controller
             return response([], 422);
         }
 
-        $trainer = Trainer::find($this->user_id);
+        $trainer = Trainer::find(Auth::guard('trainer')->user()->user_id);
 
         if ($trainer->pokemon_favorites->contains($pokemon)) {
             return response(['message' => $pokemon->name . ' is already favorited.'], 409);
