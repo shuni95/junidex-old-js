@@ -58,7 +58,7 @@
           <p>{{ $pokemon->name }}</p>
           <p>{{ $pokemon->japanese_name }}</p>
           <p>{{ $pokemon->japanese_katakana }}</p>
-          <a id="fav-{{ $pokemon->id }}" class="fav-pokemon"><i class="{{ $pokemon->is_favorite ? 'star icon' : 'empty star icon' }}"></i></a>
+          <a id="fav-{{ $pokemon->id }}" class="fav-pokemon"><i class="{{ $pokemon->is_favorite ? 'star icon' : 'empty star icon' }}" id="icon-{{ $pokemon->id }}"></i></a>
         </div>
       @empty
         <div class="ui column center aligned">
@@ -78,9 +78,15 @@
 
 @push('scripts')
   <script>
+    var fav_url = "{{ route('app.trainers.pokemon_favorites.add') }}";
+    var token = "{{ csrf_token() }}";
+
     $(function(){
       $('.fav-pokemon').click(function() {
-        console.info($(this));
+        var id = $(this).attr('id').slice(4);
+        $.post(fav_url, { pokemon_id: id, _token: token}, function(data) {
+          $('#icon-' + id).removeClass('empty');
+        });
       });
     });
   </script>

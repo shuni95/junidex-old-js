@@ -11,7 +11,14 @@ use App\Pokemon;
 class FavoritePokemonTest extends TestCase
 {
     use DatabaseTransactions;
-    use WithoutMiddleware;
+
+    protected $number_of_favorites;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->number_of_favorites = 3;
+    }
 
     /** @test */
     public function trainer_can_favorite_a_pokemon()
@@ -24,7 +31,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->actingAs($ash_trainer, 'trainer');
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->isEmpty());
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites);
 
         $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
 
@@ -32,9 +39,7 @@ class FavoritePokemonTest extends TestCase
 
         $ash_trainer = Trainer::find($user->id);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->contains(function ($pokemon) use ($pikachu) {
-            return $pokemon->id == $pikachu->id;
-        }));
+        $this->assertTrue($ash_trainer->pokemon_favorites->contains($pikachu));
     }
 
     /** @test */
@@ -48,7 +53,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->actingAs($ash_trainer, 'trainer');
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->isEmpty());
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites);
 
         $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
 
@@ -56,9 +61,7 @@ class FavoritePokemonTest extends TestCase
 
         $ash_trainer = Trainer::find($user->id);
 
-        $this->assertFalse($ash_trainer->pokemon_favorites->contains(function ($pokemon) use ($pikachu) {
-            return $pokemon->id == $pikachu->id;
-        }));
+        $this->assertFalse($ash_trainer->pokemon_favorites->contains($pikachu));
     }
 
     /** @test */
@@ -78,12 +81,14 @@ class FavoritePokemonTest extends TestCase
 
         $ash_trainer = Trainer::find($user->id);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == 1);
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites + 1);
 
         $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
 
+        $ash_trainer = Trainer::find($user->id);
+
         $this->assertResponseStatus(409);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == 1);
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites + 1);
     }
 }

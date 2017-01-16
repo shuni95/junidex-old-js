@@ -10,12 +10,12 @@ use App\Trainer;
 
 class PokemonFavoriteListController extends Controller
 {
-    protected $trainer;
+    protected $user_id;
 
     public function __construct()
     {
         $this->middleware(['auth.trainer']);
-        $this->trainer = Auth::guard('trainer')->user();
+        $this->user_id = Auth::guard('trainer')->user()->user_id;
     }
 
     public function addPokemon()
@@ -26,14 +26,10 @@ class PokemonFavoriteListController extends Controller
             return response([], 422);
         }
 
-        $trainer = Trainer::find($this->trainer->user_id);
+        $trainer = Trainer::find($this->user_id);
 
-        $already_favorited = $trainer->pokemon_favorites->contains(function($pokemon_favorite) use ($pokemon) {
-            return $pokemon_favorite->id == $pokemon->id;
-        });
-
-        if ($already_favorited) {
-            return response([], 409);
+        if ($trainer->pokemon_favorites->contains($pokemon)) {
+            return response(['message' => $pokemon->name . ' is already favorited.'], 409);
         }
 
         $trainer->pokemon_favorites()->save($pokemon);
