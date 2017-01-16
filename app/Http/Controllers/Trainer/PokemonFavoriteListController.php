@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trainer;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use Auth;
 use App\Pokemon;
@@ -32,5 +32,22 @@ class PokemonFavoriteListController extends Controller
         $trainer->pokemon_favorites()->save($pokemon);
 
         return response([], 201);
+    }
+
+    public function removePokemon()
+    {
+        $pokemon = Pokemon::find(request('pokemon_id'));
+
+        if (is_null($pokemon)) {
+            return response([], 422);
+        }
+
+        $trainer = Trainer::find(Auth::guard('trainer')->user()->user_id);
+
+        if ($trainer->pokemon_favorites->contains($pokemon)) {
+            $trainer->pokemon_favorites()->detach($pokemon->id);
+
+            return response([], 204);
+        }
     }
 }

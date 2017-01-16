@@ -33,7 +33,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites);
 
-        $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
+        $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(201);
 
@@ -55,7 +55,7 @@ class FavoritePokemonTest extends TestCase
 
         $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites);
 
-        $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
+        $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(422);
 
@@ -75,20 +75,42 @@ class FavoritePokemonTest extends TestCase
 
         $this->actingAs($ash_trainer, 'trainer');
 
-        $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
+        $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(201);
 
         $ash_trainer = Trainer::find($user->id);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites + 1);
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == ($this->number_of_favorites + 1));
 
-        $this->call('POST', '/pokemon/add_to_favorites', ['pokemon_id' => $pikachu->id]);
+        $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $ash_trainer = Trainer::find($user->id);
 
         $this->assertResponseStatus(409);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites + 1);
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == ($this->number_of_favorites + 1));
+    }
+
+    /** @test */
+    function trainer_can_unfavorite_a_pokemon()
+    {
+        $ash = factory(User::class, 'ash')->make();
+        $user = User::where('username', $ash->username)->first();
+        $ash_trainer = Trainer::find($user->id);
+
+        $charmander = Pokemon::where('name', 'Charmander')->first();
+
+        $this->actingAs($ash_trainer, 'trainer');
+
+        $this->call('DELETE', '/trainers/favorites/remove', ['pokemon_id' => $charmander->id]);
+
+        $this->assertResponseStatus(204);
+
+        $ash_trainer = Trainer::find($user->id);
+
+        $this->assertFalse($ash_trainer->pokemon_favorites->contains($charmander));
+
+        $this->assertTrue($ash_trainer->pokemon_favorites->count() == ($this->number_of_favorites - 1));
     }
 }

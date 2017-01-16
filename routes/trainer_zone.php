@@ -17,3 +17,6 @@ $router->post('/logout', ['as' => 'app.trainers.logout', 'uses' => 'TrainerLogin
 $router->get('/dashboard', ['as' => 'app.trainers.dashboard', 'uses' => 'TrainerDashboardController@index']);
 $router->get('/me', ['as' => 'app.trainers.profile.me', 'uses' => 'TrainerProfileController@myself']);
 $router->get('/profile/{username}', ['as' => 'app.trainers.profile.show', 'uses' => 'TrainerProfileController@show']);
+
+$router->post('/favorites/add', ['as' => 'app.trainers.pokemon_favorites.add', 'uses' => 'PokemonFavoriteListController@addPokemon']);
+$router->delete('/favorites/remove', ['as' => 'app.trainers.pokemon_favorites.remove', 'uses' => 'PokemonFavoriteListController@removePokemon']);
