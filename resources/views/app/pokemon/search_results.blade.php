@@ -58,7 +58,7 @@
           <p>{{ $pokemon->name }}</p>
           <p>{{ $pokemon->japanese_name }}</p>
           <p>{{ $pokemon->japanese_katakana }}</p>
-          <i class="{{ $pokemon->is_favorite ? 'star icon' : 'empty star icon' }}"></i>
+          <a id="fav-{{ $pokemon->id }}" class="fav-pokemon"><i class="{{ $pokemon->is_favorite ? 'star icon' : 'empty star icon' }}"></i></a>
         </div>
       @empty
         <div class="ui column center aligned">
@@ -75,3 +75,13 @@
   </div>
 
 @endsection
+
+@push('scripts')
+  <script>
+    $(function(){
+      $('.fav-pokemon').click(function() {
+        console.info($(this));
+      });
+    });
+  </script>
+@endpush

@@ -16,3 +16,5 @@
 .fairy-type { background: #fdb9e9 !important; color: #fff !important;}
 .steel-type { background: #9eb7b8 !important; color: #fff !important;}
 .normal-type { background: #a4acaf !important; color: #fff !important;}
+
+.fav-pokemon { cursor: pointer; }
