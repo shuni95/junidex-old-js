@@ -19,9 +19,9 @@ class UserSeeder extends Seeder
         DB::table('admins')->delete();
         DB::table('users')->delete();
 
-        $ash = factory(User::class, 'ash')->create();
-        $admin = factory(User::class, 'admin')->create();
-        $alain = factory(User::class, 'alain')->create();
+        $ash = factory(User::class, 'ash')->create(['id' => 1]);
+        $admin = factory(User::class, 'admin')->create(['id' => 2]);
+        $alain = factory(User::class, 'alain')->create(['id' => 3]);
 
         Trainer::create(['user_id' => $ash->id]);
         Trainer::create(['user_id' => $alain->id]);

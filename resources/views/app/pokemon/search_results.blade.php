@@ -58,6 +58,7 @@
           <p>{{ $pokemon->name }}</p>
           <p>{{ $pokemon->japanese_name }}</p>
           <p>{{ $pokemon->japanese_katakana }}</p>
+          <i class="{{ $pokemon->is_favorite ? 'star icon' : 'empty star icon' }}"></i>
         </div>
       @empty
         <div class="ui column center aligned">

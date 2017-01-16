@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Pokemon;
 
+use Auth;
+
 class PokemonSearchController extends Controller
 {
     public function index()
@@ -29,6 +31,14 @@ class PokemonSearchController extends Controller
         }
 
         $pokemons = $pokemons->get();
+
+        $trainer = Auth::guard('trainer')->user();
+
+        if ($trainer && $trainer->pokemon_favorites->count() > 0) {
+            $pokemons = $pokemons->each(function($pokemon) use ($trainer) {
+                $pokemon->is_favorite = $trainer->pokemon_favorites->contains($pokemon);
+            });
+        }
 
         return view('app.pokemon.search_results', ['pokemons' => $pokemons]);
     }
