@@ -17,6 +17,7 @@
             {{ csrf_field() }}
             <button class="ui red button" type="submit">Logout</button>
             </form>
+            </div>
           </div>
         </div>
       </div>
