@@ -79,15 +79,8 @@
 @push('scripts')
   <script>
     var fav_url = "{{ route('app.trainers.pokemon_favorites.add') }}";
+    var unfav_url = "{{ route('app.trainers.pokemon_favorites.remove') }}";
     var token = "{{ csrf_token() }}";
-
-    $(function(){
-      $('.fav-pokemon').click(function() {
-        var id = $(this).attr('id').slice(4);
-        $.post(fav_url, { pokemon_id: id, _token: token}, function(data) {
-          $('#icon-' + id).removeClass('empty');
-        });
-      });
-    });
   </script>
+  <script src="{{ asset('js/fav_pokemon.js') }}"></script>
 @endpush

@@ -49,5 +49,7 @@ class PokemonFavoriteListController extends Controller
 
             return response([], 204);
         }
+
+        return response(['message' => $pokemon->name . ' is already unfavorited.'], 409);
     }
 }
