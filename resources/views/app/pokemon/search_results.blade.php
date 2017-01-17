@@ -12,7 +12,7 @@
   <div class="ui container grid">
 
     <form class="ui container grid" method="GET">
-      <div class="six wide column">
+      <div class="four wide column">
         <div class="ui search">
           <div class="ui icon input">
             <input class="prompt" type="text" placeholder="Search pokemon..." name="name" value="{{ request('name') }}">
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="six wide column">
+      <div class="four wide column">
         <div class="ui fluid search selection dropdown">
           <input type="hidden" name="type" value="{{ request('type') }}">
           <i class="dropdown icon"></i>

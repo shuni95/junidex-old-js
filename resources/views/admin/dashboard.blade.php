@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Admin</title>
-</head>
-<body>
-<div>
-  <p>Welcome {{ $user->username }}-sama!</p>
-</div>
-</body>
-</html>
+@extends('admin.layouts.base')
+
+@section('title', 'Login')
+
+@section('content')
+
+  <div class="ui segment">
+    <h1>Welcome {{ $user->username }}-sama!</h1>
+  </div>
+
+@endsection
