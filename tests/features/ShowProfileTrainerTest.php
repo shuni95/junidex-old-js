@@ -10,16 +10,26 @@ use App\Admin;
 
 class ShowProfileTrainerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
+
+    function beAsh()
+    {
+        $ash = factory(Trainer::class, 'ash')->create();
+
+        $this->actingAs($ash, 'trainer');
+    }
+
+    function beAdmin()
+    {
+        $admin = factory(Admin::class, 'admin')->create();
+
+        $this->actingAs($admin, 'admin');
+    }
 
     /** @test */
     public function trainer_can_see_his_own_profile()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $ash = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($ash->id);
-
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->beAsh();
 
         $this->visit('/trainers/me')
              ->see('Ash')
@@ -32,11 +42,9 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function trainer_can_see_other_trainer_profile()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $ash = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($ash->id);
+        factory(Trainer::class, 'alain')->create();
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->beAsh();
 
         $this->visit('/trainers/profile/Alain123')
              ->see('Alain')
@@ -50,10 +58,7 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function trainer_cannot_see_other_trainer_profile_that_doesnot_exists()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $ash = User::where('username', $ash->username)->first();
-
-        $this->actingAs($ash, 'trainer');
+        $this->beAsh();
 
         $this->call('GET', '/trainers/profile/Alain1234');
 
@@ -63,10 +68,7 @@ class ShowProfileTrainerTest extends TestCase
     /** @test */
     public function user_not_trainer_cannot_see_trainer_profile_and_redirects_to_register()
     {
-        $admin = factory(User::class, 'admin')->make();
-        $admin = User::where('username', $admin->username)->first();
-
-        $this->actingAs($admin, 'admin');
+        $this->beAdmin();
 
         $this->call('GET', '/trainers/profile/Alain123');
 
