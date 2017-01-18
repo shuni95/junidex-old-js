@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapTrainerZoneRoutes();
+
+        $this->mapAdminZoneRoutes();
     }
 
     /**
@@ -85,6 +87,17 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'trainers',
         ], function ($router) {
             require base_path('routes/trainer_zone.php');
+        });
+    }
+
+    protected function mapAdminZoneRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace.'\Admin',
+            'prefix' => 'awesome',
+        ], function ($router) {
+            require base_path('routes/admin_zone.php');
         });
     }
 }

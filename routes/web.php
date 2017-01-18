@@ -17,7 +17,3 @@ $router->get('/', function () {
 
 $router->get('/searchPokemon', ['as' => 'app.search_pokemon', 'uses' => 'PokemonSearchController@index']);
 $router->get('/evolution_chain/{name}', ['as' => 'app.evolution_chain', 'uses' => 'EvolutionChainPokemonController@show']);
-
-$router->get('/awesome/dashboard', ['as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index']);
-$router->get('/awesome/login', ['as' => 'admin.login.showForm', 'uses' => 'AdminLoginController@create'])->middleware('guest:admin');
-$router->post('/awesome/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLoginController@login']);
