@@ -9,14 +9,14 @@ use App\Trainer;
 
 class LogoutTrainerTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @test */
     public function trainer_can_logout_on_index_page()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $ash = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($ash->id);
+        $ash = factory(Trainer::class, 'ash')->create();
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
         $this->visit('/');
 
