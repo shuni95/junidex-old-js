@@ -27,3 +27,7 @@ $factory->defineAs(App\User::class, 'alain', function (Faker\Generator $faker) u
     $user = $factory->raw(App\User::class);
     return array_merge($user, ['name' => 'Alain', 'lastname' => 'Emo', 'birthday' => '1995-06-06', 'username' => 'Alain123', 'email' => 'alain@test.com', 'password' => bcrypt('123456')]);
 });
+
+$factory->defineAs(App\Admin::class, 'admin', function() use ($factory) {
+    return ['user_id' => factory(App\User::class, 'admin')->create()->id];
+});
