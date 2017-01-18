@@ -9,11 +9,13 @@ use App\Trainer;
 
 class LoginTrainerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function user_can_login_as_trainer_in_application_using_the_email()
     {
+        factory(Trainer::class, 'ash')->create();
+
         $this->call('POST', '/trainers/login', [
             'email'    => 'ash_champion@test.com',
             'password' => '123456',
@@ -42,6 +44,8 @@ class LoginTrainerTest extends TestCase
     /** @test */
     public function user_can_login_as_trainer_using_the_username()
     {
+        factory(Trainer::class, 'ash')->create();
+
         $this->call('POST', '/trainers/login', [
             'email' => 'KalosChampion',
             'password' => '123456',
@@ -55,11 +59,9 @@ class LoginTrainerTest extends TestCase
     /** @test */
     public function trainer_logged_redirect_to_dashboard()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $user = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($user->id);
+        $ash = factory(Trainer::class, 'ash')->create();
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
         $this->visit('/trainers/login');
 
