@@ -9,11 +9,27 @@ use App\EggGroup;
 
 class SearchPokemonTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
+
+    function loadData()
+    {
+        factory(Pokemon::class)->create(['name' => 'Charmander', 'japanese_name' => 'Hitokage', 'japanese_katakana' => 'ヒトカゲ', 'type_one' => 'Fire', 'habitat' => 'Mountain']);
+        factory(Pokemon::class)->create(['name' => 'Charizard', 'japanese_name' => 'Lizardon', 'japanese_katakana' => 'リザードン', 'type_one' => 'Fire','type_two' => 'Flying', 'habitat' => 'Mountain']);
+        factory(Pokemon::class)->create(['name' => 'Psyduck', 'japanese_name' => 'Koduck', 'japanese_katakana' => 'コダック', 'type_one' => 'Water', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Squirtle', 'type_one' => 'Water', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal', 'habitat' => 'Not determined']);
+        factory(Pokemon::class)->create(['name' => 'Pikachu', 'habitat' => 'Forest']);
+        factory(Pokemon::class)->create(['name' => 'Metapod', 'habitat' => 'Forest']);
+        factory(Pokemon::class)->create(['name' => 'Dratini', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class)->create(['name' => 'Arcanine', 'type_one' => 'Fire', 'habitat' => 'Meadow']);
+        factory(Pokemon::class)->create(['name' => 'Lapras', 'type_one' => 'Water', 'habitat' => 'Salt Water', 'type_two' => 'Ice']);
+    }
 
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=Char')
              ->see('Charmander')
              ->see('Charizard')
@@ -28,6 +44,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_in_lowercase()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=char')
              ->see('Charmander')
              ->see('Charizard')
@@ -42,6 +60,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_in_uppercase()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=CHAR')
              ->see('Charmander')
              ->see('Charizard')
@@ -56,6 +76,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_name()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=Hito')
              ->see('Hitokage')
              ->dontSee('Lizardon');
@@ -72,6 +94,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_katakana()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=リザー')
              ->see('リザードン')
              ->dontSee('コダック');
@@ -80,6 +104,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_the_pokemon_type()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?type=Fire')
              ->see('Charmander')
              ->see('Charizard')
@@ -98,6 +124,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_the_habitat()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?habitat=Forest')
              ->see('Pikachu')
              ->see('Metapod')
@@ -107,6 +135,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_and_type()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=Char&type=Fire')
              ->see('Charmander')
              ->see('Charizard')
@@ -135,6 +165,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_and_habitat()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?name=arc&habitat=Meadow')
              ->dontSee('Charmander')
              ->dontSee('Charizard')
@@ -155,6 +187,8 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_type_and_habitat()
     {
+        $this->loadData();
+
         $this->visit('/searchPokemon?type=Fire&habitat=Mountain')
              ->see('Charmander')
              ->see('Charizard')
