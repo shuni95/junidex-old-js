@@ -10,7 +10,7 @@ use App\Admin;
 
 class RegisterTrainerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function user_can_register_as_a_trainer_using_email()
