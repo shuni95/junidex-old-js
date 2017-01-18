@@ -11,7 +11,7 @@ use App\EvolutionMethodConstants;
 
 class ViewEvolutionChainTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_only_level()
@@ -34,7 +34,7 @@ class ViewEvolutionChainTest extends TestCase
     public function user_can_view_evolutions_of_pokemon_that_only_evolves_with_evolutionary_stone()
     {
         $growlithe = factory(Pokemon::class)->create(['name' => 'Growlithe']);
-        $arcanine = Pokemon::where('name', 'Arcanine')->first();
+        $arcanine  = factory(Pokemon::class)->create(['name' => 'Arcanine']);
 
         $stone_method = factory(EvolutionMethod::class, 'evolutionary_stone')->create();
 
@@ -47,9 +47,9 @@ class ViewEvolutionChainTest extends TestCase
     /** @test */
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_level_and_megastone()
     {
-        $charmander = Pokemon::where('name', 'Charmander')->first();
+        $charmander = factory(Pokemon::class)->create(['name' => 'Charmander']);
         $charmeleon = factory(Pokemon::class)->create(['name' => 'Charmeleon']);
-        $charizard = Pokemon::where('name', 'Charizard')->first();
+        $charizard  = factory(Pokemon::class)->create(['name' => 'Charizard']);
         $mega_charizard_x = factory(Pokemon::class)->create(['name' => 'Mega Charizard X']);
         $mega_charizard_y = factory(Pokemon::class)->create(['name' => 'Mega Charizard Y']);
 
@@ -111,9 +111,9 @@ class ViewEvolutionChainTest extends TestCase
     /** @test */
     public function user_can_view_evolutions_of_pokemon_that_evolves_with_friendship()
     {
-        $pichu = factory(Pokemon::class)->create(['name' => 'Pichu']);
-        $pikachu = Pokemon::where('name', 'Pikachu')->first();;
-        $raichu = factory(Pokemon::class)->create(['name' => 'Raichu']);
+        $pichu   = factory(Pokemon::class)->create(['name' => 'Pichu']);
+        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        $raichu  = factory(Pokemon::class)->create(['name' => 'Raichu']);
 
         $friendship_method = EvolutionMethod::create(['id' => EvolutionMethodConstants::FRIENDSHIP_METHOD, 'name' => 'by friendship']);
         $stone_method = factory(EvolutionMethod::class, 'evolutionary_stone')->create();
