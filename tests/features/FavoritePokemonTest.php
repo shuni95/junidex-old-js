@@ -4,113 +4,101 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\User;
 use App\Trainer;
 use App\Pokemon;
 
 class FavoritePokemonTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     protected $number_of_favorites;
 
-    public function setUp()
+    function reloadTrainer(&$trainer)
     {
-        parent::setUp();
-        $this->number_of_favorites = 3;
+        $trainer = Trainer::find($trainer->user_id);
     }
 
     /** @test */
-    public function trainer_can_favorite_a_pokemon()
+    function trainer_can_favorite_a_pokemon()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $user = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($user->id);
-
+        $ash     = factory(Trainer::class, 'ash')->create();
         $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites);
+        $this->assertTrue($ash->pokemon_favorites->count() == 0);
 
         $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(201);
 
-        $ash_trainer = Trainer::find($user->id);
+        $this->reloadTrainer($ash);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->contains($pikachu));
+        $this->assertTrue($ash->pokemon_favorites->contains($pikachu));
     }
 
     /** @test */
-    public function trainer_cannot_favorite_a_non_existent_pokemon()
+    function trainer_cannot_favorite_a_non_existent_pokemon()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $user = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($user->id);
-
+        $ash     = factory(Trainer::class, 'ash')->create();
         $pikachu = factory(Pokemon::class)->make(['name' => 'Pikachu']);
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == $this->number_of_favorites);
+        $this->assertTrue($ash->pokemon_favorites->count() == 0);
 
         $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(422);
 
-        $ash_trainer = Trainer::find($user->id);
-
-        $this->assertFalse($ash_trainer->pokemon_favorites->contains($pikachu));
+        $this->assertFalse($ash->pokemon_favorites->contains($pikachu));
     }
 
     /** @test */
-    public function trainer_cannot_favorite_a_pokemon_twice()
+    function trainer_cannot_favorite_a_pokemon_twice()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $user = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($user->id);
-
+        $ash     = factory(Trainer::class, 'ash')->create();
         $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
         $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(201);
 
-        $ash_trainer = Trainer::find($user->id);
+        $this->reloadTrainer($ash);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == ($this->number_of_favorites + 1));
+        $this->assertTrue($ash->pokemon_favorites->count() == 1);
 
         $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
-        $ash_trainer = Trainer::find($user->id);
-
         $this->assertResponseStatus(409);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == ($this->number_of_favorites + 1));
+        $this->reloadTrainer($ash);
+
+        $this->assertTrue($ash->pokemon_favorites->count() == 1);
     }
 
     /** @test */
     function trainer_can_unfavorite_a_pokemon()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $user = User::where('username', $ash->username)->first();
-        $ash_trainer = Trainer::find($user->id);
+        $ash     = factory(Trainer::class, 'ash')->create();
+        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
 
-        $charmander = Pokemon::where('name', 'Charmander')->first();
+        $this->actingAs($ash, 'trainer');
 
-        $this->actingAs($ash_trainer, 'trainer');
+        $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
-        $this->call('DELETE', '/trainers/favorites/remove', ['pokemon_id' => $charmander->id]);
+        $this->assertTrue($ash->pokemon_favorites->count() == 1);
+
+        $this->call('DELETE', '/trainers/favorites/remove', ['pokemon_id' => $pikachu->id]);
 
         $this->assertResponseStatus(204);
 
-        $ash_trainer = Trainer::find($user->id);
+        $this->reloadTrainer($ash);
 
-        $this->assertFalse($ash_trainer->pokemon_favorites->contains($charmander));
+        $this->assertTrue($ash->pokemon_favorites->count() == 0);
 
-        $this->assertTrue($ash_trainer->pokemon_favorites->count() == ($this->number_of_favorites - 1));
+        $this->assertFalse($ash->pokemon_favorites->contains($pikachu));
     }
 }
