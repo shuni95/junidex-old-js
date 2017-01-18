@@ -9,7 +9,7 @@ use App\Trainer;
 
 class IndexLinksTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function user_can_move_to_login_trainers_page()
@@ -22,10 +22,9 @@ class IndexLinksTest extends TestCase
     /** @test */
     public function trainer_can_see_its_username_instead_of_login_button()
     {
-        $ash = factory(User::class, 'ash')->make();
-        $trainer = User::where('username', $ash->username)->first()->trainer;
+        $ash = factory(Trainer::class, 'ash')->create();
 
-        $this->actingAs($trainer, 'trainer');
+        $this->actingAs($ash, 'trainer');
 
         $this->visit('/')
              ->see('KalosChampion')
