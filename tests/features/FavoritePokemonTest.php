@@ -22,7 +22,7 @@ class FavoritePokemonTest extends TestCase
     function trainer_can_favorite_a_pokemon()
     {
         $ash     = factory(Trainer::class, 'ash')->create();
-        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        $pikachu = factory(Pokemon::class, 'pikachu')->create();
 
         $this->actingAs($ash, 'trainer');
 
@@ -41,7 +41,7 @@ class FavoritePokemonTest extends TestCase
     function trainer_cannot_favorite_a_non_existent_pokemon()
     {
         $ash     = factory(Trainer::class, 'ash')->create();
-        $pikachu = factory(Pokemon::class)->make(['name' => 'Pikachu']);
+        $pikachu = factory(Pokemon::class, 'pikachu')->make();
 
         $this->actingAs($ash, 'trainer');
 
@@ -58,7 +58,7 @@ class FavoritePokemonTest extends TestCase
     function trainer_cannot_favorite_a_pokemon_twice()
     {
         $ash     = factory(Trainer::class, 'ash')->create();
-        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        $pikachu = factory(Pokemon::class, 'pikachu')->create();
 
         $this->actingAs($ash, 'trainer');
 
@@ -83,7 +83,7 @@ class FavoritePokemonTest extends TestCase
     function trainer_can_unfavorite_a_pokemon()
     {
         $ash     = factory(Trainer::class, 'ash')->create();
-        $pikachu = factory(Pokemon::class)->create(['name' => 'Pikachu']);
+        $pikachu = factory(Pokemon::class, 'pikachu')->create();
 
         $this->actingAs($ash, 'trainer');
 

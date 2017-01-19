@@ -15,7 +15,7 @@ class SeePokemonListingAdminTest extends TestCase
     /** @test */
     function admin_can_see_pokemon_listing_with_quantity_of_favs_and_name()
     {
-        $charmander = factory(Pokemon::class)->create(['name' => 'Charmander']);
+        $charmander = factory(Pokemon::class, 'charmander')->create();
         $charmeleon = factory(Pokemon::class)->create(['name' => 'Charmeleon']);
         $charizard  = factory(Pokemon::class)->create(['name' => 'Charizard']);
 
@@ -45,6 +45,7 @@ class SeePokemonListingAdminTest extends TestCase
         $squirtle   = factory(Pokemon::class, 'squirtle')->create();
         $bulbasaur  = factory(Pokemon::class, 'bulbasaur')->create();
         $pikachu    = factory(Pokemon::class, 'pikachu')->create();
+
         $this->visit('/awesome/pokemon/index');
 
         $this->see('Fire')

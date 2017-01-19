@@ -13,12 +13,12 @@ class SearchPokemonTest extends TestCase
 
     function loadData()
     {
-        factory(Pokemon::class)->create(['name' => 'Charmander', 'japanese_name' => 'Hitokage', 'japanese_katakana' => 'ヒトカゲ', 'type_one' => 'Fire', 'habitat' => 'Mountain']);
+        factory(Pokemon::class, 'charmander')->create();
         factory(Pokemon::class)->create(['name' => 'Charizard', 'japanese_name' => 'Lizardon', 'japanese_katakana' => 'リザードン', 'type_one' => 'Fire','type_two' => 'Flying', 'habitat' => 'Mountain']);
         factory(Pokemon::class)->create(['name' => 'Psyduck', 'japanese_name' => 'Koduck', 'japanese_katakana' => 'コダック', 'type_one' => 'Water', 'habitat' => 'Fresh Water']);
-        factory(Pokemon::class)->create(['name' => 'Squirtle', 'type_one' => 'Water', 'habitat' => 'Fresh Water']);
+        factory(Pokemon::class, 'squirtle')->create();
         factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal', 'habitat' => 'Not determined']);
-        factory(Pokemon::class)->create(['name' => 'Pikachu', 'habitat' => 'Forest']);
+        factory(Pokemon::class, 'pikachu')->create();
         factory(Pokemon::class)->create(['name' => 'Metapod', 'habitat' => 'Forest']);
         factory(Pokemon::class)->create(['name' => 'Dratini', 'habitat' => 'Fresh Water']);
         factory(Pokemon::class)->create(['name' => 'Arcanine', 'type_one' => 'Fire', 'habitat' => 'Meadow']);

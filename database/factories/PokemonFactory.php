@@ -15,6 +15,3 @@ $factory->defineAs(App\Pokemon::class, 'charmander', function () {
 $factory->defineAs(App\Pokemon::class, 'pikachu', function () {
     return ['name' => 'Pikachu', 'japanese_name' => 'Pikachu', 'japanese_katakana' => 'ピカチュウ', 'type_one' => 'Electric', 'habitat' => 'Forest'];
 });
-
-
-
