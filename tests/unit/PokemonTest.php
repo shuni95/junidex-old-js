@@ -30,7 +30,7 @@ class PokemonTest extends TestCase
 
         $pokemons = Pokemon::orderByFavs()->get();
 
-        $this->assertTrue($pokemons->first() == $charizard->id);
-        $this->assertTrue($pokemons->last()  == $charmander->id);
+        $this->assertTrue($pokemons->first()->id == $charizard->id);
+        $this->assertTrue($pokemons->last()->id  == $charmander->id);
     }
 }
