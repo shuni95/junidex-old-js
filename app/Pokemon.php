@@ -71,4 +71,13 @@ class Pokemon extends Model
             return $quantity. ' Favs';
         }
     }
+
+    public function getTypeAttribute()
+    {
+        if ($this->type_two) {
+            return $this->type_one . '/' . $this->type_two;
+        }
+
+        return $this->type_one;
+    }
 }
