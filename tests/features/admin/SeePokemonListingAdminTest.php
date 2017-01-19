@@ -13,7 +13,7 @@ class SeePokemonListingAdminTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function admin_can_see_pokemon_listing_with_quantity_of_favs_and_some_attributes()
+    function admin_can_see_pokemon_listing_with_quantity_of_favs_and_name()
     {
         $charmander = factory(Pokemon::class)->create(['name' => 'Charmander']);
         $charmeleon = factory(Pokemon::class)->create(['name' => 'Charmeleon']);
@@ -36,5 +36,21 @@ class SeePokemonListingAdminTest extends TestCase
              ->see('1 Fav')
              ->see('2 Favs')
              ->see('3 Favs');
+    }
+
+    /** @test */
+    function admin_can_see_pokemon_listing_its_types()
+    {
+        $charmander = factory(Pokemon::class, 'Charmander');
+        $squirtle   = factory(Pokemon::class, 'Squirtle');
+        $bulbasaur  = factory(Pokemon::class, 'Bulbasaur');
+        $pikachu    = factory(Pokemon::class, 'Pikachu');
+
+        $this->visit('/awesome/pokemon/index');
+
+        $this->see('Fire')
+             ->see('Water')
+             ->see('Grass/Poison')
+             ->see('Electric');
     }
 }
