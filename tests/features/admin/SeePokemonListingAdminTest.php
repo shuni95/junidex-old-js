@@ -33,8 +33,8 @@ class SeePokemonListingAdminTest extends TestCase
         $this->see('Charmander')
              ->see('Charmeleon')
              ->see('Charizard')
-             ->see(1)
-             ->see(2)
-             ->see(3);
+             ->see('1 Fav')
+             ->see('2 Favs')
+             ->see('3 Favs');
     }
 }

@@ -49,4 +49,17 @@ class Pokemon extends Model
             $q->where('egg_groups.name', request('egg_group'));
         });
     }
+
+    public function getNumFavsAttribute()
+    {
+        $quantity = $this->owner_favorites->count();
+
+        if ($quantity == 0) {
+            return 'No Favs';
+        } elseif ($quantity == 1) {
+            return '1 Fav';
+        } else {
+            return $quantity. ' Favs';
+        }
+    }
 }
