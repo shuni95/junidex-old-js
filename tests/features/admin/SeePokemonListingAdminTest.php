@@ -41,11 +41,10 @@ class SeePokemonListingAdminTest extends TestCase
     /** @test */
     function admin_can_see_pokemon_listing_its_types()
     {
-        $charmander = factory(Pokemon::class, 'Charmander');
-        $squirtle   = factory(Pokemon::class, 'Squirtle');
-        $bulbasaur  = factory(Pokemon::class, 'Bulbasaur');
-        $pikachu    = factory(Pokemon::class, 'Pikachu');
-
+        $charmander = factory(Pokemon::class, 'charmander')->create();
+        $squirtle   = factory(Pokemon::class, 'squirtle')->create();
+        $bulbasaur  = factory(Pokemon::class, 'bulbasaur')->create();
+        $pikachu    = factory(Pokemon::class, 'pikachu')->create();
         $this->visit('/awesome/pokemon/index');
 
         $this->see('Fire')
