@@ -4,12 +4,19 @@
 
 @section('content')
 
+  @if (session('errors'))
+    @foreach(session('errors')->all() as $error)
+      <div>{{ $error }}</div>
+    @endforeach
+  @endif
+
   <form method="POST">
+    {{ csrf_field() }}
     <input type="text" name="name">
     <input type="text" name="japanese_name">
     <input type="text" name="japanese_katakana">
     <select name="type_one">
-      <option>Unknown</option>
+      <option value="">Unknown</option>
       <option>Grass</option>
       <option>Fire</option>
       <option>Water</option>

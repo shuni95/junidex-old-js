@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 use App\Pokemon;
 
+use App\Http\Requests\Admin\Pokemon\AddPokemonRequest;
+
 class PokemonController extends Controller
 {
     public function index()
@@ -20,7 +22,7 @@ class PokemonController extends Controller
         return view('admin.pokemon.add');
     }
 
-    public function store()
+    public function store(AddPokemonRequest $request)
     {
         $new_pokemon = Pokemon::create(request()->all());
 
