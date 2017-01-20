@@ -10,7 +10,11 @@
   </div>
   @endif
 
-  <table>
+  <div class="ui segment">
+    <h2>List of Pokemon</h2>
+  </div>
+
+  <table class="ui compact table">
   <thead>
     <th>Name</th>
     <th>Type</th>
