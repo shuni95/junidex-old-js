@@ -37,4 +37,20 @@ class AddPokemonAdminTest extends TestCase
              ->see('Grass/Flying')
              ->see('Rowlet added to the Pokedex successfully.');
     }
+
+    /** @test */
+    function admin_must_fill_all_fields()
+    {
+        $this->beAdmin();
+
+        $this->visit('/awesome/pokemon/add');
+
+        $this->press('Add to Pokedex');
+
+        $this->seePageIs('/awesome/pokemon/add')
+             ->see('Name is required')
+             ->see('Japanese Name is required')
+             ->see('Japanase Katakana is required')
+             ->see('At least select one type');
+    }
 }
