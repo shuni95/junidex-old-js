@@ -57,7 +57,7 @@ class Pokemon extends Model
 
     public function scopeWithNumFavs($query)
     {
-        return $query->select(\DB::raw('pokemons.*, count(pokemons.id) as num_favs'))
+        return $query->select(\DB::raw('pokemons.*, count(trainer_x_pokemon_favorites.pokemon_id) as num_favs'))
             ->leftJoin('trainer_x_pokemon_favorites',
                    'pokemons.id', '=', 'trainer_x_pokemon_favorites.pokemon_id')
             ->groupBy('pokemons.id');

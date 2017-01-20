@@ -64,6 +64,7 @@ class SeePokemonListingAdminTest extends TestCase
         $this->see('Fire')
              ->see('Water')
              ->see('Grass/Poison')
-             ->see('Electric');
+             ->see('Electric')
+             ->see('No Favs');
     }
 }
