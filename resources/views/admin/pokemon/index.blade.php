@@ -3,6 +3,13 @@
 @section('title', 'Login')
 
 @section('content')
+
+  @if (session('good_message'))
+  <div>
+    {{ session('good_message') }}
+  </div>
+  @endif
+
   <table>
   <thead>
     <th>Name</th>

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AddPokemonAdminTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @test */
     function admin_can_add_a_new_pokemon()
     {

@@ -6,3 +6,4 @@ $router->post('/login', ['as' => 'admin.login.authenticate', 'uses' => 'AdminLog
 
 $router->get('/pokemon/index', ['as' => 'admin.pokemon.index', 'uses' => 'PokemonController@index']);
 $router->get('/pokemon/add', ['as' => 'admin.pokemon.add_form', 'uses' => 'PokemonController@create']);
+$router->post('/pokemon/add', ['as' => 'admin.pokemon.add', 'uses' => 'PokemonController@store']);

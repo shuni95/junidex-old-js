@@ -19,4 +19,11 @@ class PokemonController extends Controller
     {
         return view('admin.pokemon.add');
     }
+
+    public function store()
+    {
+        $new_pokemon = Pokemon::create(request()->all());
+
+        return redirect()->route('admin.pokemon.index')->with('good_message', $new_pokemon->name . ' added to the Pokedex successfully.');
+    }
 }
