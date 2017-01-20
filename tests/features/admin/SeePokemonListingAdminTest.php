@@ -7,14 +7,25 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Pokemon;
 use App\Trainer;
 use App\User;
+use App\Admin;
 
 class SeePokemonListingAdminTest extends TestCase
 {
     use DatabaseMigrations;
+    use WithoutMiddleware;
+
+    function beAdmin()
+    {
+        $admin = factory(Admin::class, 'admin')->create();
+
+        $this->actingAs($admin, 'admin');
+    }
 
     /** @test */
     function admin_can_see_pokemon_listing_with_quantity_of_favs_and_name()
     {
+        $this->beAdmin();
+
         $charmander = factory(Pokemon::class, 'charmander')->create();
         $charmeleon = factory(Pokemon::class)->create(['name' => 'Charmeleon']);
         $charizard  = factory(Pokemon::class)->create(['name' => 'Charizard']);
@@ -28,7 +39,7 @@ class SeePokemonListingAdminTest extends TestCase
         $alain->pokemon_favorites()->attach([$charmander->id, $charmeleon->id]);
         $gary->pokemon_favorites()->attach([$charmander->id]);
 
-        $this->visit('/awesome/pokemon/index');
+        $this->visit('/awesome/pokemon');
 
         $this->see('Charmander')
              ->see('Charmeleon')
@@ -41,12 +52,14 @@ class SeePokemonListingAdminTest extends TestCase
     /** @test */
     function admin_can_see_pokemon_listing_its_types()
     {
+        $this->beAdmin();
+
         $charmander = factory(Pokemon::class, 'charmander')->create();
         $squirtle   = factory(Pokemon::class, 'squirtle')->create();
         $bulbasaur  = factory(Pokemon::class, 'bulbasaur')->create();
         $pikachu    = factory(Pokemon::class, 'pikachu')->create();
 
-        $this->visit('/awesome/pokemon/index');
+        $this->visit('/awesome/pokemon');
 
         $this->see('Fire')
              ->see('Water')

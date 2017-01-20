@@ -52,16 +52,20 @@ class Pokemon extends Model
 
     public function scopeOrderByFavs($query, $direction = 'asc')
     {
-        return $query->select(\DB::raw('pokemons.*, count(pokemons.id) as num_favs'))
-            ->join('trainer_x_pokemon_favorites',
-                   'pokemons.id', '=', 'trainer_x_pokemon_favorites.pokemon_id')
-            ->groupBy('pokemons.id')
-            ->orderBy('num_favs', $direction);
+        return $this->withNumFavs()->orderBy('num_favs', $direction);
     }
 
-    public function getNumFavsAttribute()
+    public function scopeWithNumFavs($query)
     {
-        $quantity = $this->owner_favorites->count();
+        return $query->select(\DB::raw('pokemons.*, count(pokemons.id) as num_favs'))
+            ->leftJoin('trainer_x_pokemon_favorites',
+                   'pokemons.id', '=', 'trainer_x_pokemon_favorites.pokemon_id')
+            ->groupBy('pokemons.id');
+    }
+
+    public function getNumFavsFormattedAttribute()
+    {
+        $quantity = $this->num_favs;
 
         if ($quantity == 0) {
             return 'No Favs';

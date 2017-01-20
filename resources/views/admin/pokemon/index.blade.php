@@ -21,7 +21,7 @@
     <tr>
       <td>{{ $pokemon->name }}</td>
       <td>{{ $pokemon->type }}</td>
-      <td>{{ $pokemon->num_favs }}</td>
+      <td>{{ $pokemon->num_favs_formatted }}</td>
     </tr>
     @endforeach
   </tbody>
