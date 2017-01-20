@@ -14,4 +14,9 @@ class PokemonController extends Controller
 
         return view('admin.pokemon.index', compact('pokemons'));
     }
+
+    public function create()
+    {
+        return view('admin.pokemon.add');
+    }
 }
