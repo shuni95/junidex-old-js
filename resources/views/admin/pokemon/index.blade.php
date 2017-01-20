@@ -30,4 +30,11 @@
     @endforeach
   </tbody>
   </table>
+
+  <div class="ui center aligned grid">
+    <div class="column">
+      <a class="ui primary button" href="{{ route('admin.pokemon.add') }}">Add Pokemon</a>
+    </div>
+  </div>
+
 @endsection
