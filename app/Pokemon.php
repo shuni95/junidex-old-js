@@ -10,6 +10,8 @@ class Pokemon extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['types'];
+
     public function egg_groups()
     {
         return $this->belongsToMany(EggGroup::class, 'pokemon_x_egg_groups');
@@ -83,5 +85,14 @@ class Pokemon extends Model
         }
 
         return $this->type_one;
+    }
+
+    public function getTypesAttribute()
+    {
+        if ($this->type_two) {
+            return [$this->type_one, $this->type_two];
+        }
+
+        return [$this->type_one];
     }
 }

@@ -17,3 +17,5 @@ $router->get('/', function () {
 
 $router->get('/searchPokemon', ['as' => 'app.search_pokemon', 'uses' => 'PokemonSearchController@index']);
 $router->get('/evolution_chain/{name}', ['as' => 'app.evolution_chain', 'uses' => 'EvolutionChainPokemonController@show']);
+
+$router->get('/api/pokemon/all', ['as' => 'api.pokemon.all', 'uses' => 'Api\PokemonController@index']);
