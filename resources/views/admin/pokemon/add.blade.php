@@ -22,6 +22,8 @@
 
   <form class="ui form" method="POST">
     {{ csrf_field() }}
+
+    <div class="two fields">
     <div class="field">
       <label>Name</label>
       <input type="text" name="name">
@@ -31,12 +33,16 @@
       <label>Japanese Name</label>
       <input type="text" name="japanese_name">
     </div>
+    </div>
 
+    <div class="two fields">
     <div class="field">
       <label>Japanese Katakana</label>
       <input type="text" name="japanese_katakana">
     </div>
+    </div>
 
+    <div class="two fields">
     <div class="field">
       <label>Type primary</label>
       <select name="type_one">
@@ -86,7 +92,9 @@
         <option>Rock</option>
       </select>
     </div>
+    </div>
 
+    <div class="two fields">
     <div class="field">
       <label>Habitat</label>
       <select name="habitat">
@@ -95,6 +103,7 @@
         <option>Fresh Water</option>
         <option>Mountain</option>
       </select>
+    </div>
     </div>
 
     <div class="field">
