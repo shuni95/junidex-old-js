@@ -1,4 +1,4 @@
-<div class="ui vertical tiny labeled icon menu">
+<div class="ui sidebar vertical tiny labeled icon menu" id="sidebar">
   <a class="item">
     <i class="home icon"></i>
     Home
