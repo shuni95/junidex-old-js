@@ -19,7 +19,28 @@ class PokemonController extends Controller
 
     public function create()
     {
-        return view('admin.pokemon.add');
+        $types = [
+            'Grass',
+            'Fire',
+            'Water',
+            'Electric',
+            'Flying',
+            'Ice',
+            'Dragon',
+            'Steel',
+            'Poison',
+            'Bug',
+            'Psychic',
+            'Ghost',
+            'Fairy',
+            'Dark',
+            'Fighting',
+            'Normal',
+            'Ground',
+            'Rock',
+        ];
+
+        return view('admin.pokemon.add', compact('types'));
     }
 
     public function store(AddPokemonRequest $request)

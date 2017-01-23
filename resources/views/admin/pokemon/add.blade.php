@@ -26,12 +26,12 @@
     <div class="two fields">
     <div class="field">
       <label>Name</label>
-      <input type="text" name="name">
+      <input type="text" name="name" value="{{ old('name') }}">
     </div>
 
     <div class="field">
       <label>Japanese Name</label>
-      <input type="text" name="japanese_name">
+      <input type="text" name="japanese_name" value="{{ old('japanese_name') }}">
     </div>
     </div>
 
@@ -47,24 +47,9 @@
       <label>Type primary</label>
       <select name="type_one">
         <option value="">Select a type</option>
-        <option>Grass</option>
-        <option>Fire</option>
-        <option>Water</option>
-        <option>Electric</option>
-        <option>Flying</option>
-        <option>Ice</option>
-        <option>Dragon</option>
-        <option>Steel</option>
-        <option>Poison</option>
-        <option>Bug</option>
-        <option>Psychic</option>
-        <option>Ghost</option>
-        <option>Fairy</option>
-        <option>Dark</option>
-        <option>Fighting</option>
-        <option>Normal</option>
-        <option>Ground</option>
-        <option>Rock</option>
+        @foreach ($types as $type)
+        <option {{ $type == old('type_one') ? 'selected' : '' }} >{{ $type }}</option>
+        @endforeach
       </select>
     </div>
 
@@ -72,24 +57,9 @@
       <label>Type secondary</label>
       <select name="type_two">
         <option value="">Select a type</option>
-        <option>Grass</option>
-        <option>Fire</option>
-        <option>Water</option>
-        <option>Electric</option>
-        <option>Flying</option>
-        <option>Ice</option>
-        <option>Dragon</option>
-        <option>Steel</option>
-        <option>Poison</option>
-        <option>Bug</option>
-        <option>Psychic</option>
-        <option>Ghost</option>
-        <option>Fairy</option>
-        <option>Dark</option>
-        <option>Fighting</option>
-        <option>Normal</option>
-        <option>Ground</option>
-        <option>Rock</option>
+        @foreach ($types as $type)
+        <option {{ $type == old('type_two') ? 'selected' : '' }} >{{ $type }}</option>
+        @endforeach
       </select>
     </div>
     </div>
