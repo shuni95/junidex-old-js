@@ -10,9 +10,12 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Admin;
 
+use TestZone\Traits\ActingAs;
+
 class LoginAdminTest extends TestCase
 {
     use DatabaseMigrations;
+    use ActingAs;
 
     /** @test */
     public function user_can_login_as_admin_in_application_using_the_email()
@@ -32,9 +35,7 @@ class LoginAdminTest extends TestCase
     /** @test */
     public function admin_logged_redirect_to_dashboard()
     {
-        $admin = factory(Admin::class, 'admin')->create();
-
-        $this->actingAs($admin, 'admin');
+        $this->beAdmin();
 
         $this->visit('/awesome/login');
 

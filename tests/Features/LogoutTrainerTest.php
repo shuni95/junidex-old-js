@@ -8,18 +8,17 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Trainer;
+use TestZone\Traits\ActingAs;
 
 class LogoutTrainerTest extends TestCase
 {
     use DatabaseMigrations;
+    use ActingAs;
 
     /** @test */
     public function trainer_can_logout_on_index_page()
     {
-        $ash = factory(Trainer::class, 'ash')->create();
-
-        $this->actingAs($ash, 'trainer');
+        $this->beAsh();
 
         $this->visit('/');
 

@@ -11,9 +11,12 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\User;
 use App\Trainer;
 
+use TestZone\Traits\ActingAs;
+
 class LoginTrainerTest extends TestCase
 {
     use DatabaseMigrations;
+    use ActingAs;
 
     /** @test */
     public function user_can_login_as_trainer_in_application_using_the_email()
@@ -63,9 +66,7 @@ class LoginTrainerTest extends TestCase
     /** @test */
     public function trainer_logged_redirect_to_dashboard()
     {
-        $ash = factory(Trainer::class, 'ash')->create();
-
-        $this->actingAs($ash, 'trainer');
+        $this->beAsh();
 
         $this->visit('/trainers/login');
 
