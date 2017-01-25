@@ -11,19 +11,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Pokemon;
 use App\Trainer;
 use App\User;
-use App\Admin;
+
+use TestZone\Traits\ActingAs;
 
 class SeePokemonListingAdminTest extends TestCase
 {
     use DatabaseMigrations;
-    use WithoutMiddleware;
-
-    function beAdmin()
-    {
-        $admin = factory(Admin::class, 'admin')->create();
-
-        $this->actingAs($admin, 'admin');
-    }
+    use ActingAs;
 
     /** @test */
     function admin_can_see_pokemon_listing_with_quantity_of_favs_and_name()

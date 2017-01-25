@@ -8,18 +8,12 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Admin;
+use TestZone\Traits\ActingAs;
 
 class AddPokemonAdminTest extends TestCase
 {
     use DatabaseMigrations;
-
-    function beAdmin()
-    {
-        $admin = factory(Admin::class, 'admin')->create();
-
-        $this->actingAs($admin, 'admin');
-    }
+    use ActingAs;
 
     /** @test */
     function admin_can_add_a_new_pokemon()
