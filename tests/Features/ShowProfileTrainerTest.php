@@ -12,23 +12,12 @@ use App\User;
 use App\Trainer;
 use App\Admin;
 
+use TestZone\Traits\ActingAs;
+
 class ShowProfileTrainerTest extends TestCase
 {
     use DatabaseMigrations;
-
-    function beAsh()
-    {
-        $ash = factory(Trainer::class, 'ash')->create();
-
-        $this->actingAs($ash, 'trainer');
-    }
-
-    function beAdmin()
-    {
-        $admin = factory(Admin::class, 'admin')->create();
-
-        $this->actingAs($admin, 'admin');
-    }
+    use ActingAs;
 
     /** @test */
     public function trainer_can_see_his_own_profile()
