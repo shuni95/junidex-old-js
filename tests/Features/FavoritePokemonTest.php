@@ -11,9 +11,12 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Trainer;
 use App\Pokemon;
 
+use TestZone\Traits\ActingAs;
+
 class FavoritePokemonTest extends TestCase
 {
     use DatabaseMigrations;
+    use ActingAs;
 
     protected $number_of_favorites;
 
@@ -25,10 +28,8 @@ class FavoritePokemonTest extends TestCase
     /** @test */
     function trainer_can_favorite_a_pokemon()
     {
-        $ash     = factory(Trainer::class, 'ash')->create();
+        $ash     = $this->beAsh();
         $pikachu = factory(Pokemon::class, 'pikachu')->create();
-
-        $this->actingAs($ash, 'trainer');
 
         $this->assertTrue($ash->pokemon_favorites->count() == 0);
 
@@ -44,10 +45,8 @@ class FavoritePokemonTest extends TestCase
     /** @test */
     function trainer_cannot_favorite_a_non_existent_pokemon()
     {
-        $ash     = factory(Trainer::class, 'ash')->create();
+        $ash     = $this->beAsh();
         $pikachu = factory(Pokemon::class, 'pikachu')->make();
-
-        $this->actingAs($ash, 'trainer');
 
         $this->assertTrue($ash->pokemon_favorites->count() == 0);
 
@@ -61,10 +60,8 @@ class FavoritePokemonTest extends TestCase
     /** @test */
     function trainer_cannot_favorite_a_pokemon_twice()
     {
-        $ash     = factory(Trainer::class, 'ash')->create();
+        $ash     = $this->beAsh();
         $pikachu = factory(Pokemon::class, 'pikachu')->create();
-
-        $this->actingAs($ash, 'trainer');
 
         $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
@@ -86,10 +83,8 @@ class FavoritePokemonTest extends TestCase
     /** @test */
     function trainer_can_unfavorite_a_pokemon()
     {
-        $ash     = factory(Trainer::class, 'ash')->create();
+        $ash     = $this->beAsh();
         $pikachu = factory(Pokemon::class, 'pikachu')->create();
-
-        $this->actingAs($ash, 'trainer');
 
         $this->call('POST', '/trainers/favorites/add', ['pokemon_id' => $pikachu->id]);
 
