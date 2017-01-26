@@ -52,10 +52,10 @@ class SeePokemonListingAdminTest extends TestCase
     {
         $this->beAdmin();
 
-        $charmander = factory(Pokemon::class, 'charmander')->create();
-        $squirtle   = factory(Pokemon::class, 'squirtle')->create();
-        $bulbasaur  = factory(Pokemon::class, 'bulbasaur')->create();
-        $pikachu    = factory(Pokemon::class, 'pikachu')->create();
+        factory(Pokemon::class, 'charmander')->create();
+        factory(Pokemon::class, 'squirtle')->create();
+        factory(Pokemon::class, 'bulbasaur')->create();
+        factory(Pokemon::class, 'pikachu')->create();
 
         $this->visit('/awesome/pokemon');
 
@@ -64,5 +64,33 @@ class SeePokemonListingAdminTest extends TestCase
              ->see('Grass/Poison')
              ->see('Electric')
              ->see('No Favs');
+    }
+
+    /** @test */
+    function admin_can_see_pokemon_belongs_to_regional_pokedex()
+    {
+        $this->beAdmin();
+
+        $kanto = Pokedex::create(['name' => 'Kanto']);
+        $johto = Pokedex::create(['name' => 'Johto']);
+        $hoeen = Pokedex::create(['name' => 'Hoenn']);
+        $alola = Pokedex::create(['name' => 'Alola']);
+
+        $kanto->pokemons()->attach(factory(Pokemon::class, 3)->create());
+        $johto->pokemons()->attach(factory(Pokemon::class, 4)->create());
+        $hoenn->pokemons()->attach(factory(Pokemon::class, 5)->create());
+        $alola->pokemons()->attach(factory(Pokemon::class, 9)->create());
+
+        $this->visit('/awesome/pokemon?from=Kanto');
+
+        $this->seeMany('No Favs', 3);
+
+        $this->visit('/awesome/pokemon?from=Hoenn');
+
+        $this->seeMany('No Favs', 5);
+
+        $this->visit('/awesome/pokemon')
+
+        $this->seeMany('No Favs', 21);
     }
 }

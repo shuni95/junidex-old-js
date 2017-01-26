@@ -79,6 +79,7 @@
     <div class="field">
       <div class="ui center aligned grid">
         <div class="column">
+          <a class="ui button" href="{{ route('admin.pokemon.index') }}">Back</a>
           <button class="ui green button" type="submit">Add to Pokedex</button>
         </div>
       </div>
