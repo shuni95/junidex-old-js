@@ -12,7 +12,15 @@ class PokemonController extends Controller
 {
     public function index()
     {
-        $pokemons = Pokemon::withNumFavs()->get();
+        $pokemons = Pokemon::withNumFavs();
+
+        if (request('from')) {
+            $pokemons->whereHas('pokedexes', function($pokedex) {
+                $pokedex->where('name', request('from'));
+            });
+        }
+
+        $pokemons = $pokemons->get();
 
         return view('admin.pokemon.index', compact('pokemons'));
     }

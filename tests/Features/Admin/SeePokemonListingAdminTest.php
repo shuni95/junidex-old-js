@@ -11,13 +11,16 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Pokemon;
 use App\Trainer;
 use App\User;
+use App\Pokedex;
 
 use TestZone\Traits\ActingAs;
+use TestZone\Traits\HtmlAsserts;
 
 class SeePokemonListingAdminTest extends TestCase
 {
     use DatabaseMigrations;
     use ActingAs;
+    use HtmlAsserts;
 
     /** @test */
     function admin_can_see_pokemon_listing_with_quantity_of_favs_and_name()
@@ -73,13 +76,19 @@ class SeePokemonListingAdminTest extends TestCase
 
         $kanto = Pokedex::create(['name' => 'Kanto']);
         $johto = Pokedex::create(['name' => 'Johto']);
-        $hoeen = Pokedex::create(['name' => 'Hoenn']);
+        $hoenn = Pokedex::create(['name' => 'Hoenn']);
         $alola = Pokedex::create(['name' => 'Alola']);
 
-        $kanto->pokemons()->attach(factory(Pokemon::class, 3)->create());
-        $johto->pokemons()->attach(factory(Pokemon::class, 4)->create());
-        $hoenn->pokemons()->attach(factory(Pokemon::class, 5)->create());
-        $alola->pokemons()->attach(factory(Pokemon::class, 9)->create());
+        $position = 0;
+
+        $setPosition = function($pokemon)use(&$position){
+            return ['pokemon_id' => $pokemon->id, 'position' => ++$position];
+        };
+
+        $kanto->pokemons()->attach(factory(Pokemon::class, 3)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
+        $johto->pokemons()->attach(factory(Pokemon::class, 4)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
+        $hoenn->pokemons()->attach(factory(Pokemon::class, 5)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
+        $alola->pokemons()->attach(factory(Pokemon::class, 9)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
 
         $this->visit('/awesome/pokemon?from=Kanto');
 
