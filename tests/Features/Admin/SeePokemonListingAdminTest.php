@@ -89,7 +89,7 @@ class SeePokemonListingAdminTest extends TestCase
 
         $this->seeMany('No Favs', 5);
 
-        $this->visit('/awesome/pokemon')
+        $this->visit('/awesome/pokemon');
 
         $this->seeMany('No Favs', 21);
     }
