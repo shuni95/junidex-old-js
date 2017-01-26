@@ -27,6 +27,11 @@ class Pokemon extends Model
         return $this->belongsToMany(Trainer::class, 'trainer_x_pokemon_favorites');
     }
 
+    public function pokedexes()
+    {
+        return $this->belongsToMany(Pokedex::class);
+    }
+
     public function scopeSearchByName($query)
     {
         return $query->where('name', 'LIKE', '%'.request('name').'%')
