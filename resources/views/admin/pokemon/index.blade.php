@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title', 'Login')
+@section('title', 'Pokemon Listing')
 
 @section('content')
 
