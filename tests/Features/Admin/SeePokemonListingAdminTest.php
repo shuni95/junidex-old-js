@@ -73,33 +73,19 @@ class SeePokemonListingAdminTest extends TestCase
     function admin_can_see_pokemon_belongs_to_regional_pokedex()
     {
         $this->beAdmin();
-
-        $kanto = Pokedex::create(['name' => 'Kanto']);
-        $johto = Pokedex::create(['name' => 'Johto']);
-        $hoenn = Pokedex::create(['name' => 'Hoenn']);
-        $alola = Pokedex::create(['name' => 'Alola']);
-
-        $position = 0;
-
-        $setPosition = function($pokemon)use(&$position){
-            return ['pokemon_id' => $pokemon->id, 'position' => ++$position];
-        };
-
-        $kanto->pokemons()->attach(factory(Pokemon::class, 3)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
-        $johto->pokemons()->attach(factory(Pokemon::class, 4)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
-        $hoenn->pokemons()->attach(factory(Pokemon::class, 5)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
-        $alola->pokemons()->attach(factory(Pokemon::class, 9)->create()->map($setPosition)->keyBy('pokemon_id')->toArray());
+        $this->seed('PokedexSeederTest');
+        $this->seed('PokedexPokemonSeederTest');
 
         $this->visit('/awesome/pokemon?from=Kanto');
 
-        $this->seeMany('No Favs', 3);
+        $this->seeMany('No Favs', 7);
 
         $this->visit('/awesome/pokemon?from=Hoenn');
 
-        $this->seeMany('No Favs', 5);
+        $this->seeMany('No Favs', 2);
 
         $this->visit('/awesome/pokemon');
 
-        $this->seeMany('No Favs', 21);
+        $this->seeMany('No Favs', 22);
     }
 }
