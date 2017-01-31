@@ -17,6 +17,13 @@ class AddPokemonAdminTest extends TestCase
     use ActingAs;
     use HtmlAsserts;
 
+    function setUp()
+    {
+        parent::setUp();
+        $this->seed(\PokemonTypeSeeder::class);
+        $this->seed(\PokedexSeeder::class);
+    }
+
     /** @test */
     function admin_can_add_a_new_pokemon()
     {
@@ -30,6 +37,7 @@ class AddPokemonAdminTest extends TestCase
              ->select('Grass', 'type_one')
              ->select('Flying', 'type_two')
              ->select('Unknown', 'habitat')
+             ->select('Alola', 'pokedex')
              ->press('Add to Pokedex');
 
         $this->seePageIs('/awesome/pokemon')
@@ -51,7 +59,8 @@ class AddPokemonAdminTest extends TestCase
              ->see('Name is required')
              ->see('Japanese Name is required')
              ->see('Japanase Katakana is required')
-             ->see('At least select one type');
+             ->see('At least select one type')
+             ->see('Pokedex origin is required');
     }
 
     /** @test */
@@ -66,12 +75,14 @@ class AddPokemonAdminTest extends TestCase
              ->select('Grass', 'type_one')
              ->select('Flying', 'type_two')
              ->select('Unknown', 'habitat')
+             ->select('Alola', 'pokedex')
              ->press('Add to Pokedex');
 
         $this->seePageIs('/awesome/pokemon/add')
              ->see('Rowlet')
              ->see('Mukuroh')
              ->assertSelected('Grass', 'type_one')
-             ->assertNotSelected('Fire', 'type_one');
+             ->assertNotSelected('Fire', 'type_one')
+             ->assertSelected('Alola', 'pokedex');
     }
 }

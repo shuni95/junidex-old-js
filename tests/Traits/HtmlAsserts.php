@@ -36,7 +36,7 @@ trait HtmlAsserts
      */
     private function assertNotSelected($option, $name)
     {
-        $this->assertSelected($option, $name, false);
+        return $this->assertSelected($option, $name, false);
     }
 
     /**
