@@ -213,20 +213,13 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_egg_group()
     {
-        $field_group  = factory(EggGroup::class)->create(['name' => 'Field']);
-        $fairy_group  = factory(EggGroup::class)->create(['name' => 'Fairy']);
-        $bug_group    = factory(EggGroup::class)->create(['name' => 'Bug']);
-        $water1_group = factory(EggGroup::class)->create(['name' => 'Water 1']);
-        $dragon_group = factory(EggGroup::class)->create(['name' => 'Dragon']);
+        $this->seed('EggGroupSeederTest');
 
-        $pokemonA = factory(Pokemon::class)->create(['name' => 'Pikachu']);
-        $pokemonA->egg_groups()->sync([$field_group->id, $fairy_group->id]);
+        factory(Pokemon::class)->create(['name' => 'Pikachu'])->egg_groups()->sync([1, 2]);
 
-        $pokemonB = factory(Pokemon::class)->create(['name' => 'Metapod']);
-        $pokemonB->egg_groups()->sync([$bug_group->id]);
+        factory(Pokemon::class)->create(['name' => 'Metapod'])->egg_groups()->sync([3]);
 
-        $pokemonC = factory(Pokemon::class)->create(['name' => 'Dratini']);
-        $pokemonC->egg_groups()->sync([$water1_group->id, $dragon_group->id]);
+        factory(Pokemon::class)->create(['name' => 'Dratini'])->egg_groups()->sync([4, 5]);
 
         $this->visit('/searchPokemon?egg_group=Field')
              ->see('Pikachu')
