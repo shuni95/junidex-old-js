@@ -20,8 +20,8 @@ class AddPokemonAdminTest extends TestCase
     function setUp()
     {
         parent::setUp();
-        $this->seed(\PokemonTypeSeeder::class);
-        $this->seed(\PokedexSeeder::class);
+        $this->seed('PokemonTypeSeeder');
+        $this->seed('PokedexSeeder');
     }
 
     /** @test */
