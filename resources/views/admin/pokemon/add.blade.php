@@ -42,7 +42,7 @@
     </div>
     </div>
 
-    <div class="two fields">
+    <div class="four fields">
     <div class="field">
       <label>Type primary</label>
       <select name="type_one">
@@ -62,16 +62,24 @@
         @endforeach
       </select>
     </div>
-    </div>
 
-    <div class="two fields">
     <div class="field">
       <label>Habitat</label>
       <select name="habitat">
         <option>Unknown</option>
-        <option>Forest</option>
-        <option>Fresh Water</option>
-        <option>Mountain</option>
+        @foreach ($habitats as $habitat)
+        <option {{ $habitat == old('habitat') ? 'selected' : '' }}>{{ $habitat }}</option>
+        @endforeach
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Origin's region</label>
+      <select name="pokedex">
+        <option value="">Select a pokedex</option>
+        @foreach ($pokedexes as $pokedex)
+        <option {{ $pokedex == old('pokedex') ? 'selected' : '' }}>{{ $pokedex }}</option>
+        @endforeach
       </select>
     </div>
     </div>

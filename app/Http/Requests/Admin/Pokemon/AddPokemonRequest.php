@@ -27,7 +27,8 @@ class AddPokemonRequest extends FormRequest
             'name' => 'required',
             'japanese_name' => 'required',
             'japanese_katakana' => 'required',
-            'type_one' => 'required'
+            'type_one' => 'required',
+            'pokedex' => 'required',
         ];
     }
 
@@ -38,6 +39,7 @@ class AddPokemonRequest extends FormRequest
             'japanese_name.required' => 'Japanese Name is required',
             'japanese_katakana.required' => 'Japanase Katakana is required',
             'type_one.required' => 'At least select one type',
+            'pokedex.required' => 'Pokedex origin is required',
         ];
     }
 }

@@ -21,6 +21,7 @@ class CreatePokemonsTable extends Migration
             $table->string('type_one');
             $table->string('type_two')->nullable();
             $table->string('habitat');
+            $table->string('origin');
             $table->timestamps();
         });
     }
