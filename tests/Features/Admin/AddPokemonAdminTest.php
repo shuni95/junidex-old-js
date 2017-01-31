@@ -81,8 +81,8 @@ class AddPokemonAdminTest extends TestCase
         $this->seePageIs('/awesome/pokemon/add')
              ->see('Rowlet')
              ->see('Mukuroh')
-             ->assertSelected('Grass', 'type_one')
-             ->assertNotSelected('Fire', 'type_one')
-             ->assertSelected('Alola', 'pokedex');
+             ->seeIsSelected('type_one', 'Grass')
+             ->dontSeeIsSelected('type_one', 'Fire')
+             ->seeIsSelected('pokedex', 'Alola');
     }
 }
