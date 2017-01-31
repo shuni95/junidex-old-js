@@ -18,7 +18,8 @@ $factory->define(App\Pokemon::class, function (Faker\Generator $faker) {
         'japanese_name' => 'Fushigidane',
         'japanese_katakana' => 'フシギダネ',
         'type_one' => 'Grass',
-        'habitat' => 'Meadow'
+        'habitat' => 'Meadow',
+        'origin' => 'Kanto'
     ];
 });
 
