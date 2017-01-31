@@ -18,8 +18,8 @@ class CreatePokemonsTable extends Migration
             $table->string('name');
             $table->string('japanese_name');
             $table->string('japanese_katakana');
-            $table->string('type_one');
-            $table->string('type_two')->nullable();
+            $table->unsignedInteger('type_one');
+            $table->unsignedInteger('type_two')->nullable();
             $table->string('habitat');
             $table->string('origin');
             $table->timestamps();

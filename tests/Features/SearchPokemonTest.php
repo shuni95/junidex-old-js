@@ -9,24 +9,28 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Pokemon;
+use App\PokemonType;
 use App\EggGroup;
 
 class SearchPokemonTest extends TestCase
 {
     use DatabaseMigrations;
 
+    function setUp()
+    {
+        parent::setUp();
+        $this->seed('PokemonTypeSeeder');
+        $this->seed('PokemonSeederTest');
+    }
+
     function loadData()
     {
-        factory(Pokemon::class, 'charmander')->create();
-        factory(Pokemon::class)->create(['name' => 'Charizard', 'japanese_name' => 'Lizardon', 'japanese_katakana' => 'リザードン', 'type_one' => 'Fire','type_two' => 'Flying', 'habitat' => 'Mountain']);
-        factory(Pokemon::class)->create(['name' => 'Psyduck', 'japanese_name' => 'Koduck', 'japanese_katakana' => 'コダック', 'type_one' => 'Water', 'habitat' => 'Fresh Water']);
-        factory(Pokemon::class, 'squirtle')->create();
+        factory(Pokemon::class)->create(['name' => 'Psyduck', 'japanese_name' => 'Koduck', 'japanese_katakana' => 'コダック', 'type_one' => PokemonType::WATER_TYPE, 'habitat' => 'Fresh Water']);
         factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal', 'habitat' => 'Not determined']);
-        factory(Pokemon::class, 'pikachu')->create();
         factory(Pokemon::class)->create(['name' => 'Metapod', 'habitat' => 'Forest']);
         factory(Pokemon::class)->create(['name' => 'Dratini', 'habitat' => 'Fresh Water']);
-        factory(Pokemon::class)->create(['name' => 'Arcanine', 'type_one' => 'Fire', 'habitat' => 'Meadow']);
-        factory(Pokemon::class)->create(['name' => 'Lapras', 'type_one' => 'Water', 'habitat' => 'Salt Water', 'type_two' => 'Ice']);
+        factory(Pokemon::class)->create(['name' => 'Arcanine', 'type_one' => PokemonType::FIRE_TYPE, 'habitat' => 'Meadow']);
+        factory(Pokemon::class)->create(['name' => 'Lapras', 'type_one' => PokemonType::WATER_TYPE, 'habitat' => 'Salt Water', 'type_two' => 'Ice']);
     }
 
     /** @test */

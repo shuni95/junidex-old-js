@@ -32,6 +32,16 @@ class Pokemon extends Model
         return $this->belongsToMany(Pokedex::class);
     }
 
+    public function type_primary()
+    {
+        return $this->belongsTo(PokemonType::class, 'type_one');
+    }
+
+    public function type_secondary()
+    {
+        return $this->belongsTo(PokemonType::class, 'type_two');
+    }
+
     public function scopeSearchByName($query)
     {
         return $query->where('name', 'LIKE', '%'.request('name').'%')
@@ -41,8 +51,11 @@ class Pokemon extends Model
 
     public function scopeSearchByType($query)
     {
-        return $query->where('type_one', request('type'))
-        ->orWhere('type_two', request('type'));
+        return $query->whereHas('type_primary', function($type) {
+            $type->where('name', request('type'));
+        })->orWhereHas('type_secondary', function($type) {
+            $type->where('name', request('type'));
+        });
     }
 
     public function scopeSearchByHabitat($query)
