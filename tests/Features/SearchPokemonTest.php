@@ -23,21 +23,9 @@ class SearchPokemonTest extends TestCase
         $this->seed('PokemonSeederTest');
     }
 
-    function loadData()
-    {
-        factory(Pokemon::class)->create(['name' => 'Psyduck', 'japanese_name' => 'Koduck', 'japanese_katakana' => 'コダック', 'type_one' => PokemonType::WATER_TYPE, 'habitat' => 'Fresh Water']);
-        factory(Pokemon::class)->create(['name' => 'Arceus', 'type_one' => 'Normal', 'habitat' => 'Not determined']);
-        factory(Pokemon::class)->create(['name' => 'Metapod', 'habitat' => 'Forest']);
-        factory(Pokemon::class)->create(['name' => 'Dratini', 'habitat' => 'Fresh Water']);
-        factory(Pokemon::class)->create(['name' => 'Arcanine', 'type_one' => PokemonType::FIRE_TYPE, 'habitat' => 'Meadow']);
-        factory(Pokemon::class)->create(['name' => 'Lapras', 'type_one' => PokemonType::WATER_TYPE, 'habitat' => 'Salt Water', 'type_two' => 'Ice']);
-    }
-
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=Char')
              ->see('Charmander')
              ->see('Charizard')
@@ -52,8 +40,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_in_lowercase()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=char')
              ->see('Charmander')
              ->see('Charizard')
@@ -68,8 +54,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_in_uppercase()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=CHAR')
              ->see('Charmander')
              ->see('Charizard')
@@ -84,8 +68,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_name()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=Hito')
              ->see('Hitokage')
              ->dontSee('Lizardon');
@@ -102,8 +84,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_japanese_katakana()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=リザー')
              ->see('リザードン')
              ->dontSee('コダック');
@@ -112,8 +92,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_the_pokemon_type()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?type=Fire')
              ->see('Charmander')
              ->see('Charizard')
@@ -132,8 +110,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_the_habitat()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?habitat=Forest')
              ->see('Pikachu')
              ->see('Metapod')
@@ -143,8 +119,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_and_type()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=Char&type=Fire')
              ->see('Charmander')
              ->see('Charizard')
@@ -173,8 +147,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_part_of_the_name_and_habitat()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?name=arc&habitat=Meadow')
              ->dontSee('Charmander')
              ->dontSee('Charizard')
@@ -195,8 +167,6 @@ class SearchPokemonTest extends TestCase
     /** @test */
     public function user_can_view_pokemon_in_the_results_using_type_and_habitat()
     {
-        $this->loadData();
-
         $this->visit('/searchPokemon?type=Fire&habitat=Mountain')
              ->see('Charmander')
              ->see('Charizard')
